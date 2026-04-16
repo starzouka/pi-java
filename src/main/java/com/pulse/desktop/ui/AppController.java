@@ -5,6 +5,7 @@ import com.pulse.desktop.config.AppConfig;
 import com.pulse.desktop.db.Jdbc;
 import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.service.Navigator;
+import com.pulse.desktop.service.RouteContext;
 import com.pulse.desktop.util.AlertUtils;
 import com.pulse.desktop.util.ImageResolver;
 import javafx.animation.TranslateTransition;
@@ -302,6 +303,10 @@ public class AppController {
             case "front_feed_chunk":
                 Navigator.goTo("front_feed");
                 break;
+            case "front_captain_team_create":
+                RouteContext.putString(RouteContext.KEY_TEAM_MODE, "create");
+                Navigator.goTo("front_captain_team_manage");
+                break;
             case "front_organizer_requests_export":
                 Navigator.goTo("front_organizer_requests");
                 break;
@@ -467,7 +472,18 @@ public class AppController {
                 "front_organizer_requests", "front_organizer_tournaments", "front_organizer_matches", "front_organizer_registrations"
         ));
         addLinks(sectionAdminLinks, List.of(
-                "front_dashboard", "front_users_placeholder", "front_tournaments", "front_orders"
+                "front_dashboard",
+                "admin_tournament_requests",
+                "admin_tournaments",
+                "admin_matches",
+                "admin_teams",
+                "admin_users",
+                "admin_products",
+                "admin_orders",
+                "admin_carts",
+                "admin_games",
+                "admin_catalog_dashboard",
+                "admin_statistics"
         ));
         addLinks(sectionGuestLinks, List.of(
                 "front_login", "front_register", "front_forgot_password"
@@ -557,7 +573,7 @@ public class AppController {
         addRoute("front_my_teams", "Mes equipes", "generic");
         addRoute("front_my_requests", "Mes demandes", "generic");
         addRoute("front_captain_team_manage", "Equipe (creer/gerer)", "generic");
-        addRoute("front_captain_team_create", "Creer equipe", "generic");
+        addRoute("front_captain_team_create", "Creer equipe", "action");
         addRoute("front_captain_members", "Membres", "generic");
         addRoute("front_captain_invite", "Invitations", "generic");
         addRoute("front_captain_requests", "Demandes equipe", "generic");
@@ -589,7 +605,20 @@ public class AppController {
         addRoute("front_search", "Recherche", "generic");
         addRoute("front_post_create", "Creer post", "generic");
         addRoute("front_post_detail", "Detail post", "generic");
-        addRoute("front_users_placeholder", "Utilisateurs (Admin)", "generic");
+        addRoute("admin_users", "Admin utilisateurs", "generic");
+        addRoute("admin_user_detail", "Detail utilisateur", "generic");
+        addRoute("admin_user_edit", "Modifier utilisateur", "generic");
+        addRoute("admin_user_create", "Creer utilisateur", "generic");
+        addRoute("admin_tournament_requests", "Admin demandes tournois", "generic");
+        addRoute("admin_tournaments", "Admin tournois", "generic");
+        addRoute("admin_matches", "Admin matchs", "generic");
+        addRoute("admin_teams", "Admin equipes", "generic");
+        addRoute("admin_products", "Admin produits", "generic");
+        addRoute("admin_orders", "Admin commandes", "generic");
+        addRoute("admin_carts", "Admin paniers", "generic");
+        addRoute("admin_games", "Admin jeux", "generic");
+        addRoute("admin_catalog_dashboard", "Admin KPI catalogue", "generic");
+        addRoute("admin_statistics", "Admin statistiques", "generic");
 
         addRoute("front_captain_invite_generate_message", "Generer message invitation", "action");
         addRoute("front_captain_invite_moderation_preview", "Apercu moderation invitation", "action");
@@ -654,27 +683,36 @@ public class AppController {
         return route.startsWith("front_tournament")
                 || route.startsWith("front_organizer_tournament")
                 || route.startsWith("front_organizer_request")
+                || route.startsWith("admin_tournament")
                 || List.of("front_organizer_registrations", "front_captain_tournaments", "front_captain_team_tournaments", "front_captain_requests")
                 .contains(route);
     }
 
     private static boolean isGamesRoute(String route) {
-        return route.startsWith("front_game");
+        return route.startsWith("front_game")
+                || "admin_games".equals(route)
+                || "admin_catalog_dashboard".equals(route);
     }
 
     private static boolean isMatchesRoute(String route) {
-        return route.startsWith("front_match") || route.startsWith("front_organizer_match");
+        return route.startsWith("front_match")
+                || route.startsWith("front_organizer_match")
+                || route.startsWith("admin_match");
     }
 
     private static boolean isShopRoute(String route) {
         return List.of("front_shop", "front_cart", "front_checkout", "front_orders", "front_order_detail", "front_product_detail",
-                "front_captain_products", "front_captain_orders").contains(route)
+                "front_captain_products", "front_captain_orders",
+                "admin_products", "admin_orders", "admin_carts", "admin_statistics").contains(route)
                 || route.startsWith("front_captain_product");
     }
 
     private static boolean isTeamsRoute(String route) {
         return route.startsWith("front_team")
                 || route.startsWith("front_player")
+                || route.startsWith("admin_user")
+                || "admin_teams".equals(route)
+                || "admin_users".equals(route)
                 || List.of("front_players", "front_friends", "front_my_teams", "front_my_requests",
                 "front_captain_members", "front_captain_invite", "front_captain_team_create", "front_captain_team_manage")
                 .contains(route);

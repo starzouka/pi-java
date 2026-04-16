@@ -2,9 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
@@ -12,145 +15,166 @@
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.pulse.desktop.ui.RoutePageController"
+            fx:controller="com.pulse.desktop.ui.FrontCaptainTeamManageController"
             fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
     <content>
-        <VBox fx:id="pageRoot" spacing="16.0" styleClass="page-root">
+        <VBox spacing="16.0" styleClass="page-root">
             <padding>
                 <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
             </padding>
 
             <VBox spacing="8.0" styleClass="hero-mini-box">
-                <Label text="PULSE FRONT" styleClass="heroKicker"/>
-                <Label fx:id="routeNameLabel" text="Mon equipe" styleClass="heroMini__title"/>
-                <Label fx:id="routeDescriptionLabel" text="Structure synchronisee avec templates/front/pages/captain-team-manage.html.twig" wrapText="true" styleClass="heroMini__sub"/>
-                <HBox spacing="8.0" styleClass="breadcrumbs-row">
-                    <Label text="Accueil" styleClass="muted"/>
-                    <Label text=">" styleClass="muted"/>
-                    <Label fx:id="routeIdLabel" text="Route Symfony: front_captain_team_manage" styleClass="muted"/>
-                </HBox>
+                <Label text="CAPITAINE" styleClass="heroKicker"/>
+                <Label text="Mon equipe" styleClass="heroMini__title"/>
+                <Label text="Creation et modification dans une seule page." wrapText="true" styleClass="heroMini__sub"/>
             </VBox>
 
-            <VBox spacing="8.0" styleClass="panel">
-                <Label text="SECTIONS" styleClass="panel-title"/>
-                <Label text="- MODE ACTUEL" styleClass="muted"/>
-                <Label text="- CREER UNE EQUIPE" styleClass="muted"/>
-                <Label text="- MODIFIER L&#x27;EQUIPE ACTIVE" styleClass="muted"/>
-                <Label text="- MES EQUIPES" styleClass="muted"/>
-            </VBox>
+            <HBox spacing="14.0" alignment="TOP_LEFT">
+                <VBox spacing="8.0" styleClass="panel captain-side-nav" prefWidth="230.0">
+                    <Label text="ESPACE CAPITAINE" styleClass="panel-title"/>
+                    <Button text="Mon equipe" styleClass="btn-soft"/>
+                    <Button text="Membres" onAction="#goMembers" styleClass="btn-ghost"/>
+                    <Button text="Demandes" onAction="#goRequests" styleClass="btn-ghost"/>
+                    <Button text="Inviter" onAction="#goInvite" styleClass="btn-ghost"/>
+                    <Button text="Produits" onAction="#goProducts" styleClass="btn-ghost"/>
+                    <Button text="Commandes" onAction="#goOrders" styleClass="btn-ghost"/>
+                    <Button text="Tournois" onAction="#goTournaments" styleClass="btn-ghost"/>
+                </VBox>
 
-            <VBox spacing="10.0" styleClass="panel">
-                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
-                    <Label text="FORMULAIRE 1" styleClass="panel-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="Action: front_captain_team_manage_create" styleClass="badge-soft"/>
-                </HBox>
-                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="name" styleClass="field-label"/>
-                        <TextField promptText="name" styleClass="input"/>
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                    <VBox spacing="8.0" styleClass="panel">
+                        <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <Label text="Equipe active" styleClass="field-label"/>
+                            <ComboBox fx:id="teamSelectorCombo" onAction="#onTeamSelectionChanged" prefWidth="340.0"/>
+                        </HBox>
                     </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="region" styleClass="field-label"/>
-                        <TextField promptText="region" styleClass="input"/>
-                    </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="description" styleClass="field-label"/>
-                        <TextField promptText="description" styleClass="input"/>
-                    </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="logo_file" styleClass="field-label"/>
-                        <TextField promptText="logo_file" styleClass="input"/>
-                    </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="_token" styleClass="field-label"/>
-                        <TextField promptText="_token" styleClass="input"/>
-                    </VBox>
-                </FlowPane>
-                <HBox spacing="8.0" styleClass="form-actions-row">
-                    <Button id="submit__front_captain_team_manage_create__0_0" text="Normaliser" styleClass="btn-ghost"/>
-                    <Button id="submit__front_captain_team_manage_create__0_1" text="Ma position" styleClass="btn-ghost"/>
-                    <Button id="submit__front_captain_team_manage_create__0_2" text="Creer equipe" styleClass="btn-primary"/>
-                </HBox>
-            </VBox>
 
-            <VBox spacing="10.0" styleClass="panel">
-                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
-                    <Label text="FORMULAIRE 2" styleClass="panel-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="Action: front_captain_team_manage_update" styleClass="badge-soft"/>
-                </HBox>
-                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="name" styleClass="field-label"/>
-                        <TextField promptText="name" styleClass="input"/>
+                    <VBox spacing="8.0" styleClass="panel">
+                        <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <Label text="MODE ACTUEL" styleClass="panel-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="modeLabel" text="Creation d'une nouvelle equipe" styleClass="panel-desc"/>
+                            <Button text="Nouvelle equipe" onAction="#openCreateMode" styleClass="btn-ghost"/>
+                            <Button text="Modifier active" onAction="#openEditMode" styleClass="btn-ghost"/>
+                        </HBox>
                     </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="region" styleClass="field-label"/>
-                        <TextField promptText="region" styleClass="input"/>
-                    </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="description" styleClass="field-label"/>
-                        <TextField promptText="description" styleClass="input"/>
-                    </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="logo_file" styleClass="field-label"/>
-                        <TextField promptText="logo_file" styleClass="input"/>
-                    </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="_token" styleClass="field-label"/>
-                        <TextField promptText="_token" styleClass="input"/>
-                    </VBox>
-                </FlowPane>
-                <HBox spacing="8.0" styleClass="form-actions-row">
-                    <Button id="submit__front_captain_team_manage_update__1_0" text="Normaliser" styleClass="btn-ghost"/>
-                    <Button id="submit__front_captain_team_manage_update__1_1" text="Ma position" styleClass="btn-ghost"/>
-                </HBox>
-            </VBox>
 
-            <VBox spacing="10.0" styleClass="panel">
-                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
-                    <Label text="FORMULAIRE 3" styleClass="panel-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="Action: front_captain_team_manage_generate_branding" styleClass="badge-soft"/>
-                </HBox>
-                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="_token" styleClass="field-label"/>
-                        <TextField promptText="_token" styleClass="input"/>
+                    <VBox spacing="10.0" styleClass="panel captain-hero-panel">
+                        <HBox spacing="12.0" alignment="CENTER_LEFT">
+                            <ImageView fx:id="teamLogoView" fitWidth="96.0" fitHeight="96.0" preserveRatio="false"/>
+                            <VBox spacing="6.0">
+                                <Label fx:id="teamNameLabel" text="Aucune equipe active" styleClass="heroMini__title"/>
+                                <Label fx:id="teamRegionLabel" text="Creez votre premiere equipe." styleClass="muted"/>
+                            </VBox>
+                        </HBox>
+                        <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1200.0">
+                            <VBox spacing="4.0" styleClass="statCard" prefWidth="160.0">
+                                <Label text="Membres actifs" styleClass="statCard__label"/>
+                                <Label fx:id="statsMembersLabel" text="0" styleClass="statCard__value"/>
+                            </VBox>
+                            <VBox spacing="4.0" styleClass="statCard" prefWidth="160.0">
+                                <Label text="Produits" styleClass="statCard__label"/>
+                                <Label fx:id="statsProductsLabel" text="0" styleClass="statCard__value"/>
+                            </VBox>
+                            <VBox spacing="4.0" styleClass="statCard" prefWidth="160.0">
+                                <Label text="Inscriptions tournoi" styleClass="statCard__label"/>
+                                <Label fx:id="statsTournamentsLabel" text="0" styleClass="statCard__value"/>
+                            </VBox>
+                        </FlowPane>
                     </VBox>
-                    <VBox spacing="4.0" prefWidth="280.0">
-                        <Label text="style_hint" styleClass="field-label"/>
-                        <TextField promptText="style_hint" styleClass="input"/>
-                    </VBox>
-                </FlowPane>
-                <HBox spacing="8.0" styleClass="form-actions-row">
-                    <Button id="submit__front_captain_team_manage_generate_branding__2_0" text="Valider" styleClass="btn-primary"/>
-                </HBox>
-            </VBox>
 
-            <VBox spacing="10.0" styleClass="panel">
-                <Label text="ACTIONS" styleClass="panel-title"/>
-                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
-                    <Button id="nav__front_captain_team_manage__0" text="Nouvelle equipe" styleClass="btn-ghost"/>
-                    <Button id="nav__front_captain_team_manage__1" text="Modifier active" styleClass="btn-ghost"/>
-                    <Button id="nav__front_captain_team_manage__2" text="Gerer" styleClass="btn-ghost"/>
-                </FlowPane>
-            </VBox>
+                    <Label fx:id="feedbackLabel" text="" styleClass="feedback-label"/>
 
-            <VBox spacing="10.0" styleClass="panel">
-                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
-                    <VBox spacing="4.0">
-                        <Label fx:id="sectionHeadingLabel" text="RESULTATS" styleClass="panel-title"/>
-                        <Label fx:id="sectionSubheadingLabel" text="Elements lies a cette page." styleClass="panel-desc"/>
+                    <VBox fx:id="createPane" spacing="10.0" styleClass="panel">
+                        <Label text="CREER UNE EQUIPE" styleClass="panel-title"/>
+
+                        <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1300.0">
+                            <VBox spacing="4.0" prefWidth="320.0">
+                                <Label text="Nom equipe *" styleClass="field-label"/>
+                                <TextField fx:id="createNameField" promptText="Nom equipe" styleClass="input"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="420.0">
+                                <Label text="Region" styleClass="field-label"/>
+                                <HBox spacing="8.0">
+                                    <TextField fx:id="createRegionField" promptText="Ex: Tunis" styleClass="input" HBox.hgrow="ALWAYS"/>
+                                    <Button text="Normaliser" onAction="#normalizeCreateRegion" styleClass="btn-ghost"/>
+                                    <Button text="Ma position" onAction="#locateCreateRegion" styleClass="btn-ghost"/>
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="320.0">
+                                <Label text="Style IA (optionnel)" styleClass="field-label"/>
+                                <TextField fx:id="createStyleHintField" promptText="agressif, tactique..." styleClass="input"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="1300.0">
+                                <Label text="Description" styleClass="field-label"/>
+                                <TextArea fx:id="createDescriptionArea" prefRowCount="4" wrapText="true" styleClass="textarea"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="920.0">
+                                <Label text="Logo equipe" styleClass="field-label"/>
+                                <HBox spacing="8.0">
+                                    <TextField fx:id="createLogoPathField" promptText="Aucun fichier" styleClass="input" HBox.hgrow="ALWAYS"/>
+                                    <Button text="Choisir" onAction="#chooseCreateLogo" styleClass="btn-ghost"/>
+                                </HBox>
+                            </VBox>
+                        </FlowPane>
+
+                        <HBox spacing="8.0">
+                            <Button text="Generer bio + slogan (IA)" onAction="#generateCreateBranding" styleClass="btn-soft"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Creer equipe" onAction="#createTeam" styleClass="btn-primary"/>
+                        </HBox>
                     </VBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button id="submit__self__refresh" text="Refresh" onAction="#refreshCards" styleClass="btn-ghost"/>
-                    <Button id="nav__front_home__home" text="Accueil" onAction="#goHome" styleClass="btn-soft"/>
-                </HBox>
-                <FlowPane fx:id="cardsPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
-            </VBox>
+
+                    <VBox fx:id="editPane" spacing="10.0" styleClass="panel">
+                        <Label text="MODIFIER L'EQUIPE ACTIVE" styleClass="panel-title"/>
+
+                        <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1300.0">
+                            <VBox spacing="4.0" prefWidth="320.0">
+                                <Label text="Nom equipe *" styleClass="field-label"/>
+                                <TextField fx:id="editNameField" promptText="Nom equipe" styleClass="input"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="420.0">
+                                <Label text="Region" styleClass="field-label"/>
+                                <HBox spacing="8.0">
+                                    <TextField fx:id="editRegionField" promptText="Ex: Tunis" styleClass="input" HBox.hgrow="ALWAYS"/>
+                                    <Button text="Normaliser" onAction="#normalizeEditRegion" styleClass="btn-ghost"/>
+                                    <Button text="Ma position" onAction="#locateEditRegion" styleClass="btn-ghost"/>
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="320.0">
+                                <Label text="Style IA (optionnel)" styleClass="field-label"/>
+                                <TextField fx:id="editStyleHintField" promptText="agressif, tactique..." styleClass="input"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="320.0">
+                                <Label text="Slogan IA (apercu)" styleClass="field-label"/>
+                                <TextField fx:id="editSloganField" promptText="Slogan IA" styleClass="input"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="1300.0">
+                                <Label text="Description" styleClass="field-label"/>
+                                <TextArea fx:id="editDescriptionArea" prefRowCount="4" wrapText="true" styleClass="textarea"/>
+                            </VBox>
+                            <VBox spacing="4.0" prefWidth="920.0">
+                                <Label text="Changer le logo" styleClass="field-label"/>
+                                <HBox spacing="8.0">
+                                    <TextField fx:id="editLogoPathField" promptText="Aucun nouveau fichier" styleClass="input" HBox.hgrow="ALWAYS"/>
+                                    <Button text="Choisir" onAction="#chooseEditLogo" styleClass="btn-ghost"/>
+                                </HBox>
+                            </VBox>
+                        </FlowPane>
+
+                        <HBox spacing="8.0">
+                            <Button text="Generer bio + slogan (IA)" onAction="#generateEditBranding" styleClass="btn-soft"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Enregistrer" onAction="#updateTeam" styleClass="btn-primary"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="10.0" styleClass="panel">
+                        <Label text="MES EQUIPES" styleClass="panel-title"/>
+                        <VBox fx:id="myTeamsBox" spacing="8.0"/>
+                    </VBox>
+                </VBox>
+            </HBox>
         </VBox>
     </content>
 </ScrollPane>
-

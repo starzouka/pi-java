@@ -51,6 +51,24 @@ public class MailService {
         sendHtml(toEmail, "Reinitialisation de votre mot de passe", html);
     }
 
+    public void sendTournamentRequestDecision(String toEmail, String requestTitle, String decision) throws Exception {
+        String normalized = decision == null ? "" : decision.trim().toUpperCase();
+        String message = "ACCEPTED".equals(normalized)
+                ? "Votre demande de tournoi a ete acceptee."
+                : "Votre demande de tournoi a ete refusee.";
+        String html = """
+                <h2>Decision demande tournoi</h2>
+                <p>%s</p>
+                <p>Tournoi: <b>%s</b></p>
+                <p>Decision: <b>%s</b></p>
+                """.formatted(
+                escapeHtml(message),
+                escapeHtml(requestTitle == null ? "-" : requestTitle),
+                escapeHtml(normalized.isBlank() ? "-" : normalized)
+        );
+        sendHtml(toEmail, "Decision demande tournoi", html);
+    }
+
     private void sendHtml(String toEmail, String subject, String html) throws Exception {
         if (!mailerDsn.enabled()) {
             throw new IllegalStateException("MAILER_DSN non configure.");
