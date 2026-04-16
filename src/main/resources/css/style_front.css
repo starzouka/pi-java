@@ -1,0 +1,850 @@
+/*
+    PULSE JAVAFX - PREMIUM UI STYLESHEET
+    Directly inspired by pulse-ilyas web project (Symfony)
+    Modern e-sport arena design with glass-morphism and neon accents
+*/
+
+.root {
+    /* Color Palette */
+    -fx-bg0: #071422;
+    -fx-bg1: #0a1c2f;
+    -fx-accent-green: #28ff8a;
+    -fx-accent-green-dark: #1bd96f;
+    -fx-accent-cyan: #2bd2ff;
+    -fx-accent-yellow: #ffd24a;
+    -fx-text-main: #e9f2ff;
+    -fx-text-muted: rgba(233, 242, 255, 0.65);
+    -fx-text-muted2: rgba(233, 242, 255, 0.45);
+
+    /* Glass effect colors */
+    -fx-glass: rgba(17, 48, 80, 0.45);
+    -fx-glass-strong: rgba(10, 28, 47, 0.78);
+    -fx-stroke: rgba(255, 255, 255, 0.12);
+    -fx-stroke-soft: rgba(255, 255, 255, 0.08);
+
+    /* Border radius */
+    -fx-radius: 18px;
+    -fx-radius-lg: 22px;
+    -fx-radius-xl: 25px;
+
+    /* Advanced Background: Radial Gradients inspired by web */
+    -fx-background-color:
+        radial-gradient(focus-angle 0deg, focus-distance 0%, center 70% 10%, radius 60%, rgba(43, 210, 255, 0.12), transparent),
+        radial-gradient(focus-angle 0deg, focus-distance 0%, center 20% 40%, radius 50%, rgba(255, 210, 74, 0.08), transparent),
+        linear-gradient(to bottom, #071422, #0a1c2f);
+
+    -fx-font-family: "Space Grotesk", "Segoe UI", "Segoe UI", sans-serif;
+}
+
+/* --- SCROLLBARS --- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-background-radius: 10px;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: -fx-accent-green;
+}
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* --- TOP NAVIGATION (heroTop) --- */
+.hero-top {
+    -fx-padding: 20px 40px;
+    -fx-background-color: rgba(7, 20, 34, 0.4);
+}
+
+.brand-name {
+    -fx-font-weight: 900;
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+}
+
+.brand-small {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-accent-green;
+    -fx-font-weight: 700;
+}
+
+.topbar {
+    -fx-background-color: rgba(17, 48, 80, 0.4);
+    -fx-background-radius: 25px;
+    -fx-padding: 6px;
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-border-radius: 25px;
+}
+
+.topbar-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(233, 242, 255, 0.7);
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+    -fx-padding: 10px 18px;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+
+.topbar-item:hover {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.topbar-item-active {
+    -fx-background-color: rgba(40, 255, 138, 0.12);
+    -fx-text-fill: -fx-accent-green;
+    -fx-border-color: rgba(40, 255, 138, 0.3);
+    -fx-border-radius: 20px;
+}
+
+/* --- BUTTONS --- */
+.btn-ghost {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-padding: 10px 22px;
+    -fx-cursor: hand;
+}
+
+.btn-signin {
+    -fx-background-color: linear-gradient(to bottom, #28ff8a, #1bd96f);
+    -fx-background-radius: 20px;
+    -fx-text-fill: #071422;
+    -fx-font-weight: 900;
+    -fx-padding: 10px 25px;
+    -fx-cursor: hand;
+}
+
+.btn-admin {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-accent-yellow;
+    -fx-border-radius: 20px;
+    -fx-text-fill: -fx-accent-yellow;
+    -fx-font-weight: 900;
+    -fx-padding: 8px 18px;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+}
+
+/* --- COMMON CARDS --- */
+.card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 20px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 20px;
+}
+
+/* --- TABLE VIEW MODERN STYLING --- */
+.cart-table-modern {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.cart-table-modern .column-header-background {
+    -fx-background-color: rgba(10, 28, 47, 0.7);
+    -fx-border-color: rgba(255, 255, 255, 0.06);
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 15px 0;
+}
+
+.cart-table-modern .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.cart-table-modern .column-header .label {
+    -fx-text-fill: rgba(233, 242, 255, 0.5);
+    -fx-font-weight: 900;
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 2px;
+}
+
+.cart-table-modern .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.04);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10px 0;
+}
+
+.cart-table-modern .table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.01);
+}
+
+.cart-table-modern .table-row-cell:filled:hover {
+    -fx-background-color: rgba(40, 255, 138, 0.05);
+}
+
+.cart-table-modern .table-cell {
+    -fx-text-fill: #e9f2ff;
+    -fx-padding: 15px 10px;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-border-color: transparent;
+}
+
+/* Specific Columns */
+.column-price .table-cell {
+    -fx-font-weight: 700;
+}
+
+.column-subtotal .table-cell {
+    -fx-font-weight: 900;
+    -fx-text-fill: -fx-accent-yellow;
+    -fx-font-size: 16px;
+}
+
+/* TABLE BUTTONS */
+.table-qty-btn {
+    -fx-background-radius: 8px;
+    -fx-min-width: 28px;
+    -fx-min-height: 28px;
+    -fx-max-width: 28px;
+    -fx-max-height: 28px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.table-qty-btn-minus {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: white;
+}
+
+.table-qty-btn-plus {
+    -fx-background-color: rgba(40, 255, 138, 0.15);
+    -fx-text-fill: -fx-accent-green;
+}
+
+.table-qty-btn:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.btn-trash {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff6b6b;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+}
+.btn-trash:hover {
+    -fx-scale-x: 1.2;
+    -fx-text-fill: #ff4757;
+}
+
+/* --- LABELS --- */
+.hero-title {
+    -fx-font-size: 64px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.section-label {
+    -fx-text-fill: -fx-accent-green;
+    -fx-font-weight: 900;
+    -fx-font-size: 12px;
+}
+
+.label-muted {
+    -fx-text-fill: rgba(233, 242, 255, 0.6);
+}
+
+/* Card section title - shared across Cart, Checkout, Orders, ProductDetail */
+.card-section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* --- CART SPECIFIC --- */
+.cart-card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 24px;
+}
+
+.cart-stats {
+    -fx-padding: 12px 18px;
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 14px;
+}
+
+.cart-total-amount {
+    -fx-font-size: 42px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -fx-accent-yellow;
+}
+
+.btn-danger-outline {
+    -fx-background-color: rgba(255, 107, 107, 0.08);
+    -fx-border-color: rgba(255, 107, 107, 0.3);
+    -fx-border-radius: 12px;
+    -fx-text-fill: #ff6b6b;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
+}
+
+.btn-ghost-modern {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 16px;
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+}
+
+.btn-checkout-primary {
+    -fx-background-color: linear-gradient(to bottom right, #28ff8a, #1bd96f);
+    -fx-background-radius: 16px;
+    -fx-text-fill: #071422;
+    -fx-font-weight: 900;
+}
+
+/* Quantity Field in Table */
+.table-qty-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-weight: 900;
+    -fx-font-size: 14px;
+    -fx-pref-width: 40px;
+}
+
+/* ============================================================
+   CHECKOUT STYLES
+   Inspired by Cart.fxml glassmorphism patterns
+   ============================================================ */
+
+/* Checkout form card */
+.checkout-form-card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 24px;
+}
+
+/* Form header section with icon */
+.form-header-section {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+/* Form fields container */
+.form-fields-container {
+    -fx-spacing: 24;
+}
+
+/* Form field group */
+.form-field-group {
+    -fx-spacing: 8;
+}
+
+/* Required field label */
+.field-label-required {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: rgba(233, 242, 255, 0.65);
+    -fx-letter-spacing: 1.5px;
+}
+
+/* Modern text field */
+.text-field-modern {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 14px;
+    -fx-text-fill: rgba(233, 242, 255, 0.92);
+    -fx-font-size: 14px;
+    -fx-padding: 14px 18px;
+    -fx-prompt-text-fill: rgba(233, 242, 255, 0.35);
+}
+.text-field-modern:focused {
+    -fx-border-color: rgba(43, 210, 255, 0.35);
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-effect: dropshadow(gaussian, rgba(43, 210, 255, 0.08), 8, 0, 0, 0);
+}
+
+/* Modern text area */
+.text-area-modern,
+.text-area-modern .content {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 14px;
+    -fx-text-fill: rgba(233, 242, 255, 0.92);
+    -fx-font-size: 14px;
+    -fx-padding: 14px 18px;
+    -fx-prompt-text-fill: rgba(233, 242, 255, 0.35);
+}
+.text-area-modern:focused,
+.text-area-modern:focused .content {
+    -fx-border-color: rgba(43, 210, 255, 0.35);
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Form action section */
+.form-action-section {
+    -fx-alignment: center-right;
+}
+
+/* Confirm order button */
+.btn-confirm-order {
+    -fx-background-color: linear-gradient(to bottom right, #28ff8a, #1bd96f);
+    -fx-background-radius: 16px;
+    -fx-text-fill: #071422;
+    -fx-font-weight: 900;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(40, 255, 138, 0.2), 18, 0, 0, 8);
+}
+.btn-confirm-order:hover {
+    -fx-effect: dropshadow(gaussian, rgba(40, 255, 138, 0.35), 22, 0, 0, 10);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+
+/* Order summary card (right side of checkout) */
+.order-summary-card-modern {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 24px;
+}
+
+/* Summary header section */
+.summary-header-section {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+/* Order summary table */
+.order-summary-table {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+.order-summary-table .column-header-background {
+    -fx-background-color: rgba(10, 28, 47, 0.7);
+    -fx-border-color: rgba(255, 255, 255, 0.06);
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 12px 0;
+}
+.order-summary-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.order-summary-table .column-header .label {
+    -fx-text-fill: rgba(233, 242, 255, 0.5);
+    -fx-font-weight: 900;
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 2px;
+}
+.order-summary-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.04);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8px 0;
+}
+.order-summary-table .table-row-cell:filled:hover {
+    -fx-background-color: rgba(40, 255, 138, 0.05);
+}
+.order-summary-table .table-cell {
+    -fx-text-fill: #e9f2ff;
+    -fx-padding: 12px 10px;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent;
+}
+
+/* Summary footer section */
+.summary-footer-section {
+    -fx-spacing: 20;
+}
+
+/* Checkout total amount */
+.checkout-total-amount {
+    -fx-font-size: 38px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -fx-accent-yellow;
+}
+
+/* Security badge */
+.security-badge {
+    -fx-background-color: rgba(40, 255, 138, 0.06);
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(40, 255, 138, 0.18);
+    -fx-border-radius: 16px;
+    -fx-padding: 16px 20px;
+}
+
+/* ============================================================
+   ORDERS STYLES
+   Inspired by Cart.fxml glassmorphism patterns
+   ============================================================ */
+
+/* Orders card */
+.orders-card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 24px;
+}
+
+/* Orders header section */
+.orders-header-section {
+    -fx-spacing: 20;
+}
+
+/* Search field modern */
+.search-field-modern {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 14px;
+    -fx-text-fill: rgba(233, 242, 255, 0.92);
+    -fx-font-size: 13px;
+    -fx-padding: 10px 16px;
+    -fx-prompt-text-fill: rgba(233, 242, 255, 0.35);
+}
+.search-field-modern:focused {
+    -fx-border-color: rgba(43, 210, 255, 0.35);
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Orders table modern */
+.orders-table-modern {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+.orders-table-modern .column-header-background {
+    -fx-background-color: rgba(10, 28, 47, 0.7);
+    -fx-border-color: rgba(255, 255, 255, 0.06);
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 15px 0;
+}
+.orders-table-modern .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.orders-table-modern .column-header .label {
+    -fx-text-fill: rgba(233, 242, 255, 0.5);
+    -fx-font-weight: 900;
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 2px;
+}
+.orders-table-modern .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.04);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10px 0;
+}
+.orders-table-modern .table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.01);
+}
+.orders-table-modern .table-row-cell:filled:hover {
+    -fx-background-color: rgba(40, 255, 138, 0.05);
+}
+.orders-table-modern .table-cell {
+    -fx-text-fill: #e9f2ff;
+    -fx-padding: 15px 10px;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-border-color: transparent;
+}
+
+/* Orders footer section */
+.orders-footer-section {
+    -fx-spacing: 12;
+}
+
+/* Refresh orders button */
+.btn-refresh-orders {
+    -fx-background-color: rgba(43, 210, 255, 0.10);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(43, 210, 255, 0.22);
+    -fx-border-radius: 14px;
+    -fx-text-fill: -fx-accent-cyan;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
+    -fx-padding: 10px 22px;
+}
+.btn-refresh-orders:hover {
+    -fx-background-color: rgba(43, 210, 255, 0.18);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Status column styling */
+.column-status .table-cell {
+    -fx-font-weight: 800;
+    -fx-font-size: 12px;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Payment column styling */
+.column-payment .table-cell {
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+}
+
+/* ============================================================
+   PRODUCT DETAIL STYLES
+   Inspired by Cart.fxml glassmorphism patterns
+   ============================================================ */
+
+/* Product detail card */
+.product-detail-card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 24px;
+}
+
+/* Detail header section */
+.detail-header-section {
+    -fx-spacing: 12;
+}
+
+/* Back outline button */
+.btn-back-outline {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
+    -fx-padding: 8px 18px;
+}
+.btn-back-outline:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-border-color: rgba(255, 255, 255, 0.20);
+}
+
+/* Detail content section */
+.detail-content-section {
+    -fx-spacing: 0;
+}
+
+/* Product image container */
+.product-image-container {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+    -fx-background-radius: 22px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 22px;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+/* Product main image */
+.product-main-image {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0, 0, 8);
+}
+
+/* Product info section */
+.product-info-section {
+    -fx-spacing: 20;
+}
+
+/* Product status badge */
+.product-status-badge {
+    -fx-background-color: rgba(40, 255, 138, 0.12);
+    -fx-background-radius: 999px;
+    -fx-border-color: rgba(40, 255, 138, 0.30);
+    -fx-border-radius: 999px;
+    -fx-text-fill: -fx-accent-green;
+    -fx-font-weight: 800;
+    -fx-font-size: 11px;
+    -fx-letter-spacing: 1px;
+    -fx-padding: 6px 14px;
+}
+
+/* Product title display */
+.product-title-display {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Info section label */
+.info-section-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: rgba(233, 242, 255, 0.65);
+    -fx-letter-spacing: 1.5px;
+}
+
+/* Product description area */
+.product-description-area,
+.product-description-area .content {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.06);
+    -fx-border-radius: 14px;
+    -fx-text-fill: rgba(233, 242, 255, 0.80);
+    -fx-font-size: 14px;
+    -fx-line-spacing: 4px;
+    -fx-padding: 14px 18px;
+    -fx-wrap-text: true;
+}
+
+/* Price & stock row */
+.price-stock-row {
+    -fx-spacing: 50;
+    -fx-alignment: center-left;
+}
+
+/* Small info label */
+.info-label-small {
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-text-fill: rgba(233, 242, 255, 0.5);
+    -fx-letter-spacing: 1.5px;
+}
+
+/* Product price display */
+.product-price-display {
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -fx-accent-yellow;
+}
+
+/* Product stock display */
+.product-stock-display {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -fx-accent-cyan;
+}
+
+/* Purchase action section */
+.purchase-action-section {
+    -fx-spacing: 24;
+}
+
+/* Quantity selector modern */
+.quantity-selector-modern {
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+}
+
+/* Quantity button modern */
+.quantity-btn-modern {
+    -fx-background-radius: 12px;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.quantity-btn-minus {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: white;
+}
+.quantity-btn-minus:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.14);
+    -fx-scale-x: 1.08;
+    -fx-scale-y: 1.08;
+}
+.quantity-btn-plus {
+    -fx-background-color: rgba(40, 255, 138, 0.15);
+    -fx-text-fill: -fx-accent-green;
+}
+.quantity-btn-plus:hover {
+    -fx-background-color: rgba(40, 255, 138, 0.25);
+    -fx-scale-x: 1.08;
+    -fx-scale-y: 1.08;
+}
+
+/* Quantity input field */
+.quantity-input-field {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 12px;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-alignment: center;
+    -fx-padding: 8px 4px;
+}
+.quantity-input-field:focused {
+    -fx-border-color: rgba(40, 255, 138, 0.35);
+}
+
+/* Subtotal display large */
+.subtotal-display-large {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -fx-accent-yellow;
+}
+
+/* Add to cart primary button */
+.btn-add-to-cart-primary {
+    -fx-background-color: linear-gradient(to bottom right, #28ff8a, #1bd96f);
+    -fx-background-radius: 18px;
+    -fx-text-fill: #071422;
+    -fx-font-weight: 900;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(40, 255, 138, 0.2), 18, 0, 0, 8);
+}
+.btn-add-to-cart-primary:hover {
+    -fx-effect: dropshadow(gaussian, rgba(40, 255, 138, 0.35), 22, 0, 0, 10);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+.btn-add-to-cart-primary:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(40, 255, 138, 0.1), 10, 0, 0, 4);
+    -fx-scale-x: 0.99;
+    -fx-scale-y: 0.99;
+}
+
+/* ============================================================
+   COMBO BOX MODERN (shared across checkout & orders)
+   ============================================================ */
+.combo-box-modern,
+.combo-box-modern .list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 14px;
+    -fx-text-fill: rgba(233, 242, 255, 0.92);
+    -fx-font-size: 14px;
+    -fx-padding: 10px 14px;
+}
+.combo-box-modern:focused {
+    -fx-border-color: rgba(43, 210, 255, 0.35);
+}
+.combo-box-modern .combo-box-popup .list-view {
+    -fx-background-color: rgba(10, 28, 47, 0.95);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 14px;
+}
+.combo-box-modern .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgba(40, 255, 138, 0.12);
+    -fx-text-fill: white;
+}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.CRUDProductController"
+            stylesheets="@../../css/style.css">
+
+    <!-- SIDEBAR (Layout Admin Symfony) -->
+    <left>
+        <VBox spacing="10" styleClass="card" prefWidth="250" style="-fx-background-radius: 0 20 20 0; -fx-border-width: 0 1 0 0;">
+            <padding>
+                <Insets top="40" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <VBox alignment="CENTER_LEFT" spacing="-2" style="-fx-padding: 0 0 40 0;">
+                <Label text="PULSE" styleClass="brand-name" style="-fx-font-size: 20;"/>
+                <Label text="administration" styleClass="brand-small"/>
+            </VBox>
+
+            <Button text="DASHBOARD" styleClass="topbar-item" maxWidth="Infinity" alignment="CENTER_LEFT" onAction="#goToOrders"/>
+            <Button text="PRODUITS" styleClass="topbar-item, topbar-item-active" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+            <Button text="COMMANDES" onAction="#goToOrders" styleClass="topbar-item" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+            <Button text="UTILISATEURS" styleClass="topbar-item" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button text="RETOUR BOUTIQUE" onAction="#goBack" styleClass="btn-ghost" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <VBox spacing="30">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <!-- Titre de la page -->
+                    <VBox spacing="5" styleClass="page-title">
+                        <Label text="CONFIGURATION" styleClass="section-label"/>
+                        <Label text="Gestion Catalogue" styleClass="hero-title"/>
+                        <Region prefHeight="2" styleClass="glow-line" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <HBox spacing="30" alignment="TOP_CENTER">
+                        <!-- Formulaire (Style .card) -->
+                        <VBox styleClass="card" prefWidth="400" spacing="20">
+                            <VBox spacing="5">
+                                <Label text="PRODUIT" styleClass="card-title"/>
+                                <Label text="Détails de l'article" styleClass="label-muted"/>
+                            </VBox>
+
+                            <VBox spacing="15">
+                                <VBox spacing="8">
+                                    <Label text="NOM DU PRODUIT" styleClass="label-muted"/>
+                                    <TextField fx:id="nameField" promptText="Ex: Souris Gamer X1" styleClass="text-field"/>
+                                </VBox>
+
+                                <VBox spacing="8">
+                                    <HBox alignment="CENTER_LEFT" spacing="5">
+                                        <Label text="DESCRIPTION" styleClass="label-muted"/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Label fx:id="descriptionCounter" text="0 caractères" styleClass="label-muted" 
+                                               style="-fx-font-size: 10px; -fx-text-fill: rgba(255,255,255,0.35);"/>
+                                    </HBox>
+                                    <TextArea fx:id="descriptionField" 
+                                              promptText="Décrivez votre produit en détail..." 
+                                              prefHeight="100"
+                                              wrapText="true"
+                                              styleClass="text-area"/>
+                                </VBox>
+
+                                <HBox spacing="15">
+                                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                        <Label text="PRIX (€)" styleClass="label-muted"/>
+                                        <TextField fx:id="priceField" promptText="0.00" styleClass="text-field"/>
+                                    </VBox>
+                                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                        <Label text="STOCK" styleClass="label-muted"/>
+                                        <TextField fx:id="stockField" promptText="0" styleClass="text-field"/>
+                                    </VBox>
+                                </HBox>
+
+                                <HBox spacing="15">
+                                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                        <Label text="SKU" styleClass="label-muted"/>
+                                        <TextField fx:id="skuField" promptText="SKU-XXX" styleClass="text-field"/>
+                                    </VBox>
+                                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                        <Label text="ÉQUIPE" styleClass="label-muted"/>
+                                        <ComboBox fx:id="teamIdField" promptText="Choisir une équipe" maxWidth="Infinity" styleClass="combo-box"/>
+                                    </VBox>
+                                </HBox>
+
+                                <VBox spacing="8">
+                                    <Label text="IMAGE" styleClass="label-muted"/>
+                                    <HBox spacing="10">
+                                        <Button fx:id="selectImageButton" text="PARCOURIR..." onAction="#selectImage" styleClass="btn-ghost" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                    </HBox>
+                                    <Label fx:id="imageNameLabel" text="Aucune image sélectionnée" styleClass="image-name-label" alignment="CENTER" maxWidth="Infinity"/>
+                                </VBox>
+
+                                <VBox spacing="8" alignment="CENTER" styleClass="image-preview-container">
+                                    <ImageView fx:id="imagePreview" fitWidth="150" fitHeight="150" preserveRatio="true"/>
+                                </VBox>
+
+                                <CheckBox fx:id="activeCheckBox" text="PRODUIT ACTIF" selected="true" styleClass="label-muted"/>
+                            </VBox>
+
+                            <VBox spacing="10">
+                                <Button text="ENREGISTRER" onAction="#addProduct" styleClass="btn-signin" maxWidth="Infinity" prefHeight="45"/>
+                                <HBox spacing="10">
+                                    <Button text="MODIFIER" onAction="#updateProduct" styleClass="btn-ghost" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                                    <Button text="SUPPRIMER" onAction="#deleteProduct" styleClass="btn-ghost" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-text-fill: #ff6b6b;"/>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+
+                        <!-- Tableau (Style .card) -->
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="20">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox spacing="2">
+                                    <Label text="INVENTAIRE COMPLET" styleClass="card-title"/>
+                                    <Label text="Gestion du catalogue Pulse" styleClass="label-muted"/>
+                                </VBox>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <TextField promptText="Rechercher..." prefWidth="250" styleClass="text-field"/>
+                            </HBox>
+
+                            <TableView fx:id="productTable" VBox.vgrow="ALWAYS" prefHeight="600">
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                </columnResizePolicy>
+                                <columns>
+                                    <TableColumn text="ID" prefWidth="50">
+                                        <cellValueFactory><PropertyValueFactory property="productId"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="NOM" prefWidth="180">
+                                        <cellValueFactory><PropertyValueFactory property="name"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="PRIX" prefWidth="100" styleClass="column-price">
+                                        <cellValueFactory><PropertyValueFactory property="price"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="STOCK" prefWidth="100" styleClass="column-stock">
+                                        <cellValueFactory><PropertyValueFactory property="stockQty"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="SKU" prefWidth="120">
+                                        <cellValueFactory><PropertyValueFactory property="sku"/></cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

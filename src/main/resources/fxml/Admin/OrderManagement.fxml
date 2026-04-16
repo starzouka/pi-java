@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.OrderManagementController"
+            stylesheets="@../../css/style.css">
+
+    <!-- SIDEBAR (Comme dans Symfony pulse-ilyes) -->
+    <left>
+        <VBox spacing="10" styleClass="card" prefWidth="250" style="-fx-background-radius: 0 20 20 0; -fx-border-width: 0 1 0 0;">
+            <padding>
+                <Insets top="40" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <VBox alignment="CENTER_LEFT" spacing="-2" style="-fx-padding: 0 0 40 0;">
+                <Label text="PULSE" styleClass="brand-name" style="-fx-font-size: 20;"/>
+                <Label text="administration" styleClass="brand-small"/>
+            </VBox>
+
+            <Button text="DASHBOARD" styleClass="topbar-item" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+            <Button text="PRODUITS" onAction="#goToProducts" styleClass="topbar-item" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+            <Button text="COMMANDES" styleClass="topbar-item, topbar-item-active" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+            <Button text="UTILISATEURS" styleClass="topbar-item" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button text="RETOUR BOUTIQUE" onAction="#goBack" styleClass="btn-ghost" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <VBox spacing="30">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <!-- Titre de la page -->
+                    <VBox spacing="5">
+                        <Label text="DASHBOARD" styleClass="section-label"/>
+                        <Label text="Gestion Commandes" styleClass="hero-title" style="-fx-font-size: 40;"/>
+                    </VBox>
+
+                    <!-- WIDGETS STATS (Comme sur Symfony) -->
+                    <HBox spacing="20">
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label text="TOTAL VENTES" styleClass="label-muted" style="-fx-font-size: 11;"/>
+                            <Label text="12,450.00 DT" styleClass="card-title" style="-fx-font-size: 24; -fx-text-fill: -fx-accent-green;"/>
+                        </VBox>
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label text="COMMANDES" styleClass="label-muted" style="-fx-font-size: 11;"/>
+                            <Label text="84 Active" styleClass="card-title" style="-fx-font-size: 24; -fx-text-fill: -fx-accent-cyan;"/>
+                        </VBox>
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label text="CLIENTS" styleClass="label-muted" style="-fx-font-size: 11;"/>
+                            <Label text="312" styleClass="card-title" style="-fx-font-size: 24; -fx-text-fill: -fx-accent-yellow;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Section Table + Chart -->
+                    <HBox spacing="25" alignment="TOP_CENTER">
+                        <!-- Table des Commandes -->
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="15">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="HISTORIQUE" styleClass="card-title"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <ComboBox fx:id="statusFilter" promptText="Filtrer Statut" styleClass="combo-box"/>
+                            </HBox>
+
+                            <TableView fx:id="orderTable" prefHeight="400">
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                </columnResizePolicy>
+                                <columns>
+                                    <TableColumn text="N°" prefWidth="60">
+                                        <cellValueFactory><PropertyValueFactory property="orderNumber"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="DATE" prefWidth="120">
+                                        <cellValueFactory><PropertyValueFactory property="createdAt"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="TOTAL" prefWidth="100" styleClass="column-price">
+                                        <cellValueFactory><PropertyValueFactory property="totalAmount"/></cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn text="STATUT" prefWidth="100">
+                                        <cellValueFactory><PropertyValueFactory property="status"/></cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <!-- Graphe Stats -->
+                        <VBox styleClass="card" prefWidth="350" spacing="15">
+                            <Label text="ACTUALITÉ" styleClass="card-title"/>
+                            <BarChart fx:id="statsChart" legendVisible="false" prefHeight="350">
+                                <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                                <yAxis><NumberAxis side="LEFT" /></yAxis>
+                            </BarChart>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

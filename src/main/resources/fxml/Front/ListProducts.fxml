@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.ListProductsController"
+            stylesheets="@../../css/style_front.css">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="hero-top" prefHeight="90">
+            <!-- BRAND LOGO (Pulse) -->
+            <VBox alignment="CENTER_LEFT" spacing="-2">
+                <Label text="PULSE" styleClass="brand-name"/>
+                <Label text="e-sport arena" styleClass="brand-small"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- MAIN TOPBAR NAVIGATION -->
+            <HBox spacing="10" alignment="CENTER" styleClass="topbar">
+                <Button text="Accueil" styleClass="topbar-item" onAction="#goToHome"/>
+                <Button text="Tournois" styleClass="topbar-item" onAction="#goToTournaments"/>
+                <Button text="Jeux" styleClass="topbar-item" onAction="#goToGames"/>
+                <Button text="Matchs" styleClass="topbar-item" onAction="#goToMatches"/>
+                <Button text="Boutique" styleClass="topbar-item, topbar-item-active" onAction="#resetFilters"/>
+                <Button text="Equipe" styleClass="topbar-item" onAction="#goToTeams"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- AUTH & ACCOUNT -->
+            <HBox spacing="12" alignment="CENTER_RIGHT">
+                <Button text="ADMIN" onAction="#goToAdmin" styleClass="btn-admin"/>
+                <Separator orientation="VERTICAL" prefHeight="20" style="-fx-opacity: 0.1;"/>
+                <Button fx:id="cartButton" text="Panier (0)" onAction="#goToCart" styleClass="btn-ghost"/>
+                <Button text="SIGN IN" styleClass="btn-signin"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <VBox spacing="40">
+                    <padding>
+                        <Insets top="50" right="40" bottom="50" left="40"/>
+                    </padding>
+
+                    <!-- HERO MINI SECTION -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label text="BOUTIQUE" styleClass="section-label" style="-fx-font-size: 9;"/>
+                        <Label text="Boutique" styleClass="hero-title" style="-fx-font-size: 28;"/>
+                        <Label text="Catalogue des produits vendus par les equipes." styleClass="label-muted" style="-fx-font-size: 12;"/>
+                    </VBox>
+
+                    <!-- FILTERS ROW (Web inspired) -->
+                    <HBox alignment="CENTER" spacing="12" styleClass="card" style="-fx-padding: 12 15; -fx-background-color: rgba(255,255,255,0.05); -fx-border-color: rgba(40,255,138,0.15); -fx-border-width: 1;">
+                        <TextField fx:id="searchField" promptText="Rechercher un produit..."
+                                   onKeyReleased="#filterProducts" prefWidth="220"
+                                   style="-fx-font-size: 11; -fx-padding: 8 12; -fx-text-fill: white; -fx-prompt-text-fill: rgba(200,200,200,0.6); -fx-background-color: rgba(255,255,255,0.08); -fx-border-color: rgba(40,255,138,0.2); -fx-border-radius: 6;"/>
+
+                        <ComboBox fx:id="teamFilter" promptText="Toutes les equipes" prefWidth="180"
+                                  style="-fx-font-size: 11; -fx-padding: 8 12; -fx-background-color: rgba(255,255,255,0.08); -fx-border-color: rgba(40,255,138,0.2); -fx-border-radius: 6;"/>
+
+                        <HBox spacing="4" alignment="CENTER_LEFT">
+                            <TextField promptText="Min" prefWidth="70"
+                                       style="-fx-font-size: 10; -fx-padding: 6 8; -fx-text-fill: white; -fx-prompt-text-fill: rgba(200,200,200,0.6); -fx-background-color: rgba(255,255,255,0.08); -fx-border-color: rgba(40,255,138,0.2); -fx-border-radius: 6;"/>
+                            <Label text="−" styleClass="label-muted" style="-fx-font-size: 12;"/>
+                            <TextField promptText="Max" prefWidth="70"
+                                       style="-fx-font-size: 10; -fx-padding: 6 8; -fx-text-fill: white; -fx-prompt-text-fill: rgba(200,200,200,0.6); -fx-background-color: rgba(255,255,255,0.08); -fx-border-color: rgba(40,255,138,0.2); -fx-border-radius: 6;"/>
+                        </HBox>
+
+                        <CheckBox text="En stock" styleClass="label-muted" style="-fx-font-size: 11; -fx-text-fill: rgba(200,200,200,0.9);"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button text="Filtrer" styleClass="btn-signin" onAction="#filterProducts" style="-fx-padding: 8 16; -fx-font-size: 11; -fx-font-weight: 700;"/>
+                        <Button text="Reset" styleClass="btn-ghost" onAction="#resetFilters" style="-fx-padding: 8 16; -fx-font-size: 11; -fx-font-weight: 700;"/>
+                    </HBox>
+
+                    <!-- PRODUCT GRID -->
+                    <FlowPane fx:id="productGrid" styleClass="cards-grid" alignment="TOP_CENTER" />
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
