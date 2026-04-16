@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.FrontTournamentsController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="TOURNOIS" styleClass="heroKicker"/>
+                <Label text="Catalogue des tournois" styleClass="heroMini__title"/>
+                <Label text="Recherche dynamique sur la base de donnees." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="FILTRES" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="resultCountLabel" text="0 tournoi(s) trouves" styleClass="badge-soft"/>
+                </HBox>
+                <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1300.0">
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="q" styleClass="field-label"/>
+                        <TextField fx:id="qField" promptText="Rechercher un tournoi..." styleClass="input"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="220.0">
+                        <Label text="game" styleClass="field-label"/>
+                        <ComboBox fx:id="gameCombo" prefWidth="220.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="220.0">
+                        <Label text="category" styleClass="field-label"/>
+                        <ComboBox fx:id="categoryCombo" prefWidth="220.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="status" styleClass="field-label"/>
+                        <ComboBox fx:id="statusCombo" prefWidth="180.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="format" styleClass="field-label"/>
+                        <ComboBox fx:id="formatCombo" prefWidth="180.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="registration_mode" styleClass="field-label"/>
+                        <ComboBox fx:id="registrationModeCombo" prefWidth="180.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="170.0">
+                        <Label text="date_from" styleClass="field-label"/>
+                        <DatePicker fx:id="dateFromPicker" prefWidth="170.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="170.0">
+                        <Label text="date_to" styleClass="field-label"/>
+                        <DatePicker fx:id="dateToPicker" prefWidth="170.0"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="140.0">
+                        <Label text="prize_min" styleClass="field-label"/>
+                        <TextField fx:id="prizeMinField" promptText="0" styleClass="input"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="140.0">
+                        <Label text="prize_max" styleClass="field-label"/>
+                        <TextField fx:id="prizeMaxField" promptText="0" styleClass="input"/>
+                    </VBox>
+
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="sort" styleClass="field-label"/>
+                        <ComboBox fx:id="sortCombo" prefWidth="180.0"/>
+                    </VBox>
+                </FlowPane>
+
+                <HBox spacing="8.0" styleClass="form-actions-row">
+                    <Button text="Filtrer" onAction="#applyFilters" styleClass="btn-primary"/>
+                    <Button text="Reset" onAction="#resetFilters" styleClass="btn-ghost"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="PDF" onAction="#exportPdf" styleClass="btn-ghost"/>
+                    <Button text="Excel" onAction="#exportExcel" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="RESULTATS" styleClass="panel-title"/>
+                </HBox>
+                <FlowPane fx:id="cardsPane" hgap="12.0" vgap="12.0" prefWrapLength="1340.0" styleClass="cards-grid"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

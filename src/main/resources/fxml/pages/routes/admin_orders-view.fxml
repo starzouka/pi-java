@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminOrdersController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN" styleClass="heroKicker"/>
+                <Label text="Gestion commandes" styleClass="heroMini__title"/>
+                <Label text="CRUD + filtres DB + export." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                    <Label fx:id="formTitleLabel" text="NOUVELLE COMMANDE" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Exporter PDF" onAction="#exportPdf" styleClass="btn-ghost"/>
+                    <Button text="Exporter Excel" onAction="#exportExcel" styleClass="btn-ghost"/>
+                </HBox>
+
+                <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1300.0">
+                    <VBox spacing="4.0" prefWidth="260.0">
+                        <Label text="Numero commande*" styleClass="field-label"/>
+                        <TextField fx:id="orderNumberField" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="320.0">
+                        <Label text="Utilisateur*" styleClass="field-label"/>
+                        <ComboBox fx:id="userCombo" prefWidth="320.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="360.0">
+                        <Label text="Panier*" styleClass="field-label"/>
+                        <ComboBox fx:id="cartCombo" prefWidth="360.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Status*" styleClass="field-label"/>
+                        <ComboBox fx:id="statusCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Payment status*" styleClass="field-label"/>
+                        <ComboBox fx:id="paymentStatusCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Payment method" styleClass="field-label"/>
+                        <ComboBox fx:id="paymentMethodCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="170.0">
+                        <Label text="Montant total*" styleClass="field-label"/>
+                        <TextField fx:id="totalAmountField" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="220.0">
+                        <Label text="Telephone livraison" styleClass="field-label"/>
+                        <TextField fx:id="phoneField" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="1300.0">
+                        <Label text="Adresse livraison" styleClass="field-label"/>
+                        <TextArea fx:id="shippingAddressArea" prefRowCount="2" wrapText="true" styleClass="textarea"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="240.0">
+                        <Label text="Paid at (yyyy-MM-dd HH:mm)" styleClass="field-label"/>
+                        <TextField fx:id="paidAtField" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="240.0">
+                        <Label text="Shipped at (yyyy-MM-dd HH:mm)" styleClass="field-label"/>
+                        <TextField fx:id="shippedAtField" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="240.0">
+                        <Label text="Delivered at (yyyy-MM-dd HH:mm)" styleClass="field-label"/>
+                        <TextField fx:id="deliveredAtField" styleClass="input"/>
+                    </VBox>
+                </FlowPane>
+
+                <HBox spacing="8.0">
+                    <Button fx:id="saveButton" text="Creer commande" onAction="#saveOrder" styleClass="btn-primary"/>
+                    <Button fx:id="cancelEditButton" text="Annuler edition" onAction="#cancelEdit" styleClass="btn-ghost" visible="false" managed="false"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="formFeedbackLabel" text="" styleClass="feedback-label"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                    <Label text="FILTRES" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="resultCountLabel" text="0 resultat(s)" styleClass="badge-soft"/>
+                </HBox>
+
+                <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1300.0">
+                    <VBox spacing="4.0" prefWidth="320.0">
+                        <Label text="Recherche" styleClass="field-label"/>
+                        <TextField fx:id="qField" promptText="order number, address" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Status" styleClass="field-label"/>
+                        <ComboBox fx:id="statusFilterCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Payment" styleClass="field-label"/>
+                        <ComboBox fx:id="paymentFilterCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="250.0">
+                        <Label text="User" styleClass="field-label"/>
+                        <TextField fx:id="userFilterField" promptText="username/email" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Tri" styleClass="field-label"/>
+                        <ComboBox fx:id="sortCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="150.0">
+                        <Label text="Direction" styleClass="field-label"/>
+                        <ComboBox fx:id="directionCombo" prefWidth="150.0"/>
+                    </VBox>
+                </FlowPane>
+
+                <HBox spacing="8.0">
+                    <Button text="Filtrer" onAction="#applyFilters" styleClass="btn-primary"/>
+                    <Button text="Reset" onAction="#resetFilters" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="LISTE COMMANDES" styleClass="panel-title"/>
+                <VBox fx:id="ordersListBox" spacing="8.0"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

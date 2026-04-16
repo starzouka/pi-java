@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminTournamentRequestsController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN" styleClass="heroKicker"/>
+                <Label text="Demandes tournois" styleClass="heroMini__title"/>
+                <Label text="Workflow organisateur: accepter/refuser une demande." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                    <Label text="FILTRES" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="resultCountLabel" text="0 resultat(s)" styleClass="badge-soft"/>
+                    <Button text="Exporter PDF" onAction="#exportPdf" styleClass="btn-ghost"/>
+                    <Button text="Exporter Excel" onAction="#exportExcel" styleClass="btn-ghost"/>
+                </HBox>
+
+                <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1300.0">
+                    <VBox spacing="4.0" prefWidth="330.0">
+                        <Label text="Recherche" styleClass="field-label"/>
+                        <TextField fx:id="qField" promptText="Titre, jeu, organisateur..." styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Status" styleClass="field-label"/>
+                        <ComboBox fx:id="statusCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="240.0">
+                        <Label text="Game" styleClass="field-label"/>
+                        <ComboBox fx:id="gameCombo" prefWidth="240.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Tri" styleClass="field-label"/>
+                        <ComboBox fx:id="sortCombo" prefWidth="180.0"/>
+                    </VBox>
+                </FlowPane>
+
+                <HBox spacing="8.0">
+                    <Button text="Filtrer" onAction="#applyFilters" styleClass="btn-primary"/>
+                    <Button text="Reset" onAction="#resetFilters" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="Note admin (optionnelle pour review)" styleClass="field-label"/>
+                <TextArea fx:id="adminNoteArea" prefRowCount="2" styleClass="textarea"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="LISTE DES DEMANDES" styleClass="panel-title"/>
+                <VBox fx:id="requestsListBox" spacing="8.0"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
