@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.FrontGameDetailController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="PULSE FRONT" styleClass="heroKicker"/>
+                <Label fx:id="routeNameLabel" text="Detail jeu" styleClass="heroMini__title"/>
+                <Label fx:id="routeDescriptionLabel" text="Detail du jeu selectionne." wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0" styleClass="breadcrumbs-row">
+                    <Label text="Accueil" styleClass="muted"/>
+                    <Label text=">" styleClass="muted"/>
+                    <Label fx:id="routeIdLabel" text="Route Symfony: front_game_detail" styleClass="muted"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="8.0" styleClass="panel">
+                <Label text="JEU" styleClass="panel-title"/>
+                <Label fx:id="gameTitleLabel" text="-" styleClass="page-title"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="INFOS" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="statusLabel" text="-" styleClass="badge-soft"/>
+                </HBox>
+                <HBox spacing="18.0" alignment="CENTER_LEFT">
+                    <VBox spacing="4.0" prefWidth="220.0">
+                        <Label text="Categorie" styleClass="field-label"/>
+                        <Label fx:id="categoryLabel" text="-" styleClass="muted"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="220.0">
+                        <Label text="Editeur" styleClass="field-label"/>
+                        <Label fx:id="publisherLabel" text="-" styleClass="muted"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="140.0">
+                        <Label text="Popularite" styleClass="field-label"/>
+                        <Label fx:id="popularityLabel" text="-" styleClass="muted"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="140.0">
+                        <Label text="Vues" styleClass="field-label"/>
+                        <Label fx:id="viewsLabel" text="-" styleClass="muted"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="140.0">
+                        <Label text="Favoris" styleClass="field-label"/>
+                        <Label fx:id="favoritesLabel" text="-" styleClass="muted"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="170.0">
+                        <Label text="Cree le" styleClass="field-label"/>
+                        <Label fx:id="createdAtLabel" text="-" styleClass="muted"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="DESCRIPTION" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="Infos" styleClass="badge-soft"/>
+                </HBox>
+                <Label fx:id="descriptionLabel" text="-" wrapText="true" styleClass="panel-desc"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="ACTIONS" styleClass="panel-title"/>
+                <HBox spacing="8.0" styleClass="form-actions-row">
+                    <Button text="Retour catalogue" onAction="#goBackToGames" styleClass="btn-primary"/>
+                    <Button text="Accueil" onAction="#goHome" styleClass="btn-soft"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

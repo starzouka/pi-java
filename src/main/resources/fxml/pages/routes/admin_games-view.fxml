@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminGameController"
+            fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true" styleClass="page-scroll">
+    <content>
+        <VBox fx:id="pageRoot" spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN BACKOFFICE" styleClass="heroKicker"/>
+                <Label text="Jeux" styleClass="heroMini__title"/>
+                <Label text="Créer, modifier et supprimer des jeux vidéo." wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0" styleClass="breadcrumbs-row">
+                    <Label text="Accueil" styleClass="muted"/>
+                    <Label text=">" styleClass="muted"/>
+                    <Label text="Administration" styleClass="muted"/>
+                    <Label text=">" styleClass="muted"/>
+                    <Label text="Jeux" styleClass="muted"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="8.0" styleClass="panel">
+                <Label text="SECTIONS" styleClass="panel-title"/>
+                <Label text="- Formulaire (ajout / édition)" styleClass="muted"/>
+                <Label text="- Liste des jeux" styleClass="muted"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="FORMULAIRE 1" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="Action: admin_games" styleClass="badge-soft"/>
+                </HBox>
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="nameField" promptText="Nom du jeu" prefWidth="240" styleClass="input"/>
+                    <ComboBox fx:id="categoryBox" promptText="Catégorie" prefWidth="240" styleClass="input"/>
+                    <TextField fx:id="publisherField" promptText="Editeur" prefWidth="240" styleClass="input"/>
+                    <TextField fx:id="slugField" promptText="Slug unique" prefWidth="220" styleClass="input"/>
+                    <TextField fx:id="statusField" promptText="Statut (ex: DRAFT)" prefWidth="200" styleClass="input"/>
+                </HBox>
+                <HBox spacing="10.0" styleClass="form-actions-row">
+                    <Button text="Ajouter" onAction="#handleAdd" styleClass="btn-primary"/>
+                    <Button text="Modifier Sélection" onAction="#handleUpdate" styleClass="btn-secondary"/>
+                    <Button text="Supprimer Sélection" onAction="#handleDelete" styleClass="btn-soft"/>
+                    <Button text="Vider champs" onAction="#clearFields" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="FILTRES" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="Catalogue" styleClass="badge-soft"/>
+                </HBox>
+                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="q" styleClass="field-label"/>
+                        <TextField fx:id="qField" promptText="Rechercher (nom, slug, description)" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="category" styleClass="field-label"/>
+                        <ComboBox fx:id="categoryFilterBox" promptText="Categorie" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="publisher" styleClass="field-label"/>
+                        <TextField fx:id="publisherFilterField" promptText="Editeur" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="sort" styleClass="field-label"/>
+                        <ComboBox fx:id="sortBox" promptText="Tri" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="status" styleClass="field-label"/>
+                        <ComboBox fx:id="statusBox" promptText="Statut" styleClass="input"/>
+                    </VBox>
+                </FlowPane>
+                <HBox spacing="8.0" styleClass="form-actions-row">
+                    <Button fx:id="filterButton" text="Filtrer" onAction="#applyFilters" styleClass="btn-primary"/>
+                    <Button fx:id="resetButton" text="Reset" onAction="#resetFilters" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <VBox spacing="4.0">
+                        <Label text="RESULTATS" styleClass="panel-title"/>
+                        <Label text="Cliquez une carte pour charger le formulaire." styleClass="panel-desc"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualiser" onAction="#loadData" styleClass="btn-ghost"/>
+                </HBox>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true" prefViewportHeight="520" styleClass="page-scroll">
+                    <content>
+                        <FlowPane fx:id="gamesCardsPane" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                    </content>
+                </ScrollPane>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

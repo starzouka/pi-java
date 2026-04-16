@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminUserController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN BACKOFFICE" styleClass="heroKicker"/>
+                <Label text="Gestion des Utilisateurs" styleClass="heroMini__title"/>
+                <Label text="Interface CRUD pour ajouter, modifier et supprimer des utilisateurs." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <TableView fx:id="usersTable" prefHeight="520">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" prefWidth="60"><cellValueFactory><PropertyValueFactory property="userId"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="usernameCol" text="Username" prefWidth="170"><cellValueFactory><PropertyValueFactory property="username"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="emailCol" text="Email" prefWidth="280"><cellValueFactory><PropertyValueFactory property="email"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="displayNameCol" text="Nom" prefWidth="220"><cellValueFactory><PropertyValueFactory property="displayName"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="roleCol" text="Role" prefWidth="120"><cellValueFactory><PropertyValueFactory property="role"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="activeCol" text="Actif" prefWidth="70"><cellValueFactory><PropertyValueFactory property="active"/></cellValueFactory></TableColumn>
+                </columns>
+            </TableView>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="Formulaire d'Edition" styleClass="panel-title"/>
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="usernameField" promptText="Username" prefWidth="180" styleClass="input"/>
+                    <TextField fx:id="emailField" promptText="Email" prefWidth="260" styleClass="input"/>
+                    <TextField fx:id="displayNameField" promptText="Nom d'affichage" prefWidth="220" styleClass="input"/>
+                    <ComboBox fx:id="roleBox" promptText="Role" prefWidth="170" styleClass="input"/>
+                    <CheckBox fx:id="activeCheck" text="Actif" selected="true" styleClass="muted"/>
+                    <PasswordField fx:id="passwordField" promptText="Mot de passe (ajout)" prefWidth="220" styleClass="input"/>
+                </HBox>
+                <HBox spacing="10.0" styleClass="form-actions-row">
+                    <Button text="Ajouter" onAction="#handleAdd" styleClass="btn-primary"/>
+                    <Button text="Modifier Selection" onAction="#handleUpdate" styleClass="btn-secondary"/>
+                    <Button text="Supprimer Selection" onAction="#handleDelete" styleClass="btn-soft"/>
+                    <Button text="Vider champs" onAction="#clearFields" styleClass="btn-ghost"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualiser Liste" onAction="#loadData" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+

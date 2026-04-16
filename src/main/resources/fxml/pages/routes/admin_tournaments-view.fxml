@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminTournamentController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN BACKOFFICE" styleClass="heroKicker"/>
+                <Label text="Gestion des Tournois" styleClass="heroMini__title"/>
+                <Label text="Interface CRUD pour ajouter, modifier et supprimer des tournois." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <TableView fx:id="tournamentsTable" prefHeight="520">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" prefWidth="60"><cellValueFactory><PropertyValueFactory property="tournamentId"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="titleCol" text="Titre" prefWidth="240"><cellValueFactory><PropertyValueFactory property="title"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="organizerCol" text="Organisateur" prefWidth="170"><cellValueFactory><PropertyValueFactory property="organizerName"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="gameCol" text="Jeu" prefWidth="170"><cellValueFactory><PropertyValueFactory property="gameName"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="startCol" text="Début" prefWidth="110"><cellValueFactory><PropertyValueFactory property="startDate"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="endCol" text="Fin" prefWidth="110"><cellValueFactory><PropertyValueFactory property="endDate"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="maxTeamsCol" text="Max" prefWidth="70"><cellValueFactory><PropertyValueFactory property="maxTeams"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="formatCol" text="Format" prefWidth="90"><cellValueFactory><PropertyValueFactory property="format"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="statusCol" text="Statut" prefWidth="100"><cellValueFactory><PropertyValueFactory property="status"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="prizeCol" text="Prize" prefWidth="90"><cellValueFactory><PropertyValueFactory property="prizePool"/></cellValueFactory></TableColumn>
+                </columns>
+            </TableView>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="Formulaire d'Edition" styleClass="panel-title"/>
+
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="titleField" promptText="Titre" prefWidth="240" styleClass="input"/>
+                    <ComboBox fx:id="organizerBox" promptText="Organisateur" prefWidth="240" styleClass="input"/>
+                    <ComboBox fx:id="gameBox" promptText="Jeu" prefWidth="220" styleClass="input"/>
+                    <DatePicker fx:id="startDatePicker" promptText="Début" prefWidth="150" styleClass="input"/>
+                    <DatePicker fx:id="endDatePicker" promptText="Fin" prefWidth="150" styleClass="input"/>
+                </HBox>
+
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="maxTeamsField" promptText="Max équipes" prefWidth="150" styleClass="input"/>
+                    <TextField fx:id="formatField" promptText="Format (ex: BO1)" prefWidth="180" styleClass="input"/>
+                    <TextField fx:id="prizePoolField" promptText="Prize pool (ex: 5000)" prefWidth="200" styleClass="input"/>
+                    <TextField fx:id="statusField" promptText="Statut (ex: DRAFT)" prefWidth="180" styleClass="input"/>
+                </HBox>
+
+                <HBox spacing="10.0" styleClass="form-actions-row">
+                    <Button text="Ajouter" onAction="#handleAdd" styleClass="btn-primary"/>
+                    <Button text="Modifier Selection" onAction="#handleUpdate" styleClass="btn-secondary"/>
+                    <Button text="Supprimer Selection" onAction="#handleDelete" styleClass="btn-soft"/>
+                    <Button text="Vider champs" onAction="#clearFields" styleClass="btn-ghost"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualiser Liste" onAction="#loadData" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+

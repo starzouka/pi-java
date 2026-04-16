@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.RoutePageController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox fx:id="pageRoot" spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="PULSE FRONT" styleClass="heroKicker"/>
+                <Label fx:id="routeNameLabel" text="Inviter" styleClass="heroMini__title"/>
+                <Label fx:id="routeDescriptionLabel" text="Structure synchronisee avec templates/front/pages/captain-invite.html.twig" wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0" styleClass="breadcrumbs-row">
+                    <Label text="Accueil" styleClass="muted"/>
+                    <Label text=">" styleClass="muted"/>
+                    <Label fx:id="routeIdLabel" text="Route Symfony: front_captain_invite" styleClass="muted"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="8.0" styleClass="panel">
+                <Label text="SECTIONS" styleClass="panel-title"/>
+                <Label text="- MESSAGERIE SECURISEE" styleClass="muted"/>
+                <Label text="- RESULTATS RECHERCHE" styleClass="muted"/>
+                <Label text="- HISTORIQUE INVITATIONS" styleClass="muted"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="FORMULAIRE 1" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="Action: front_captain_invite" styleClass="badge-soft"/>
+                </HBox>
+                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="team" styleClass="field-label"/>
+                        <TextField promptText="team" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="q" styleClass="field-label"/>
+                        <TextField promptText="q" styleClass="input"/>
+                    </VBox>
+                </FlowPane>
+                <HBox spacing="8.0" styleClass="form-actions-row">
+                    <Button id="submit__front_captain_invite__0_0" text="Rechercher" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="FORMULAIRE 2" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="Action: front_captain_invite_generate_message" styleClass="badge-soft"/>
+                </HBox>
+                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="_token" styleClass="field-label"/>
+                        <TextField promptText="_token" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="team_id" styleClass="field-label"/>
+                        <TextField promptText="team_id" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="invited_user_id" styleClass="field-label"/>
+                        <TextField promptText="invited_user_id" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="q" styleClass="field-label"/>
+                        <TextField promptText="q" styleClass="input"/>
+                    </VBox>
+                </FlowPane>
+                <HBox spacing="8.0" styleClass="form-actions-row">
+                    <Button id="submit__front_captain_invite_generate_message__1_0" text="Generer message IA" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="FORMULAIRE 3" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="Action: front_captain_invite_send" styleClass="badge-soft"/>
+                </HBox>
+                <FlowPane hgap="8.0" vgap="8.0" prefWrapLength="1200.0">
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="_token" styleClass="field-label"/>
+                        <TextField promptText="_token" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="team_id" styleClass="field-label"/>
+                        <TextField promptText="team_id" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="invited_user_id" styleClass="field-label"/>
+                        <TextField promptText="invited_user_id" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="g-recaptcha-response" styleClass="field-label"/>
+                        <TextField promptText="g-recaptcha-response" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="280.0">
+                        <Label text="message" styleClass="field-label"/>
+                        <TextField promptText="message" styleClass="input"/>
+                    </VBox>
+                </FlowPane>
+                <HBox spacing="8.0" styleClass="form-actions-row">
+                    <Button id="submit__front_captain_invite_send__2_0" text="Inviter" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <VBox spacing="4.0">
+                        <Label fx:id="sectionHeadingLabel" text="RESULTATS" styleClass="panel-title"/>
+                        <Label fx:id="sectionSubheadingLabel" text="Elements lies a cette page." styleClass="panel-desc"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button id="submit__self__refresh" text="Refresh" onAction="#refreshCards" styleClass="btn-ghost"/>
+                    <Button id="nav__front_home__home" text="Accueil" onAction="#goHome" styleClass="btn-soft"/>
+                </HBox>
+                <FlowPane fx:id="cardsPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+

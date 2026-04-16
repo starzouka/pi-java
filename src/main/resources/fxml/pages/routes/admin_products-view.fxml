@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminProductController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN BACKOFFICE" styleClass="heroKicker"/>
+                <Label text="Gestion des Produits" styleClass="heroMini__title"/>
+                <Label text="Interface CRUD pour ajouter, modifier et supprimer des produits." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <TableView fx:id="productsTable" prefHeight="520">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" prefWidth="60"><cellValueFactory><PropertyValueFactory property="productId"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="teamCol" text="Equipe" prefWidth="260"><cellValueFactory><PropertyValueFactory property="teamName"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="nameCol" text="Nom" prefWidth="320"><cellValueFactory><PropertyValueFactory property="name"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="priceCol" text="Prix" prefWidth="110"><cellValueFactory><PropertyValueFactory property="price"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="stockCol" text="Stock" prefWidth="90"><cellValueFactory><PropertyValueFactory property="stockQty"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="activeCol" text="Actif" prefWidth="70"><cellValueFactory><PropertyValueFactory property="active"/></cellValueFactory></TableColumn>
+                </columns>
+            </TableView>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="Formulaire d'Edition" styleClass="panel-title"/>
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <ComboBox fx:id="teamBox" promptText="Equipe" prefWidth="260" styleClass="input"/>
+                    <TextField fx:id="nameField" promptText="Nom produit" prefWidth="260" styleClass="input"/>
+                    <TextField fx:id="priceField" promptText="Prix" prefWidth="160" styleClass="input"/>
+                    <TextField fx:id="stockField" promptText="Stock" prefWidth="140" styleClass="input"/>
+                    <CheckBox fx:id="activeCheck" text="Actif" selected="true" styleClass="muted"/>
+                </HBox>
+                <HBox spacing="10.0" styleClass="form-actions-row">
+                    <Button text="Ajouter" onAction="#handleAdd" styleClass="btn-primary"/>
+                    <Button text="Modifier Selection" onAction="#handleUpdate" styleClass="btn-secondary"/>
+                    <Button text="Supprimer Selection" onAction="#handleDelete" styleClass="btn-soft"/>
+                    <Button text="Vider champs" onAction="#clearFields" styleClass="btn-ghost"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualiser Liste" onAction="#loadData" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminTeamController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN BACKOFFICE" styleClass="heroKicker"/>
+                <Label text="Gestion des Equipes" styleClass="heroMini__title"/>
+                <Label text="Interface CRUD pour ajouter, modifier et supprimer des equipes." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <TableView fx:id="teamsTable" prefHeight="520">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" prefWidth="60"><cellValueFactory><PropertyValueFactory property="teamId"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="nameCol" text="Nom" prefWidth="260"><cellValueFactory><PropertyValueFactory property="name"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="regionCol" text="Region" prefWidth="180"><cellValueFactory><PropertyValueFactory property="region"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="captainCol" text="Capitaine" prefWidth="240"><cellValueFactory><PropertyValueFactory property="captainName"/></cellValueFactory></TableColumn>
+                    <TableColumn fx:id="createdCol" text="Cree le" prefWidth="180"><cellValueFactory><PropertyValueFactory property="createdAt"/></cellValueFactory></TableColumn>
+                </columns>
+            </TableView>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="Formulaire d'Edition" styleClass="panel-title"/>
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="nameField" promptText="Nom d'equipe" prefWidth="260" styleClass="input"/>
+                    <TextField fx:id="regionField" promptText="Region" prefWidth="220" styleClass="input"/>
+                    <ComboBox fx:id="captainBox" promptText="Capitaine" prefWidth="320" styleClass="input"/>
+                </HBox>
+                <HBox spacing="10.0" styleClass="form-actions-row">
+                    <Button text="Ajouter" onAction="#handleAdd" styleClass="btn-primary"/>
+                    <Button text="Modifier Selection" onAction="#handleUpdate" styleClass="btn-secondary"/>
+                    <Button text="Supprimer Selection" onAction="#handleDelete" styleClass="btn-soft"/>
+                    <Button text="Vider champs" onAction="#clearFields" styleClass="btn-ghost"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualiser Liste" onAction="#loadData" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+
