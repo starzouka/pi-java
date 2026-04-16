@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.RegisterController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="heroMiniBox" maxWidth="980.0">
+                <Label text="AUTH" styleClass="heroKicker"/>
+                <Label text="Inscription" styleClass="heroMini__title"/>
+                <Label text="Creer votre compte (joueur, capitaine ou organisateur) et verifier votre email." wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0" styleClass="breadcrumbs">
+                    <Label text="Accueil"/>
+                    <Label text="*"/>
+                    <Label text="Inscription"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="12.0" styleClass="panel" maxWidth="980.0">
+                <GridPane hgap="10.0" vgap="10.0" styleClass="formGrid">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="17"/>
+                        <ColumnConstraints percentWidth="33"/>
+                        <ColumnConstraints percentWidth="17"/>
+                        <ColumnConstraints percentWidth="33"/>
+                    </columnConstraints>
+
+                    <Label text="Username" styleClass="field__label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="usernameField" promptText="username" styleClass="input" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="Email" styleClass="field__label" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <TextField fx:id="emailField" promptText="email@domain.tld" styleClass="input" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                    <Label text="Role" styleClass="field__label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="roleCombo" styleClass="input" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="Display name" styleClass="field__label" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <TextField fx:id="displayNameField" promptText="display name" styleClass="input" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <Label text="Pays" styleClass="field__label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="countryField" promptText="country" styleClass="input" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label text="Telephone" styleClass="field__label" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <TextField fx:id="phoneField" promptText="+216 ..." styleClass="input" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <Label text="Date naissance" styleClass="field__label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <DatePicker fx:id="birthDatePicker" styleClass="input" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <Label text="Genre" styleClass="field__label" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <ComboBox fx:id="genderCombo" styleClass="input" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+                    <Label text="Mot de passe" styleClass="field__label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <PasswordField fx:id="passwordField" promptText="mot de passe" styleClass="input" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    <Label text="Confirmation" styleClass="field__label" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="confirmation" styleClass="input" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+                </GridPane>
+
+                <CheckBox fx:id="agreeTermsCheck" text="J'accepte les conditions d'utilisation" styleClass="check"/>
+
+                <HBox spacing="8.0" styleClass="formActions">
+                    <Button text="Creer le compte" onAction="#submitRegistration" styleClass="btn-primary"/>
+                    <Button text="J'ai deja un compte" onAction="#openLogin" styleClass="btn-ghost"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Accueil" onAction="#backHome" styleClass="btn-ghost"/>
+                </HBox>
+
+                <Label fx:id="feedbackLabel" text="" styleClass="feedback-label" wrapText="true"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+

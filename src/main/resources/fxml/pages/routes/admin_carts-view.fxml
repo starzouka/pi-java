@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminCartsController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN" styleClass="heroKicker"/>
+                <Label text="Gestion paniers" styleClass="heroMini__title"/>
+                <Label text="CRUD + filtres DB + export." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                    <Label fx:id="formTitleLabel" text="NOUVEAU PANIER" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Exporter PDF" onAction="#exportPdf" styleClass="btn-ghost"/>
+                    <Button text="Exporter Excel" onAction="#exportExcel" styleClass="btn-ghost"/>
+                </HBox>
+
+                <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1200.0">
+                    <VBox spacing="4.0" prefWidth="360.0">
+                        <Label text="Utilisateur*" styleClass="field-label"/>
+                        <ComboBox fx:id="userCombo" prefWidth="360.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Statut*" styleClass="field-label"/>
+                        <ComboBox fx:id="statusCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="260.0">
+                        <Label text="Locked at (yyyy-MM-dd HH:mm)" styleClass="field-label"/>
+                        <TextField fx:id="lockedAtField" promptText="2026-04-16 10:30" styleClass="input"/>
+                    </VBox>
+                </FlowPane>
+
+                <HBox spacing="8.0">
+                    <Button fx:id="saveButton" text="Creer panier" onAction="#saveCart" styleClass="btn-primary"/>
+                    <Button fx:id="cancelEditButton" text="Annuler edition" onAction="#cancelEdit" styleClass="btn-ghost" visible="false" managed="false"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="formFeedbackLabel" text="" styleClass="feedback-label"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                    <Label text="FILTRES" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="resultCountLabel" text="0 resultat(s)" styleClass="badge-soft"/>
+                </HBox>
+
+                <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1200.0">
+                    <VBox spacing="4.0" prefWidth="300.0">
+                        <Label text="Recherche" styleClass="field-label"/>
+                        <TextField fx:id="qField" promptText="username, email" styleClass="input"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Status" styleClass="field-label"/>
+                        <ComboBox fx:id="statusFilterCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="180.0">
+                        <Label text="Tri" styleClass="field-label"/>
+                        <ComboBox fx:id="sortCombo" prefWidth="180.0"/>
+                    </VBox>
+                    <VBox spacing="4.0" prefWidth="150.0">
+                        <Label text="Direction" styleClass="field-label"/>
+                        <ComboBox fx:id="directionCombo" prefWidth="150.0"/>
+                    </VBox>
+                </FlowPane>
+
+                <HBox spacing="8.0">
+                    <Button text="Filtrer" onAction="#applyFilters" styleClass="btn-primary"/>
+                    <Button text="Reset" onAction="#resetFilters" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <Label text="LISTE" styleClass="panel-title"/>
+                <VBox fx:id="cartsListBox" spacing="8.0"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

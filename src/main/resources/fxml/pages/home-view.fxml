@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.HomeController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="18.0" styleClass="page-root">
+            <padding>
+                <Insets top="16.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <StackPane minHeight="420.0" styleClass="heroFull">
+                <Region fx:id="heroBackgroundRegion" styleClass="heroFull__bg"/>
+                <Region styleClass="heroFull__overlay"/>
+
+                <VBox alignment="CENTER" spacing="12.0" styleClass="heroCenter" maxWidth="1100.0">
+                    <Label text="VOTRE PLATEFORME E-SPORT" styleClass="heroKicker"/>
+                    <Label text="PULSE" styleClass="heroTitle"/>
+                    <Label text="Creez des equipes, participez aux tournois, suivez les matchs et gagnez des recompenses." wrapText="true" styleClass="heroSub" maxWidth="760.0"/>
+
+                    <HBox alignment="CENTER" spacing="10.0" styleClass="heroCtas">
+                        <Button text="CONTACT US" styleClass="cta-green"/>
+                        <Button text="VOIR TOURNOIS" styleClass="cta-glass"/>
+                        <Button text="VOIR JEUX" styleClass="cta-glass"/>
+                        <Button text="BOUTIQUE" styleClass="cta-glass"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER" spacing="10.0" styleClass="heroWidgets">
+                        <VBox spacing="3.0" alignment="CENTER_LEFT" styleClass="widget">
+                            <Label fx:id="heroMatchesValue" text="0" styleClass="widget__value"/>
+                            <Label text="Matches played" styleClass="widget__label"/>
+                        </VBox>
+                        <VBox spacing="3.0" alignment="CENTER_LEFT" styleClass="widget">
+                            <Label fx:id="heroTournamentsValue" text="0" styleClass="widget__value"/>
+                            <Label text="Tournaments held" styleClass="widget__label"/>
+                        </VBox>
+                        <VBox spacing="3.0" alignment="CENTER_LEFT" styleClass="widget">
+                            <Label fx:id="heroPlayersValue" text="0" styleClass="widget__value"/>
+                            <Label text="Players" styleClass="widget__label"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <Region styleClass="heroSlash" StackPane.alignment="BOTTOM_CENTER" minHeight="58.0" prefHeight="58.0" maxHeight="58.0"/>
+            </StackPane>
+
+            <VBox spacing="18.0" styleClass="belowHero">
+                <VBox spacing="8.0" styleClass="globalSearchWrap">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT" styleClass="globalSearch">
+                        <TextField fx:id="globalSearchField" promptText="Rechercher joueurs, equipes, tournois, matchs, jeux, produits..." styleClass="globalSearch__input" HBox.hgrow="ALWAYS"/>
+                        <Button text="Rechercher" onAction="#searchEverywhere" styleClass="globalSearch__btn"/>
+                        <Button text="Clear" onAction="#clearSearch" styleClass="globalSearch__clear"/>
+                    </HBox>
+                    <Label text="Astuce: tape au moins 2 caracteres. Resultats: joueurs, equipes, tournois, matchs, jeux, produits." styleClass="globalSearchHint" wrapText="true"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="section-search">
+                    <HBox styleClass="section__head" alignment="CENTER_LEFT">
+                        <VBox spacing="4.0">
+                            <Label text="SEARCH RESULTS" styleClass="section__title"/>
+                            <Label fx:id="searchResultsTitle" text="Resultats globaux (joueurs, equipes, tournois, jeux, produits)" styleClass="muted"/>
+                        </VBox>
+                    </HBox>
+                    <FlowPane fx:id="searchResultsPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="section">
+                    <HBox styleClass="section__head" alignment="CENTER_LEFT">
+                        <VBox spacing="4.0">
+                            <Label text="THIS WEEK TOURNAMENTS" styleClass="section__title"/>
+                            <Label text="Tournois qui demarrent cette semaine" styleClass="muted"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <HBox spacing="8.0" styleClass="section__actions">
+                            <Button text="Voir tout" styleClass="btn-soft"/>
+                        </HBox>
+                    </HBox>
+                    <FlowPane fx:id="weekTournamentsPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="section">
+                    <HBox styleClass="section__head" alignment="CENTER_LEFT">
+                        <VBox spacing="4.0">
+                            <Label text="BEST SELLERS" styleClass="section__title"/>
+                            <Label text="Produits recents en stock depuis la base de donnees." styleClass="muted"/>
+                        </VBox>
+                    </HBox>
+                    <FlowPane fx:id="bestSellersPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="section">
+                    <HBox styleClass="section__head" alignment="CENTER_LEFT">
+                        <VBox spacing="4.0">
+                            <Label text="POPULAR GAMES" styleClass="section__title"/>
+                            <Label text="Jeux populaires par activite tournoi depuis la base." styleClass="muted"/>
+                        </VBox>
+                    </HBox>
+                    <FlowPane fx:id="popularGamesPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="section">
+                    <HBox styleClass="section__head" alignment="CENTER_LEFT">
+                        <VBox spacing="4.0">
+                            <Label text="TOP TEAMS" styleClass="section__title"/>
+                            <Label text="Equipes actives selon membres, produits et tournois." styleClass="muted"/>
+                        </VBox>
+                    </HBox>
+                    <FlowPane fx:id="topTeamsPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="section">
+                    <HBox styleClass="section__head" alignment="CENTER_LEFT">
+                        <VBox spacing="4.0">
+                            <Label text="LATEST MATCHES" styleClass="section__title"/>
+                            <Label text="Derniers matchs mis a jour" styleClass="muted"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Refresh" onAction="#refreshAllSections" styleClass="btn-ghost"/>
+                    </HBox>
+                    <FlowPane fx:id="latestMatchesPane" hgap="12.0" vgap="12.0" styleClass="cards-grid" prefWrapLength="1300.0"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
+
