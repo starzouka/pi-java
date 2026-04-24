@@ -1,0 +1,58 @@
+module,web_controller,status,note
+Core,HomeController,DONE,Dashboard and navigation integrated
+Core,DashboardController,DONE,Desktop dashboard with live stats
+Core,LoginController,TODO,Can be added with password verification flow
+Community,FeedController,TODO,Planned in same JDBC + FXML pattern
+Community,FeedPublicController,TODO,Planned in same JDBC + FXML pattern
+Community,PostCreateController,TODO,Planned in same JDBC + FXML pattern
+Community,PostDetailController,TODO,Planned in same JDBC + FXML pattern
+Social,PlayersController,TODO,Planned in same JDBC + FXML pattern
+Social,PlayerProfileController,TODO,Planned in same JDBC + FXML pattern
+Social,FriendsController,TODO,Planned in same JDBC + FXML pattern
+Social,MessagesController,TODO,Planned in same JDBC + FXML pattern
+Social,ConversationController,TODO,Planned in same JDBC + FXML pattern
+Social,NotificationsController,TODO,Planned in same JDBC + FXML pattern
+Team,TeamsController,DONE,CRUD desktop screen delivered
+Team,TeamDetailController,TODO,Planned in same JDBC + FXML pattern
+Team,TeamsExploreController,TODO,Planned in same JDBC + FXML pattern
+Team,MyTeamsController,TODO,Planned in same JDBC + FXML pattern
+Team,MyRequestsController,TODO,Planned in same JDBC + FXML pattern
+Captain,CaptainTeamCreateController,TODO,Planned in same JDBC + FXML pattern
+Captain,CaptainTeamManageController,TODO,Planned in same JDBC + FXML pattern
+Captain,CaptainMembersController,TODO,Planned in same JDBC + FXML pattern
+Captain,CaptainRequestsController,TODO,Planned in same JDBC + FXML pattern
+Captain,CaptainInviteController,TODO,Planned in same JDBC + FXML pattern
+Tournament,TournamentsController,DONE,CRUD desktop screen delivered
+Tournament,TournamentDetailController,TODO,Planned in same JDBC + FXML pattern
+Tournament,MatchesController,TODO,Planned in same JDBC + FXML pattern
+Tournament,MatchDetailController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerTournamentsController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerTournamentDetailController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerTournamentEditController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerRegistrationsController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerMatchesController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerMatchCreateController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerMatchEditController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerRequestsController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerRequestCreateController,TODO,Planned in same JDBC + FXML pattern
+Organizer,OrganizerRequestDetailController,TODO,Planned in same JDBC + FXML pattern
+Shop,ShopController,DONE,Products CRUD screen delivered
+Shop,ProductDetailController,TODO,Planned in same JDBC + FXML pattern
+Shop,ProductReviewController,TODO,Planned in same JDBC + FXML pattern
+Shop,CartController,TODO,Planned in same JDBC + FXML pattern
+Shop,CheckoutController,TODO,Planned in same JDBC + FXML pattern
+Shop,OrdersController,TODO,Planned in same JDBC + FXML pattern
+Shop,OrderDetailController,TODO,Planned in same JDBC + FXML pattern
+Account,RegisterController,TODO,Planned in same JDBC + FXML pattern
+Account,ProfileController,TODO,Planned in same JDBC + FXML pattern
+Account,ProfileEditController,TODO,Planned in same JDBC + FXML pattern
+Account,PasswordChangeController,TODO,Planned in same JDBC + FXML pattern
+Account,ForgotPasswordController,TODO,Planned in same JDBC + FXML pattern
+Account,ResetPasswordController,TODO,Planned in same JDBC + FXML pattern
+Account,TwoFactorChallengeController,TODO,Planned in same JDBC + FXML pattern
+General,SearchController,TODO,Planned in same JDBC + FXML pattern
+General,GamesController,DONE,CRUD desktop screen delivered
+General,GameDetailController,TODO,Planned in same JDBC + FXML pattern
+General,ContactController,TODO,Planned in same JDBC + FXML pattern
+General,FaqController,TODO,Planned in same JDBC + FXML pattern
+General,AboutController,TODO,Planned in same JDBC + FXML pattern

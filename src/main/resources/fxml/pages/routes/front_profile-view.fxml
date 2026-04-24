@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.ProfileController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="heroMiniBox" maxWidth="1180.0">
+                <Label text="JOUEUR" styleClass="heroKicker"/>
+                <Label text="Mon profil" styleClass="heroMini__title"/>
+                <Label text="Publications, details, amis et equipes." wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0" styleClass="breadcrumbs">
+                    <Label text="Accueil"/>
+                    <Label text=">"/>
+                    <Label text="Mon profil"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="12.0" styleClass="panel profileIdentityPanel" maxWidth="1180.0">
+                <HBox spacing="14.0" styleClass="profileHeader">
+                    <ImageView fx:id="avatarView" fitWidth="96.0" fitHeight="96.0" preserveRatio="false" smooth="true" styleClass="avatarLg"/>
+                    <VBox spacing="4.0">
+                        <Label fx:id="displayNameLabel" text="Display Name" styleClass="card__title"/>
+                        <Label fx:id="usernameRoleLabel" text="@username - PLAYER" styleClass="muted"/>
+                        <HBox spacing="8.0" styleClass="profileHeader__actions">
+                            <Button text="Modifier profil" onAction="#openProfileEdit" styleClass="btn-primary"/>
+                            <Button text="Changer mot de passe" onAction="#openPasswordChange" styleClass="btn-ghost"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="12.0" styleClass="statsRow">
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label fx:id="postsStatLabel" text="0" styleClass="statCard__value"/>
+                        <Label text="Publications" styleClass="statCard__label"/>
+                    </VBox>
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label fx:id="friendsStatLabel" text="0" styleClass="statCard__value"/>
+                        <Label text="Amis" styleClass="statCard__label"/>
+                    </VBox>
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label fx:id="teamsStatLabel" text="0" styleClass="statCard__value"/>
+                        <Label text="Equipes" styleClass="statCard__label"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="12.0" styleClass="panel" maxWidth="1180.0">
+                <HBox spacing="8.0" styleClass="tabs profileTabs">
+                    <Button fx:id="tabPostsButton" text="Mes publications" onAction="#openTabPosts" styleClass="tab"/>
+                    <Button fx:id="tabAboutButton" text="A propos" onAction="#openTabAbout" styleClass="tab"/>
+                    <Button fx:id="tabFriendsButton" text="Mes amis" onAction="#openTabFriends" styleClass="tab"/>
+                    <Button fx:id="tabTeamsButton" text="Mes equipes" onAction="#openTabTeams" styleClass="tab"/>
+                </HBox>
+
+                <VBox fx:id="postsPane" spacing="10.0">
+                    <HBox spacing="8.0" styleClass="filtersRow">
+                        <TextField fx:id="postsSearchField" promptText="Rechercher une publication..." styleClass="input"/>
+                        <ComboBox fx:id="postsVisibilityCombo" styleClass="input"/>
+                        <ComboBox fx:id="postsSortCombo" styleClass="input"/>
+                        <Button text="Filtrer" onAction="#applyPostsFilters" styleClass="btn-ghost"/>
+                    </HBox>
+
+                    <VBox spacing="8.0" styleClass="panel gadget gadget--composer">
+                        <Label text="NOUVEAU POST" styleClass="panel-title"/>
+                        <TextArea fx:id="postComposerField" promptText="Partagez une mise a jour..." styleClass="textarea" wrapText="true" prefRowCount="3"/>
+                        <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <ComboBox fx:id="postComposerVisibilityCombo" styleClass="input"/>
+                            <TextField fx:id="postImagesField" promptText="Aucune photo selectionnee" styleClass="input" HBox.hgrow="ALWAYS"/>
+                            <Button text="Choisir photos" onAction="#choosePostImages" styleClass="btn-ghost"/>
+                            <Button text="Vider" onAction="#clearPostImages" styleClass="btn-ghost"/>
+                            <Button text="Publier" onAction="#publishPost" styleClass="btn-primary"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox fx:id="postsListBox" spacing="10.0"/>
+                </VBox>
+
+                <VBox fx:id="aboutPane" spacing="10.0" visible="false" managed="false">
+                    <VBox fx:id="aboutListBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox fx:id="friendsPane" spacing="10.0" visible="false" managed="false">
+                    <HBox spacing="8.0" styleClass="filtersRow">
+                        <TextField fx:id="friendsSearchField" promptText="Rechercher un ami..." styleClass="input"/>
+                        <ComboBox fx:id="friendsSortCombo" styleClass="input"/>
+                        <Button text="Filtrer" onAction="#applyFriendsFilters" styleClass="btn-ghost"/>
+                    </HBox>
+                    <VBox fx:id="friendsListBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox fx:id="teamsPane" spacing="10.0" visible="false" managed="false">
+                    <HBox spacing="8.0" styleClass="filtersRow">
+                        <TextField fx:id="teamsSearchField" promptText="Rechercher une equipe..." styleClass="input"/>
+                        <TextField fx:id="teamsRegionField" promptText="Region" styleClass="input"/>
+                        <ComboBox fx:id="teamsSortCombo" styleClass="input"/>
+                        <Button text="Filtrer" onAction="#applyTeamsFilters" styleClass="btn-ghost"/>
+                    </HBox>
+                    <VBox fx:id="teamsListBox" spacing="8.0"/>
+                </VBox>
+            </VBox>
+
+            <Label fx:id="feedbackLabel" text="" styleClass="feedback-label" wrapText="true" maxWidth="1180.0"/>
+        </VBox>
+    </content>
+</ScrollPane>

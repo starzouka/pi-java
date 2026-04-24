@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminUserDetailController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN" styleClass="heroKicker"/>
+                <Label fx:id="titleLabel" text="Detail utilisateur" styleClass="heroMini__title"/>
+                <Label fx:id="subtitleLabel" text="Profil, equipes, activite, commerce, moderation." wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0">
+                    <Button text="Modifier" onAction="#openEdit" styleClass="btn-primary"/>
+                    <Button text="Retour liste" onAction="#goBackList" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox spacing="8.0" styleClass="tabs">
+                    <Button fx:id="tabProfileButton" text="Profil" onAction="#openTabProfile" styleClass="tab tab--active"/>
+                    <Button fx:id="tabTeamsButton" text="Equipes" onAction="#openTabTeams" styleClass="tab"/>
+                    <Button fx:id="tabPostsButton" text="Posts" onAction="#openTabPosts" styleClass="tab"/>
+                    <Button fx:id="tabOrdersButton" text="Commandes" onAction="#openTabOrders" styleClass="tab"/>
+                    <Button fx:id="tabReportsButton" text="Signalements" onAction="#openTabReports" styleClass="tab"/>
+                </HBox>
+
+                <VBox fx:id="profilePane" spacing="8.0">
+                    <VBox fx:id="profileListBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox fx:id="teamsPane" spacing="8.0" managed="false" visible="false">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Label text="Sort" styleClass="field-label"/>
+                        <ComboBox fx:id="teamsSortCombo" prefWidth="170.0"/>
+                        <ComboBox fx:id="teamsDirectionCombo" prefWidth="120.0"/>
+                        <Button text="Apply" onAction="#reloadTeams" styleClass="btn-ghost"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <VBox fx:id="teamsListBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox fx:id="postsPane" spacing="8.0" managed="false" visible="false">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Label text="Sort" styleClass="field-label"/>
+                        <ComboBox fx:id="postsSortCombo" prefWidth="170.0"/>
+                        <ComboBox fx:id="postsDirectionCombo" prefWidth="120.0"/>
+                        <Button text="Apply" onAction="#reloadPosts" styleClass="btn-ghost"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <VBox fx:id="postsListBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox fx:id="ordersPane" spacing="8.0" managed="false" visible="false">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Label text="Sort" styleClass="field-label"/>
+                        <ComboBox fx:id="ordersSortCombo" prefWidth="170.0"/>
+                        <ComboBox fx:id="ordersDirectionCombo" prefWidth="120.0"/>
+                        <Button text="Apply" onAction="#reloadOrders" styleClass="btn-ghost"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <VBox fx:id="ordersListBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox fx:id="reportsPane" spacing="8.0" managed="false" visible="false">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Label text="Sort" styleClass="field-label"/>
+                        <ComboBox fx:id="reportsSortCombo" prefWidth="170.0"/>
+                        <ComboBox fx:id="reportsDirectionCombo" prefWidth="120.0"/>
+                        <Button text="Apply" onAction="#reloadReports" styleClass="btn-ghost"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <VBox fx:id="reportsListBox" spacing="8.0"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
