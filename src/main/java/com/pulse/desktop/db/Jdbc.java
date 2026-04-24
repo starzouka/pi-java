@@ -11,6 +11,8 @@ public final class Jdbc {
     }
 
     public static Connection open() throws SQLException {
-        return DriverManager.getConnection(AppConfig.jdbcUrl(), AppConfig.dbUser(), AppConfig.dbPassword());
+        Connection connection = DriverManager.getConnection(AppConfig.jdbcUrl(), AppConfig.dbUser(), AppConfig.dbPassword());
+        SchemaBootstrap.ensure(connection);
+        return connection;
     }
 }

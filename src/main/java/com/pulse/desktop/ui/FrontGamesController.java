@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +35,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class FrontGamesController implements RouteAwarePage {
+    @FXML
+    private ScrollPane pageScroll;
     @FXML
     private TextField qField;
     @FXML
@@ -65,7 +69,7 @@ public class FrontGamesController implements RouteAwarePage {
 
     @FXML
     private void applyFilters() {
-        refresh();
+        refreshAndScrollTop();
     }
 
     @FXML
@@ -79,7 +83,7 @@ public class FrontGamesController implements RouteAwarePage {
         if (!publisherCombo.getItems().isEmpty()) {
             publisherCombo.getSelectionModel().select(0);
         }
-        refresh();
+        refreshAndScrollTop();
     }
 
     @FXML
@@ -149,6 +153,13 @@ public class FrontGamesController implements RouteAwarePage {
         resultCountLabel.setText(rows.size() + " jeu(x)");
         renderCatalog(rows);
         renderTrending(loadTrendingRows());
+    }
+
+    private void refreshAndScrollTop() {
+        refresh();
+        if (pageScroll != null) {
+            Platform.runLater(() -> pageScroll.setVvalue(0.0));
+        }
     }
 
     private List<GameRow> loadCatalogRows() {

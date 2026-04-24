@@ -14,6 +14,7 @@
 
 <ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.pulse.desktop.ui.FrontGamesController"
+            fx:id="pageScroll"
             fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
     <content>
         <VBox spacing="16.0" styleClass="page-root">
@@ -65,17 +66,17 @@
             </VBox>
 
             <VBox spacing="10.0" styleClass="panel">
+                <Label text="RESULTATS" styleClass="panel-title"/>
+                <VBox fx:id="gamesBox" spacing="8.0"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
                 <HBox alignment="CENTER_LEFT" spacing="8.0">
                     <Label text="TRENDING GAMES" styleClass="panel-title"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <Label text="Classement par score intelligent" styleClass="panel-desc"/>
                 </HBox>
                 <VBox fx:id="trendingBox" spacing="8.0"/>
-            </VBox>
-
-            <VBox spacing="10.0" styleClass="panel">
-                <Label text="RESULTATS" styleClass="panel-title"/>
-                <VBox fx:id="gamesBox" spacing="8.0"/>
             </VBox>
         </VBox>
     </content>

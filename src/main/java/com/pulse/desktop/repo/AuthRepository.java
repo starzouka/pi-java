@@ -28,28 +28,34 @@ public class AuthRepository {
     }
 
     public AuthLoginResult login(String email, String plainPassword) throws SQLException {
+        String normalizedEmail = email == null ? "" : email.trim().toLowerCase();
+        if (normalizedEmail.isBlank()) {
+            return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
+        }
+
         String sql = """
                 SELECT user_id, username, email, password_hash, role, display_name,
                        is_active, email_verified, two_factor_enabled, two_factor_secret
                 FROM users
-                WHERE email = ?
+                WHERE LOWER(TRIM(email)) = ?
                 LIMIT 1
                 """;
 
         try (Connection connection = Jdbc.open();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, email.trim().toLowerCase());
+            statement.setString(1, normalizedEmail);
             try (ResultSet rs = statement.executeQuery()) {
                 if (!rs.next()) {
                     return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
                 }
 
                 boolean active = rs.getBoolean("is_active");
-                String hash = rs.getString("password_hash");
+                int userId = rs.getInt("user_id");
+                String hash = safeTrim(rs.getString("password_hash"));
                 if (!active) {
                     return AuthLoginResult.failure(AuthLoginResult.Status.ACCOUNT_INACTIVE);
                 }
-                if (!PasswordHasher.verify(plainPassword, hash)) {
+                if (!verifyPasswordAndUpgradeIfLegacy(connection, userId, plainPassword, hash)) {
                     return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
                 }
 
@@ -60,13 +66,12 @@ public class AuthRepository {
 
                 boolean twoFactorEnabled = rs.getBoolean("two_factor_enabled");
                 String twoFactorSecret = rs.getString("two_factor_secret");
-                int userId = rs.getInt("user_id");
                 SessionUser user = new SessionUser(
                         userId,
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("role"),
-                        rs.getString("display_name"),
+                        safeTrim(rs.getString("username")),
+                        safeTrim(rs.getString("email")),
+                        safeTrim(rs.getString("role")),
+                        safeTrim(rs.getString("display_name")),
                         emailVerified,
                         twoFactorEnabled
                 );
@@ -264,7 +269,11 @@ public class AuthRepository {
                 hash = rs.getString("password_hash");
             }
 
-            if (!PasswordHasher.verify(currentPassword, hash)) {
+            if (currentPassword != null && newPassword != null && currentPassword.equals(newPassword)) {
+                return PasswordChangeStatus.SAME_PASSWORD_AS_OLD;
+            }
+
+            if (!verifyPasswordAndUpgradeIfLegacy(connection, userId, currentPassword, hash)) {
                 return PasswordChangeStatus.INVALID_CURRENT_PASSWORD;
             }
             if (PasswordHasher.verify(newPassword, hash)) {
@@ -283,6 +292,38 @@ public class AuthRepository {
                 return updated > 0 ? PasswordChangeStatus.SUCCESS : PasswordChangeStatus.USER_NOT_FOUND;
             }
         }
+    }
+
+    private static boolean verifyPasswordAndUpgradeIfLegacy(Connection connection, int userId, String plainPassword, String storedHash) throws SQLException {
+        if (PasswordHasher.verify(plainPassword, storedHash)) {
+            return true;
+        }
+
+        // Legacy dumps sometimes contain the plain password in `password_hash`.
+        // If it matches, accept it once and upgrade to bcrypt.
+        if (plainPassword != null && storedHash != null && storedHash.equals(plainPassword)) {
+            upgradePasswordHash(connection, userId, plainPassword);
+            return true;
+        }
+
+        return false;
+    }
+
+    private static void upgradePasswordHash(Connection connection, int userId, String plainPassword) throws SQLException {
+        String updateSql = """
+                UPDATE users
+                SET password_hash = ?, updated_at = NOW()
+                WHERE user_id = ?
+                """;
+        try (PreparedStatement update = connection.prepareStatement(updateSql)) {
+            update.setString(1, PasswordHasher.hash(plainPassword));
+            update.setInt(2, userId);
+            update.executeUpdate();
+        }
+    }
+
+    private static String safeTrim(String value) {
+        return value == null ? null : value.trim();
     }
 
     public String getTwoFactorSecret(int userId) throws SQLException {

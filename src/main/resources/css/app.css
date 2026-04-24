@@ -462,6 +462,17 @@
     -fx-font-weight: 900;
 }
 
+.btn-danger {
+    -fx-background-color: rgba(255, 70, 92, 0.12);
+    -fx-border-color: rgba(255, 70, 92, 0.35);
+    -fx-text-fill: rgba(233, 242, 255, 0.92);
+}
+
+.btn-danger:hover {
+    -fx-background-color: rgba(255, 70, 92, 0.18);
+    -fx-border-color: rgba(255, 70, 92, 0.45);
+}
+
 .btn--compact,
 .btn-compact {
     -fx-padding: 7 10 7 10;
@@ -797,6 +808,11 @@
 .list-item-meta {
     -fx-text-fill: -pulse-muted;
     -fx-font-size: 12px;
+}
+
+.list-item-title {
+    -fx-text-fill: rgba(233, 242, 255, 0.92);
+    -fx-font-weight: 800;
 }
 
 .badge {

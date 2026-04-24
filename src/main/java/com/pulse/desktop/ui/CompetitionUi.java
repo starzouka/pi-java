@@ -25,6 +25,7 @@ final class CompetitionUi {
         row.setAlignment(Pos.CENTER_LEFT);
 
         Label left = new Label(emptySafe(leftText));
+        left.getStyleClass().add("list-item-title");
         left.setWrapText(true);
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -42,6 +43,7 @@ final class CompetitionUi {
         row.setAlignment(Pos.CENTER_LEFT);
 
         Label left = new Label(emptySafe(leftText));
+        left.getStyleClass().add("list-item-title");
         left.setWrapText(true);
 
         Label right = new Label(emptySafe(rightText));

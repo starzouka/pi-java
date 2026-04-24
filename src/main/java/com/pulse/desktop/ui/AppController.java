@@ -482,6 +482,7 @@ public class AppController {
                 "admin_orders",
                 "admin_carts",
                 "admin_games",
+                "admin_categories",
                 "admin_catalog_dashboard",
                 "admin_statistics"
         ));
@@ -617,6 +618,7 @@ public class AppController {
         addRoute("admin_orders", "Admin commandes", "generic");
         addRoute("admin_carts", "Admin paniers", "generic");
         addRoute("admin_games", "Admin jeux", "generic");
+        addRoute("admin_categories", "Admin categories", "generic");
         addRoute("admin_catalog_dashboard", "Admin KPI catalogue", "generic");
         addRoute("admin_statistics", "Admin statistiques", "generic");
 
@@ -691,6 +693,7 @@ public class AppController {
     private static boolean isGamesRoute(String route) {
         return route.startsWith("front_game")
                 || "admin_games".equals(route)
+                || "admin_categories".equals(route)
                 || "admin_catalog_dashboard".equals(route);
     }
 

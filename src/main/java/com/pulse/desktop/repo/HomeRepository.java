@@ -89,7 +89,7 @@ public class HomeRepository {
                 ) pim ON pim.product_id = p.product_id
                 LEFT JOIN product_images pi ON pi.product_id = p.product_id AND pi.position = pim.min_position
                 LEFT JOIN images i ON i.image_id = pi.image_id
-                WHERE p.is_active = 1
+                WHERE COALESCE(UPPER(CAST(p.is_active AS CHAR)), '0') IN ('1', 'Y', 'TRUE', 'T')
                 ORDER BY p.updated_at DESC
                 LIMIT ?
                 """;
@@ -160,7 +160,8 @@ public class HomeRepository {
                        i.file_url AS image_path,
                        (
                            SELECT COUNT(*) FROM team_members tm
-                           WHERE tm.team_id = t.team_id AND tm.is_active = 1
+                           WHERE tm.team_id = t.team_id
+                             AND COALESCE(UPPER(CAST(tm.is_active AS CHAR)), '0') IN ('1', 'Y', 'TRUE', 'T')
                        ) AS members_count
                 FROM teams t
                 JOIN users u ON u.user_id = t.captain_user_id

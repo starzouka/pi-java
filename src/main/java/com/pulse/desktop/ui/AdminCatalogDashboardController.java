@@ -10,6 +10,7 @@ import com.pulse.desktop.util.ImageResolver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -25,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdminCatalogDashboardController implements RouteAwarePage {
     @FXML
@@ -39,9 +41,21 @@ public class AdminCatalogDashboardController implements RouteAwarePage {
     private Label monthLabel;
 
     @FXML
+    private TextField categorySearchField;
+
+    @FXML
     private VBox categoriesBox;
     @FXML
     private VBox trendingBox;
+
+    private List<CategoryStat> topCategoryRows = List.of();
+
+    @FXML
+    public void initialize() {
+        if (categorySearchField != null) {
+            categorySearchField.textProperty().addListener((obs, oldValue, newValue) -> renderTopCategories());
+        }
+    }
 
     @Override
     public void setRoute(RouteDefinition routeDefinition) {
@@ -62,6 +76,11 @@ public class AdminCatalogDashboardController implements RouteAwarePage {
     @FXML
     private void goGames() {
         Navigator.goTo("admin_games");
+    }
+
+    @FXML
+    private void goCategories() {
+        Navigator.goTo("admin_categories");
     }
 
     private void loadKpis() {
@@ -114,8 +133,6 @@ public class AdminCatalogDashboardController implements RouteAwarePage {
     }
 
     private void loadTopCategories() {
-        categoriesBox.getChildren().clear();
-
         LocalDate monthStart = LocalDate.now().withDayOfMonth(1);
         monthLabel.setText(monthStart.getMonthValue() + "/" + monthStart.getYear());
 
@@ -163,8 +180,24 @@ public class AdminCatalogDashboardController implements RouteAwarePage {
             AlertUtils.error("KPI catalogue", "Chargement top categories impossible.\n" + ex.getMessage());
         }
 
+        topCategoryRows = rows;
+        renderTopCategories();
+    }
+
+    private void renderTopCategories() {
+        categoriesBox.getChildren().clear();
+
+        String q = categorySearchField == null ? "" : safe(categorySearchField.getText());
+        List<CategoryStat> rows = topCategoryRows;
+        if (!q.isBlank()) {
+            String needle = q.toLowerCase(Locale.ROOT);
+            rows = rows.stream()
+                    .filter(r -> safe(r.categoryName()).toLowerCase(Locale.ROOT).contains(needle))
+                    .toList();
+        }
+
         if (rows.isEmpty()) {
-            categoriesBox.getChildren().add(CompetitionUi.emptyState("Aucune donnee mensuelle."));
+            categoriesBox.getChildren().add(CompetitionUi.emptyState("Aucune categorie ne correspond a la recherche."));
             return;
         }
 
@@ -175,6 +208,10 @@ public class AdminCatalogDashboardController implements RouteAwarePage {
             categoriesBox.getChildren().add(CompetitionUi.listRow(left, right));
             rank++;
         }
+    }
+
+    private static String safe(String value) {
+        return value == null ? "" : value.trim();
     }
 
     private void loadTrendingGames() {
