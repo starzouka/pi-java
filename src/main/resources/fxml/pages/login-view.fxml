@@ -51,6 +51,7 @@
                     <Button text="Se connecter" onAction="#submitLogin" styleClass="btn-primary"/>
                     <Button text="Creer un compte" onAction="#openRegister" styleClass="btn-ghost"/>
                     <Button text="Mot de passe oublie" onAction="#openForgotPassword" styleClass="btn-ghost"/>
+                    <Button text="Renvoyer verification" onAction="#resendVerificationEmail" styleClass="btn-ghost"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <Button text="Accueil" onAction="#backHome" styleClass="btn-ghost"/>
                 </HBox>

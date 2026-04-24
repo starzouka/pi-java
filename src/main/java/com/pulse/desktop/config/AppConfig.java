@@ -84,6 +84,32 @@ public final class AppConfig {
         }
     }
 
+    public static String aiEndpoint() {
+        return envOrProp("PULSE_AI_ENDPOINT", "ai.endpoint", "");
+    }
+
+    public static String aiApiKey() {
+        return envOrProp("PULSE_AI_API_KEY", "ai.api-key", "");
+    }
+
+    public static String qrBaseUrl() {
+        return envOrProp("PULSE_QR_BASE_URL", "qr.base-url", webBaseUrl());
+    }
+
+    public static boolean qrServerEnabled() {
+        String raw = envOrProp("PULSE_QR_SERVER_ENABLED", "qr.server.enabled", "true");
+        return "true".equalsIgnoreCase(raw.trim()) || "1".equals(raw.trim());
+    }
+
+    public static int qrServerPort() {
+        String raw = envOrProp("PULSE_QR_SERVER_PORT", "qr.server.port", "8000");
+        try {
+            return Integer.parseInt(raw.trim());
+        } catch (NumberFormatException ex) {
+            return 8000;
+        }
+    }
+
     public static Path webRootPath() {
         Path configured = Paths.get(webRoot());
         if (!configured.isAbsolute()) {

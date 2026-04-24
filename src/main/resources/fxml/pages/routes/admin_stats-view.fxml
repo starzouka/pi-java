@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="rootScroll"
+            fx:controller="com.pulse.desktop.ui.AdminStatsController"
+            fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN BACKOFFICE" styleClass="heroKicker"/>
+                <Label text="Statistiques" styleClass="heroMini__title"/>
+                <Label text="Courbes et repartitions (Jeux / Categories / Vues / Actions)." wrapText="true" styleClass="heroMini__sub"/>
+                <HBox spacing="8.0" styleClass="breadcrumbs-row">
+                    <Label text="Accueil" styleClass="muted"/>
+                    <Label text=">" styleClass="muted"/>
+                    <Label text="Administration" styleClass="muted"/>
+                    <Label text=">" styleClass="muted"/>
+                    <Label text="Statistiques" styleClass="muted"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="OVERVIEW" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="lastUpdatedLabel" text="-" styleClass="muted"/>
+                    <Button text="Refresh" onAction="#refreshManual" styleClass="btn-ghost"/>
+                </HBox>
+
+                <FlowPane hgap="10.0" vgap="10.0" styleClass="statsRow" prefWrapLength="1300.0">
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label text="Jeux (total)" styleClass="statCard__label"/>
+                        <Label fx:id="totalGamesLabel" text="0" styleClass="statCard__value"/>
+                    </VBox>
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label text="Categories (total)" styleClass="statCard__label"/>
+                        <Label fx:id="totalCategoriesLabel" text="0" styleClass="statCard__value"/>
+                    </VBox>
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label text="Vues (total)" styleClass="statCard__label"/>
+                        <Label fx:id="totalViewsLabel" text="0" styleClass="statCard__value"/>
+                    </VBox>
+                    <VBox spacing="4.0" styleClass="statCard">
+                        <Label text="Vues (aujourd'hui)" styleClass="statCard__label"/>
+                        <Label fx:id="viewsTodayLabel" text="0" styleClass="statCard__value"/>
+                    </VBox>
+                </FlowPane>
+            </VBox>
+
+            <HBox spacing="12.0">
+                <VBox spacing="10.0" styleClass="panel" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                        <Label text="COURBES (14 jours)" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label text="VIEW / CREATE / UPDATE / DELETE" styleClass="muted"/>
+                    </HBox>
+                    <StackedBarChart fx:id="activityChart" styleClass="stats-chart" prefHeight="320.0">
+                        <xAxis>
+                            <CategoryAxis label="Jour"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Actions"/>
+                        </yAxis>
+                    </StackedBarChart>
+                    <Label fx:id="activityDetailLabel" text="Survole ou clique une barre pour voir le détail du jour." wrapText="true" styleClass="muted"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="panel" prefWidth="520.0">
+                    <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                        <Label text="REPARTITION (Jeux / Categorie)" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <PieChart fx:id="gamesPerCategoryChart" prefHeight="320.0" styleClass="stats-chart"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="TOP JEUX (VUES)" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="(mise a jour auto toutes les 5s)" styleClass="muted"/>
+                </HBox>
+
+                <BarChart fx:id="topViewsChart" styleClass="stats-chart" prefHeight="300.0" categoryGap="10.0" barGap="6.0">
+                    <xAxis>
+                        <CategoryAxis label="Jeu"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Vues"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <Label text="VUES PAR JEU (30 jours)" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="gameViewsGameBox" promptText="Choisir un jeu" prefWidth="340" styleClass="input"/>
+                </HBox>
+
+                <LineChart fx:id="gameViewsChart" styleClass="stats-chart" prefHeight="280.0">
+                    <xAxis>
+                        <CategoryAxis label="Jour"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Vues"/>
+                    </yAxis>
+                </LineChart>
+                <Label fx:id="gameViewsDetailLabel" text="-" wrapText="true" styleClass="muted"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

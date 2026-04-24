@@ -54,10 +54,6 @@ public class AuthRepository {
                 }
 
                 boolean emailVerified = rs.getBoolean("email_verified");
-                if (!emailVerified) {
-                    return AuthLoginResult.failure(AuthLoginResult.Status.EMAIL_NOT_VERIFIED);
-                }
-
                 boolean twoFactorEnabled = rs.getBoolean("two_factor_enabled");
                 String twoFactorSecret = rs.getString("two_factor_secret");
                 int userId = rs.getInt("user_id");
@@ -70,6 +66,10 @@ public class AuthRepository {
                         emailVerified,
                         twoFactorEnabled
                 );
+
+                if (!emailVerified) {
+                    return new AuthLoginResult(AuthLoginResult.Status.EMAIL_NOT_VERIFIED, user);
+                }
 
                 if (twoFactorEnabled && twoFactorSecret != null && !twoFactorSecret.isBlank()) {
                     return new AuthLoginResult(AuthLoginResult.Status.TWO_FACTOR_REQUIRED, user);

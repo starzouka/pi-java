@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,58 @@ public class GameRepository {
         }
     }
 
+    public GameModel findBySlug(String slug) throws SQLException {
+        String sql = """
+                SELECT
+                    g.game_id,
+                    g.category_id,
+                    g.name,
+                    g.slug,
+                    g.status,
+                    g.popularity_score,
+                    g.views_count,
+                    g.favorites_count,
+                    g.description,
+                    g.publisher,
+                    g.created_at,
+                    g.cover_name,
+                    c.name AS category_name
+                FROM games g
+                JOIN categories c ON c.category_id = g.category_id
+                WHERE g.slug = ?
+                LIMIT 1
+                """;
+
+        try (Connection connection = Jdbc.open();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, slug == null ? "" : slug.trim());
+            try (ResultSet rs = statement.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                GameModel game = new GameModel();
+                game.setGameId(rs.getInt("game_id"));
+                game.setCategoryId(rs.getInt("category_id"));
+                game.setCategoryName(rs.getString("category_name"));
+                game.setName(rs.getString("name"));
+                game.setSlug(rs.getString("slug"));
+                game.setStatus(rs.getString("status"));
+                game.setPopularityScore(rs.getInt("popularity_score"));
+                game.setViewsCount(rs.getInt("views_count"));
+                game.setFavoritesCount(rs.getInt("favorites_count"));
+                game.setDescription(rs.getString("description"));
+                game.setPublisher(rs.getString("publisher"));
+                game.setCoverName(rs.getString("cover_name"));
+
+                java.sql.Timestamp ts = rs.getTimestamp("created_at");
+                if (ts != null) {
+                    game.setCreatedAt(ts.toLocalDateTime());
+                }
+                return game;
+            }
+        }
+    }
+
     public void insert(GameModel game) throws SQLException {
         String sql = """
                 INSERT INTO games (
@@ -124,7 +177,7 @@ public class GameRepository {
                 """;
 
         try (Connection connection = Jdbc.open();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setObject(1, game.getCategoryId(), Types.INTEGER);
             statement.setString(2, game.getName());
             statement.setString(3, game.getSlug());
@@ -141,6 +194,11 @@ public class GameRepository {
                 statement.setTimestamp(11, java.sql.Timestamp.valueOf(game.getCreatedAt()));
             }
             statement.executeUpdate();
+            try (ResultSet keys = statement.getGeneratedKeys()) {
+                if (keys.next()) {
+                    game.setGameId(keys.getInt(1));
+                }
+            }
         }
     }
 
@@ -178,6 +236,26 @@ public class GameRepository {
         }
     }
 
+    public int incrementViewsCount(int gameId) throws SQLException {
+        String updateSql = "UPDATE games SET views_count = COALESCE(views_count, 0) + 1 WHERE game_id = ?";
+        String selectSql = "SELECT COALESCE(views_count, 0) AS cnt FROM games WHERE game_id = ?";
+        try (Connection connection = Jdbc.open()) {
+            try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                statement.setInt(1, gameId);
+                statement.executeUpdate();
+            }
+            try (PreparedStatement statement = connection.prepareStatement(selectSql)) {
+                statement.setInt(1, gameId);
+                try (ResultSet rs = statement.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("cnt");
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
     public int countByCategoryId(int categoryId) throws SQLException {
         String sql = "SELECT COUNT(*) AS cnt FROM games WHERE category_id = ?";
         try (Connection connection = Jdbc.open();
@@ -190,6 +268,59 @@ public class GameRepository {
                 return rs.getInt("cnt");
             }
         }
+    }
+
+    public List<GameModel> findByCategoryId(int categoryId) throws SQLException {
+        String sql = """
+                SELECT
+                    g.game_id,
+                    g.category_id,
+                    g.name,
+                    g.slug,
+                    g.status,
+                    g.popularity_score,
+                    g.views_count,
+                    g.favorites_count,
+                    g.description,
+                    g.publisher,
+                    g.created_at,
+                    g.cover_name,
+                    c.name AS category_name
+                FROM games g
+                JOIN categories c ON c.category_id = g.category_id
+                WHERE g.category_id = ?
+                ORDER BY g.game_id DESC
+                """;
+
+        List<GameModel> rows = new ArrayList<>();
+        try (Connection connection = Jdbc.open();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, categoryId);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    GameModel game = new GameModel();
+                    game.setGameId(rs.getInt("game_id"));
+                    game.setCategoryId(rs.getInt("category_id"));
+                    game.setCategoryName(rs.getString("category_name"));
+                    game.setName(rs.getString("name"));
+                    game.setSlug(rs.getString("slug"));
+                    game.setStatus(rs.getString("status"));
+                    game.setPopularityScore(rs.getInt("popularity_score"));
+                    game.setViewsCount(rs.getInt("views_count"));
+                    game.setFavoritesCount(rs.getInt("favorites_count"));
+                    game.setDescription(rs.getString("description"));
+                    game.setPublisher(rs.getString("publisher"));
+                    game.setCoverName(rs.getString("cover_name"));
+
+                    java.sql.Timestamp ts = rs.getTimestamp("created_at");
+                    if (ts != null) {
+                        game.setCreatedAt(ts.toLocalDateTime());
+                    }
+                    rows.add(game);
+                }
+            }
+        }
+        return rows;
     }
 
     public int reassignCategory(int fromCategoryId, int toCategoryId) throws SQLException {

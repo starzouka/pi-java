@@ -5,7 +5,9 @@ import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.repo.AuthRepository;
 import com.pulse.desktop.service.MailService;
 import com.pulse.desktop.service.Navigator;
+import com.pulse.desktop.service.RouteContext;
 import com.pulse.desktop.util.AlertUtils;
+import com.pulse.desktop.util.ClipboardUtils;
 import com.pulse.desktop.util.Validators;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -44,14 +46,25 @@ public class ForgotPasswordController implements RouteAwarePage {
                 return;
             }
 
-            if (!mailService.isConfigured()) {
-                feedbackLabel.setText("MAILER_DSN est non configure. Impossible d'envoyer l'email.");
-                return;
-            }
+            RouteContext.setPendingResetPasswordToken(token);
 
             String resetUrl = trimTrailingSlash(AppConfig.webBaseUrl())
                     + "/pages/reset-password?token="
                     + URLEncoder.encode(token, StandardCharsets.UTF_8);
+
+            if (!mailService.isConfigured()) {
+                ClipboardUtils.copyToClipboard(token);
+                feedbackLabel.setText("MAILER_DSN non configure. Token copie dans le presse-papiers.");
+                AlertUtils.info("Mot de passe oublie",
+                        "MAILER_DSN est non configure.\n"
+                                + "Token copie dans le presse-papiers:\n"
+                                + token
+                                + "\n\nVous pouvez coller ce token dans la page \"Reset direct (token)\".\n"
+                                + "Lien web equivalent (si Symfony tourne):\n"
+                                + resetUrl);
+                Navigator.goTo("front_reset_password");
+                return;
+            }
 
             String expiresAt = LocalDateTime.now().plusSeconds(lifetime).format(MAIL_DATE);
             mailService.sendResetPassword(email.trim().toLowerCase(), resetUrl, expiresAt);

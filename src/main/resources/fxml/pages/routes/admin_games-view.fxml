@@ -38,6 +38,7 @@
                     <Label text="FORMULAIRE 1" styleClass="panel-title"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <Label text="Action: admin_games" styleClass="badge-soft"/>
+                    <Button text="Statistiques" onAction="#openStats" styleClass="btn-soft"/>
                 </HBox>
                 <HBox spacing="12.0" alignment="CENTER_LEFT">
                     <TextField fx:id="nameField" promptText="Nom du jeu" prefWidth="240" styleClass="input"/>
@@ -46,11 +47,28 @@
                     <TextField fx:id="slugField" promptText="Slug unique" prefWidth="220" styleClass="input"/>
                     <TextField fx:id="statusField" promptText="Statut (ex: DRAFT)" prefWidth="200" styleClass="input"/>
                 </HBox>
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <TextArea fx:id="descriptionField" promptText="Description (optionnel)" prefRowCount="2" wrapText="true" styleClass="input" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <HBox spacing="12.0" alignment="CENTER_LEFT">
+                    <VBox spacing="6.0" prefWidth="240">
+                        <Label text="Cover" styleClass="field-label"/>
+                        <Region fx:id="coverPreview" prefWidth="240.0" prefHeight="90.0" styleClass="card__media"/>
+                    </VBox>
+                    <VBox spacing="6.0" prefWidth="680">
+                        <Label text="Chemin cover" styleClass="field-label"/>
+                        <Label fx:id="coverPathLabel" text="-" wrapText="true" styleClass="muted"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Importer cover" onAction="#chooseCover" styleClass="btn-ghost"/>
+                    <Button text="Retirer cover" onAction="#removeCover" styleClass="btn-soft"/>
+                </HBox>
                 <HBox spacing="10.0" styleClass="form-actions-row">
                     <Button text="Ajouter" onAction="#handleAdd" styleClass="btn-primary"/>
                     <Button text="Modifier Sélection" onAction="#handleUpdate" styleClass="btn-secondary"/>
                     <Button text="Supprimer Sélection" onAction="#handleDelete" styleClass="btn-soft"/>
                     <Button text="Vider champs" onAction="#clearFields" styleClass="btn-ghost"/>
+                    <Button text="IA: Auto-remplir" onAction="#autoFillWithAi" styleClass="btn-soft"/>
                 </HBox>
             </VBox>
 
@@ -102,6 +120,24 @@
                         <FlowPane fx:id="gamesCardsPane" styleClass="cards-grid" prefWrapLength="1300.0"/>
                     </content>
                 </ScrollPane>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <VBox spacing="4.0">
+                        <Label text="ASSISTANT IA (API)" styleClass="panel-title"/>
+                        <Label text="Aide sur la gestion des jeux (slug, statut, organisation)." styleClass="panel-desc" wrapText="true"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="aiStatusLabel" text="API: -" styleClass="badge-soft"/>
+                </HBox>
+
+                <TextArea fx:id="aiChatArea" editable="false" wrapText="true" prefRowCount="8" styleClass="input"/>
+
+                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="aiInputField" promptText="Ecrivez votre message..." styleClass="input" HBox.hgrow="ALWAYS"/>
+                    <Button text="Envoyer" onAction="#sendAiMessage" styleClass="btn-primary"/>
+                </HBox>
             </VBox>
         </VBox>
     </content>

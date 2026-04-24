@@ -51,6 +51,26 @@ public class CategoryRepository {
         return null;
     }
 
+    public CategoryModel findBySlug(String slug) throws SQLException {
+        String sql = """
+                SELECT category_id, name, description, created_at, slug
+                FROM categories
+                WHERE slug = ?
+                LIMIT 1
+                """;
+
+        try (Connection connection = Jdbc.open();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, slug == null ? "" : slug.trim());
+            try (ResultSet rs = statement.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                return mapRow(rs);
+            }
+        }
+    }
+
     public void insert(CategoryModel category) throws SQLException {
         String sql = """
                 INSERT INTO categories (name, description, created_at, slug)

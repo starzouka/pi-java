@@ -1,10 +1,17 @@
 package com.pulse.desktop.ui;
 
+import com.pulse.desktop.config.AppConfig;
 import com.pulse.desktop.model.CategoryModel;
 import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.repo.CategoryRepository;
 import com.pulse.desktop.repo.GameRepository;
+import com.pulse.desktop.service.ActivityLogService;
+import com.pulse.desktop.service.AiChatService;
+import com.pulse.desktop.service.LocalQrWebServer;
 import com.pulse.desktop.util.AlertUtils;
+import com.pulse.desktop.util.QrCodeDialog;
+import com.pulse.desktop.util.UrlUtils;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -22,6 +30,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -43,8 +52,15 @@ public class AdminCategoryController implements RouteAwarePage {
     @FXML private Button filterButton;
     @FXML private Button resetButton;
 
+    // IA assistant (API)
+    @FXML private Label aiStatusLabel;
+    @FXML private TextArea aiChatArea;
+    @FXML private TextField aiInputField;
+
     private final CategoryRepository categoryRepo = new CategoryRepository();
     private final GameRepository gameRepo = new GameRepository();
+    private final AiChatService aiChatService = new AiChatService();
+    private final ActivityLogService activityLogService = new ActivityLogService();
     private final ObservableList<CategoryModel> data = FXCollections.observableArrayList();
     private final ObservableList<String> sorts = FXCollections.observableArrayList();
     private final Map<Integer, VBox> cardById = new HashMap<>();
@@ -66,11 +82,120 @@ public class AdminCategoryController implements RouteAwarePage {
         if (resetButton != null) {
             resetButton.setOnAction(event -> resetFilters());
         }
+        refreshAiStatus();
         loadData();
     }
 
     @Override
     public void setRoute(RouteDefinition routeDefinition) {
+    }
+
+    @FXML
+    private void sendAiMessage() {
+        if (aiInputField == null || aiChatArea == null) {
+            return;
+        }
+        String message = safeText(aiInputField.getText());
+        if (message.isBlank()) {
+            return;
+        }
+        aiInputField.clear();
+
+        if (!aiChatService.isConfigured()) {
+            appendChat("System", "API IA non configuree. Ajoutez PULSE_AI_ENDPOINT (ou ai.endpoint) puis relancez l'app.");
+            refreshAiStatus();
+            return;
+        }
+
+        appendChat("Vous", message);
+        Map<String, String> context = buildAiContext();
+
+        Thread worker = new Thread(() -> {
+            try {
+                String reply = aiChatService.sendMessage(message, context);
+                Platform.runLater(() -> appendChat("IA", reply));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                String details = ex.getClass().getSimpleName() + ": " + (ex.getMessage() == null ? "(no message)" : ex.getMessage());
+                Platform.runLater(() -> appendChat("System", "Erreur IA: " + details));
+            }
+        }, "ai-chat-admin-categories");
+        worker.setDaemon(true);
+        worker.start();
+    }
+
+    @FXML
+    private void generateCategoryDescription() {
+        String name = safeText(nameField == null ? "" : nameField.getText());
+        if (name.isBlank()) {
+            AlertUtils.warning("IA", "Entrez d'abord le nom de la categorie.");
+            return;
+        }
+
+        String prompt = "Ecris une description courte (1 phrase, max 140 caracteres) pour une categorie de jeux video nommee: "
+                + name;
+
+        if (!aiChatService.isConfigured()) {
+            appendChat("System", "API IA non configuree. Ajoutez PULSE_AI_ENDPOINT (ou ai.endpoint) puis relancez l'app.");
+            refreshAiStatus();
+            return;
+        }
+
+        appendChat("Vous", "IA: Decrire la categorie \"" + name + "\"");
+        Map<String, String> context = buildAiContext();
+
+        Thread worker = new Thread(() -> {
+            try {
+                String reply = aiChatService.sendMessage(prompt, context);
+                Platform.runLater(() -> {
+                    appendChat("IA", reply);
+                    if (descField != null && (descField.getText() == null || descField.getText().isBlank())) {
+                        descField.setText(reply == null ? "" : reply.trim());
+                    }
+                });
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                String details = ex.getClass().getSimpleName() + ": " + (ex.getMessage() == null ? "(no message)" : ex.getMessage());
+                Platform.runLater(() -> appendChat("System", "Erreur IA: " + details));
+            }
+        }, "ai-desc-admin-categories");
+        worker.setDaemon(true);
+        worker.start();
+    }
+
+    private Map<String, String> buildAiContext() {
+        Map<String, String> ctx = new LinkedHashMap<>();
+        ctx.put("page", "admin_categories");
+        ctx.put("db", AppConfig.dbName());
+        ctx.put("web_base_url", AppConfig.webBaseUrl());
+
+        ctx.put("selected_category_id", selectedCategory == null || selectedCategory.getCategoryId() == null ? "" : selectedCategory.getCategoryId().toString());
+        ctx.put("selected_category_name", selectedCategory == null ? "" : safeText(selectedCategory.getName()));
+        ctx.put("selected_category_slug", selectedCategory == null ? "" : safeText(selectedCategory.getSlug()));
+
+        ctx.put("form_name", safeText(nameField == null ? "" : nameField.getText()));
+        ctx.put("form_slug", safeText(slugField == null ? "" : slugField.getText()));
+        ctx.put("form_description", safeText(descField == null ? "" : descField.getText()));
+        return ctx;
+    }
+
+    private void appendChat(String who, String message) {
+        if (aiChatArea == null) {
+            return;
+        }
+        String line = (who == null ? "" : who) + ": " + (message == null ? "" : message).trim();
+        if (aiChatArea.getText() == null || aiChatArea.getText().isBlank()) {
+            aiChatArea.setText(line);
+        } else {
+            aiChatArea.appendText("\n\n" + line);
+        }
+    }
+
+    private void refreshAiStatus() {
+        if (aiStatusLabel == null) {
+            return;
+        }
+        aiStatusLabel.setText(aiChatService.isConfigured() ? "API: configuree" : "API: non configuree");
     }
 
     @FXML
@@ -121,6 +246,7 @@ public class AdminCategoryController implements RouteAwarePage {
             cat.setSlug(resolveSlug(slugField.getText(), name));
 
             categoryRepo.insert(cat);
+            activityLogService.log("CATEGORY", "CREATE", cat.getCategoryId());
             AlertUtils.info("Succes", "Categorie ajoutee.");
             clearFields();
             loadData();
@@ -146,6 +272,7 @@ public class AdminCategoryController implements RouteAwarePage {
             selectedCategory.setSlug(resolveSlug(slugField.getText(), name));
 
             categoryRepo.update(selectedCategory);
+            activityLogService.log("CATEGORY", "UPDATE", selectedCategory.getCategoryId());
             AlertUtils.info("Succes", "Categorie modifiee.");
             clearFields();
             loadData();
@@ -230,11 +357,15 @@ public class AdminCategoryController implements RouteAwarePage {
         editButton.getStyleClass().addAll("btn", "btn--ghost", "btn--compact");
         editButton.setOnAction(event -> selectCategory(category));
 
+        Button qrButton = new Button("QR Code");
+        qrButton.getStyleClass().addAll("btn", "btn--ghost", "btn--compact");
+        qrButton.setOnAction(event -> showCategoryQr(category));
+
         Button deleteButton = new Button("Supprimer");
         deleteButton.getStyleClass().addAll("btn", "btn--soft", "btn--compact");
         deleteButton.setOnAction(event -> deleteCategory(category));
 
-        HBox actions = new HBox(8, editButton, deleteButton);
+        HBox actions = new HBox(8, editButton, qrButton, deleteButton);
         actions.getStyleClass().add("card__actions");
 
         body.getChildren().addAll(title, desc, actions);
@@ -242,6 +373,26 @@ public class AdminCategoryController implements RouteAwarePage {
 
         cardBox.setOnMouseClicked(event -> selectCategory(category));
         return cardBox;
+    }
+
+    private void showCategoryQr(CategoryModel category) {
+        if (category == null) {
+            return;
+        }
+        String slugOrId = safeText(category.getSlug());
+        if (slugOrId.isBlank()) {
+            slugOrId = category.getCategoryId() == null ? "" : Integer.toString(category.getCategoryId());
+        }
+        if (slugOrId.isBlank()) {
+            AlertUtils.warning("QR Code", "Categorie invalide (id/slug manquant).");
+            return;
+        }
+
+        String local = LocalQrWebServer.deviceBaseUrl();
+        String baseUrl = local != null ? local : UrlUtils.toDeviceAccessibleBaseUrl(AppConfig.qrBaseUrl());
+        String url = baseUrl + "/categories/" + slugOrId;
+        String header = safe(category.getName()) + " (" + slugOrId + ")";
+        QrCodeDialog.show("QR Code - Categorie", header, url);
     }
 
     private void selectCategory(CategoryModel category) {
@@ -290,6 +441,7 @@ public class AdminCategoryController implements RouteAwarePage {
 
         try {
             categoryRepo.deleteById(category.getCategoryId());
+            activityLogService.log("CATEGORY", "DELETE", category.getCategoryId());
             AlertUtils.info("Succes", "Categorie supprimee.");
             if (selectedCategory != null && category.getCategoryId().equals(selectedCategory.getCategoryId())) {
                 clearFields();

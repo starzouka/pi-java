@@ -515,7 +515,7 @@ public class AppController {
                 "front_organizer_registrations"));
         addLinks(sectionAdminLinks, List.of(
                 "front_dashboard", "front_users_placeholder", "front_tournaments", "front_orders",
-                "admin_categories", "admin_games",
+                "admin_categories", "admin_games", "admin_stats",
                 "admin_tournaments", "admin_teams", "admin_products"));
         addLinks(sectionGuestLinks, List.of(
                 "front_login", "front_register", "front_forgot_password"));
@@ -637,6 +637,7 @@ public class AppController {
         addRoute("front_users_placeholder", "Utilisateurs (Admin)", "generic");
         addRoute("admin_categories", "Admin Catégories", "generic");
         addRoute("admin_games", "Admin Jeux", "generic");
+        addRoute("admin_stats", "Admin Statistiques", "generic");
         addRoute("admin_tournaments", "Admin Tournois", "generic");
         addRoute("admin_teams", "Admin Equipes", "generic");
         addRoute("admin_products", "Admin Produits", "generic");

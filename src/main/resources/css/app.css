@@ -15,6 +15,7 @@
     -pulse-green2: #1bd96f;
     -pulse-cyan: #2bd2ff;
     -pulse-yellow: #ffd24a;
+    -pulse-orange: #ff9b3d;
 
     -pulse-radius: 18;
     -pulse-radius2: 22;
@@ -886,3 +887,70 @@
     -fx-border-color: rgba(255, 255, 255, 0.12);
     -fx-border-width: 1;
 }
+
+/* =========================
+   Charts (Admin Stats)
+   ========================= */
+
+.stats-chart {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-padding: 10;
+}
+
+.stats-chart .chart-plot-background {
+    -fx-background-color: rgba(7, 20, 34, 0.55);
+    -fx-background-radius: 14;
+}
+
+.stats-chart .chart-legend {
+    -fx-background-color: transparent;
+}
+
+.stats-chart .chart-legend-item {
+    -fx-text-fill: rgba(233, 242, 255, 0.84);
+}
+
+.stats-chart .axis {
+    -fx-tick-label-fill: rgba(233, 242, 255, 0.7);
+}
+
+.stats-chart .axis-label {
+    -fx-text-fill: rgba(233, 242, 255, 0.7);
+}
+
+.stats-chart .chart-title {
+    -fx-text-fill: rgba(233, 242, 255, 0.9);
+}
+
+.stats-chart .chart-horizontal-grid-lines,
+.stats-chart .chart-vertical-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.08);
+}
+
+.stats-chart .chart-series-line {
+    -fx-stroke-width: 2.6px;
+}
+
+.stats-chart .default-color0.chart-series-line { -fx-stroke: -pulse-cyan; }
+.stats-chart .default-color1.chart-series-line { -fx-stroke: -pulse-orange; }
+.stats-chart .default-color2.chart-series-line { -fx-stroke: -pulse-green; }
+.stats-chart .default-color3.chart-series-line { -fx-stroke: rgba(255, 120, 120, 0.95); }
+
+.stats-chart .default-color0.chart-bar { -fx-bar-fill: -pulse-cyan; }
+.stats-chart .default-color1.chart-bar { -fx-bar-fill: -pulse-orange; }
+.stats-chart .default-color2.chart-bar { -fx-bar-fill: -pulse-green; }
+.stats-chart .default-color3.chart-bar { -fx-bar-fill: rgba(255, 120, 120, 0.95); }
+
+.stats-chart .default-color0.chart-legend-item-symbol { -fx-background-color: -pulse-cyan; }
+.stats-chart .default-color1.chart-legend-item-symbol { -fx-background-color: -pulse-orange; }
+.stats-chart .default-color2.chart-legend-item-symbol { -fx-background-color: -pulse-green; }
+.stats-chart .default-color3.chart-legend-item-symbol { -fx-background-color: rgba(255, 120, 120, 0.95); }
+
+.stats-chart .data0.chart-pie { -fx-pie-color: -pulse-cyan; }
+.stats-chart .data1.chart-pie { -fx-pie-color: -pulse-green; }
+.stats-chart .data2.chart-pie { -fx-pie-color: -pulse-yellow; }
+.stats-chart .data3.chart-pie { -fx-pie-color: rgba(255, 120, 120, 0.95); }

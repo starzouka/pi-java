@@ -89,6 +89,25 @@
                     </content>
                 </ScrollPane>
             </VBox>
+
+            <VBox spacing="10.0" styleClass="panel">
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="panel-head-row">
+                    <VBox spacing="4.0">
+                        <Label text="ASSISTANT IA (API)" styleClass="panel-title"/>
+                        <Label text="Aide sur la gestion des categories (description, slug, organisation)." styleClass="panel-desc" wrapText="true"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="aiStatusLabel" text="API: -" styleClass="badge-soft"/>
+                </HBox>
+
+                <TextArea fx:id="aiChatArea" editable="false" wrapText="true" prefRowCount="8" styleClass="input"/>
+
+                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="aiInputField" promptText="Ecrivez votre message..." styleClass="input" HBox.hgrow="ALWAYS"/>
+                    <Button text="Envoyer" onAction="#sendAiMessage" styleClass="btn-primary"/>
+                    <Button text="IA: Decrire" onAction="#generateCategoryDescription" styleClass="btn-ghost"/>
+                </HBox>
+            </VBox>
         </VBox>
     </content>
 </ScrollPane>

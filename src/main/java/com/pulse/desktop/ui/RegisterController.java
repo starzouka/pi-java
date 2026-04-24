@@ -10,6 +10,7 @@ import com.pulse.desktop.service.MailService;
 import com.pulse.desktop.service.Navigator;
 import com.pulse.desktop.service.SymfonyVerifyEmailSigner;
 import com.pulse.desktop.util.AlertUtils;
+import com.pulse.desktop.util.ClipboardUtils;
 import com.pulse.desktop.util.Validators;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -90,12 +91,40 @@ public class RegisterController implements RouteAwarePage {
             RegisteredUser created = authRepository.register(data);
             feedbackLabel.setText("Compte cree. Verification email en cours...");
 
-            if (mailService.isConfigured()) {
-                String signedUrl = verifyEmailSigner.buildSignedVerificationUrl(created.userId(), created.email());
-                mailService.sendEmailVerification(created.email(), signedUrl, AppConfig.verifyEmailLifetimeSeconds());
-                feedbackLabel.setText("Inscription reussie. Verifiez votre boite email pour activer le compte.");
-            } else {
-                feedbackLabel.setText("Compte cree, mais MAILER_DSN est non configure. Verification email non envoyee.");
+            String signedUrl = null;
+            try {
+                signedUrl = verifyEmailSigner.buildSignedVerificationUrl(created.userId(), created.email());
+            } catch (Exception ex) {
+                feedbackLabel.setText("Compte cree, mais APP_SECRET est manquant: verification email impossible.");
+                AlertUtils.warning("Verification email",
+                        "Le compte a ete cree mais le lien de verification n'a pas pu etre genere.\n"
+                                + ex.getMessage()
+                                + "\n\nChemin attendu du projet Symfony (PULSE_WEB_ROOT / app.web.root):\n"
+                                + AppConfig.webRootPath());
+            }
+
+            if (signedUrl != null) {
+                if (mailService.isConfigured()) {
+                    try {
+                        mailService.sendEmailVerification(created.email(), signedUrl, AppConfig.verifyEmailLifetimeSeconds());
+                        feedbackLabel.setText("Inscription reussie. Verifiez votre boite email pour activer le compte.");
+                    } catch (Exception ex) {
+                        ClipboardUtils.copyToClipboard(signedUrl);
+                        feedbackLabel.setText("Email non envoye. Lien de verification copie dans le presse-papiers.");
+                        AlertUtils.warning("Verification email",
+                                "Impossible d'envoyer l'email de verification.\n"
+                                        + ex.getMessage()
+                                        + "\n\nLien de verification copie dans le presse-papiers:\n"
+                                        + signedUrl);
+                    }
+                } else {
+                    ClipboardUtils.copyToClipboard(signedUrl);
+                    feedbackLabel.setText("MAILER_DSN non configure. Lien de verification copie dans le presse-papiers.");
+                    AlertUtils.info("Verification email",
+                            "MAILER_DSN est non configure.\n"
+                                    + "Lien de verification copie dans le presse-papiers:\n"
+                                    + signedUrl);
+                }
             }
 
             clearForm();

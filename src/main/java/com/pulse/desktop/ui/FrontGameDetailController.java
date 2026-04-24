@@ -3,6 +3,7 @@ package com.pulse.desktop.ui;
 import com.pulse.desktop.model.GameModel;
 import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.repo.GameRepository;
+import com.pulse.desktop.service.ActivityLogService;
 import com.pulse.desktop.service.Navigator;
 import com.pulse.desktop.service.RouteContext;
 import com.pulse.desktop.util.AlertUtils;
@@ -29,6 +30,7 @@ public class FrontGameDetailController implements RouteAwarePage {
     @FXML private Label descriptionLabel;
 
     private final GameRepository gameRepo = new GameRepository();
+    private final ActivityLogService activityLogService = new ActivityLogService();
 
     @FXML
     private void goHome() {
@@ -67,6 +69,12 @@ public class FrontGameDetailController implements RouteAwarePage {
             if (game == null) {
                 renderMissingSelection();
                 return;
+            }
+            try {
+                int updated = gameRepo.incrementViewsCount(gameId);
+                game.setViewsCount(updated);
+                activityLogService.log("GAME", "VIEW", gameId);
+            } catch (Exception ignored) {
             }
             renderGame(game);
         } catch (Exception e) {

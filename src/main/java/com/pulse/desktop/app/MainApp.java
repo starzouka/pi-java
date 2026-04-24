@@ -1,5 +1,6 @@
 package com.pulse.desktop.app;
 
+import com.pulse.desktop.service.LocalQrWebServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,8 @@ import java.io.IOException;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        LocalQrWebServer.startIfEnabled();
+
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/app-shell.fxml"));
         Parent root = loader.load();
 
@@ -22,6 +25,11 @@ public class MainApp extends Application {
         stage.setMinHeight(780);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() {
+        LocalQrWebServer.stop();
     }
 
     public static void main(String[] args) {

@@ -3,6 +3,7 @@ package com.pulse.desktop.ui;
 import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.repo.AuthRepository;
 import com.pulse.desktop.service.Navigator;
+import com.pulse.desktop.service.RouteContext;
 import com.pulse.desktop.util.AlertUtils;
 import com.pulse.desktop.util.Validators;
 import javafx.fxml.FXML;
@@ -84,5 +85,10 @@ public class ResetPasswordController implements RouteAwarePage {
     @Override
     public void setRoute(RouteDefinition routeDefinition) {
         feedbackLabel.setText("Choisissez un nouveau mot de passe.");
+        String pendingToken = RouteContext.getPendingResetPasswordToken();
+        if (pendingToken != null && !pendingToken.isBlank()
+                && tokenField != null && Validators.isBlank(tokenField.getText())) {
+            tokenField.setText(pendingToken);
+        }
     }
 }
