@@ -6,6 +6,7 @@ import com.pulse.desktop.config.AppConfig;
 import com.pulse.desktop.model.LookupItem;
 import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.repo.CompetitionRepository;
+import com.pulse.desktop.service.MailService;
 import com.pulse.desktop.service.Navigator;
 import com.pulse.desktop.util.AlertUtils;
 import javafx.collections.FXCollections;
@@ -66,6 +67,7 @@ public class FrontOrganizerRequestCreateController implements RouteAwarePage {
     private Label feedbackLabel;
 
     private final CompetitionRepository repository = new CompetitionRepository();
+    private final MailService mailService = new MailService();
     private Path selectedPhotoFile;
 
     @FXML
@@ -171,12 +173,55 @@ public class FrontOrganizerRequestCreateController implements RouteAwarePage {
                 return;
             }
 
+            sendRequestReceivedEmailToAdmins(user, selectedGame, titleField.getText());
             clearForm();
             Navigator.goTo("front_organizer_requests");
         } catch (SQLException ex) {
             AlertUtils.error("Demande tournoi", "Erreur SQL.\n" + ex.getMessage());
         } catch (IOException ex) {
             AlertUtils.error("Photo tournoi", "Impossible de sauvegarder la photo.\n" + ex.getMessage());
+        }
+    }
+
+    private void sendRequestReceivedEmailToAdmins(SessionUser organizer, LookupItem game, String requestTitle) {
+        if (organizer == null || !mailService.isConfigured()) {
+            return;
+        }
+
+        List<CompetitionRepository.AdminEmailRecipient> recipients;
+        try {
+            recipients = repository.listActiveAdminEmailRecipients();
+        } catch (SQLException ex) {
+            AlertUtils.warning("Email", "Demande enregistree, mais impossible de charger les emails admins.\n" + ex.getMessage());
+            return;
+        }
+        if (recipients.isEmpty()) {
+            return;
+        }
+
+        String organizerName = organizer.getDisplayName();
+        String gameLabel = game == null ? null : game.getLabel();
+        int failed = 0;
+
+        for (CompetitionRepository.AdminEmailRecipient recipient : recipients) {
+            if (recipient == null || !mailService.isValidRecipientEmail(recipient.email())) {
+                failed++;
+                continue;
+            }
+            try {
+                mailService.sendTournamentRequestReceived(
+                        recipient.email(),
+                        organizerName,
+                        requestTitle,
+                        gameLabel
+                );
+            } catch (Exception ex) {
+                failed++;
+            }
+        }
+
+        if (failed > 0) {
+            AlertUtils.warning("Email", "Demande enregistree, mais certains emails admins n'ont pas ete envoyes.");
         }
     }
 

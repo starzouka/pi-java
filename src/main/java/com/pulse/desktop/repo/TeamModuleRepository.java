@@ -102,7 +102,8 @@ public class TeamModuleRepository {
             String displayName,
             String role,
             String country,
-            String profileImagePath
+            String profileImagePath,
+            String email
     ) {
     }
 
@@ -968,7 +969,8 @@ public class TeamModuleRepository {
                     COALESCE(NULLIF(u.display_name, ''), u.username) AS display_name,
                     u.role,
                     u.country,
-                    i.file_url AS profile_image_path
+                    i.file_url AS profile_image_path,
+                    u.email
                 FROM users u
                 LEFT JOIN images i ON i.image_id = u.profile_image_id
                 WHERE u.user_id <> ?
@@ -1014,7 +1016,8 @@ public class TeamModuleRepository {
                             rs.getString("display_name"),
                             rs.getString("role"),
                             rs.getString("country"),
-                            rs.getString("profile_image_path")
+                            rs.getString("profile_image_path"),
+                            rs.getString("email")
                     ));
                 }
             }

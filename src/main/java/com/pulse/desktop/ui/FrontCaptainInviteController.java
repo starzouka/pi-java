@@ -5,6 +5,7 @@ import com.pulse.desktop.auth.SessionUser;
 import com.pulse.desktop.model.LookupItem;
 import com.pulse.desktop.model.RouteDefinition;
 import com.pulse.desktop.repo.TeamModuleRepository;
+import com.pulse.desktop.service.MailService;
 import com.pulse.desktop.service.Navigator;
 import com.pulse.desktop.service.RouteContext;
 import com.pulse.desktop.util.AlertUtils;
@@ -39,6 +40,7 @@ public class FrontCaptainInviteController implements RouteAwarePage {
     private VBox historyBox;
 
     private final TeamModuleRepository repository = new TeamModuleRepository();
+    private final MailService mailService = new MailService();
     private List<TeamModuleRepository.CaptainTeamRow> captainTeams = List.of();
     private TeamModuleRepository.CaptainTeamRow activeTeam;
 
@@ -227,7 +229,7 @@ public class FrontCaptainInviteController implements RouteAwarePage {
 
         Button inviteButton = new Button("Inviter");
         inviteButton.getStyleClass().add("btn-primary");
-        inviteButton.setOnAction(event -> sendInvite(row.userId(), messageField.getText()));
+        inviteButton.setOnAction(event -> sendInvite(row, messageField.getText()));
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
@@ -268,24 +270,49 @@ public class FrontCaptainInviteController implements RouteAwarePage {
         }
     }
 
-    private void sendInvite(int invitedUserId, String message) {
+    private void sendInvite(TeamModuleRepository.InviteCandidateRow candidate, String message) {
         SessionUser user = SessionContext.getCurrentUser();
-        if (user == null || activeTeam == null) {
+        if (user == null || activeTeam == null || candidate == null) {
             return;
         }
         try {
             TeamModuleRepository.OperationResult result = repository.sendInvite(
                     user.getUserId(),
                     activeTeam.teamId(),
-                    invitedUserId,
+                    candidate.userId(),
                     message
             );
             feedbackLabel.setText(result.message());
             if (result.ok()) {
+                sendInviteEmailIfPossible(candidate, message, user);
                 refreshAll();
             }
         } catch (SQLException ex) {
             AlertUtils.error("Invitations", "Envoi impossible.\n" + ex.getMessage());
+        }
+    }
+
+    private void sendInviteEmailIfPossible(TeamModuleRepository.InviteCandidateRow candidate, String message, SessionUser captain) {
+        if (candidate == null || !mailService.isConfigured()) {
+            return;
+        }
+
+        String email = candidate.email();
+        if (!mailService.isValidRecipientEmail(email)) {
+            AlertUtils.warning("Email", "Invitation enregistree, mais email destinataire invalide.");
+            return;
+        }
+
+        try {
+            mailService.sendTeamInviteReceived(
+                    email,
+                    candidate.displayName(),
+                    activeTeam == null ? null : activeTeam.name(),
+                    captain == null ? null : captain.getDisplayName(),
+                    message
+            );
+        } catch (Exception ex) {
+            AlertUtils.warning("Email", "Invitation enregistree, mais email non envoye.\n" + ex.getMessage());
         }
     }
 

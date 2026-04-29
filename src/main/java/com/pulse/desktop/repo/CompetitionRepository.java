@@ -253,6 +253,9 @@ public class CompetitionRepository {
     public record ReviewResult(boolean ok, String message, String organizerEmail, String requestTitle, String decision) {
     }
 
+    public record AdminEmailRecipient(String email, String displayName) {
+    }
+
     public List<LookupItem> listGames() throws SQLException {
         String sql = """
                 SELECT g.game_id AS id, CONCAT(g.name, ' - ', COALESCE(c.name, 'Categorie')) AS label
@@ -261,6 +264,33 @@ public class CompetitionRepository {
                 ORDER BY g.name ASC
                 """;
         return loadLookups(sql);
+    }
+
+    public List<AdminEmailRecipient> listActiveAdminEmailRecipients() throws SQLException {
+        String sql = """
+                SELECT
+                    u.email,
+                    COALESCE(NULLIF(u.display_name, ''), u.username) AS display_name
+                FROM users u
+                WHERE UPPER(COALESCE(u.role, '')) = 'ADMIN'
+                  AND u.is_active = 1
+                  AND u.email IS NOT NULL
+                  AND u.email <> ''
+                ORDER BY u.user_id ASC
+                """;
+
+        List<AdminEmailRecipient> rows = new ArrayList<>();
+        try (Connection connection = Jdbc.open();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                rows.add(new AdminEmailRecipient(
+                        rs.getString("email"),
+                        rs.getString("display_name")
+                ));
+            }
+        }
+        return rows;
     }
 
     public List<LookupItem> listCategories() throws SQLException {
