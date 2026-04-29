@@ -66,6 +66,26 @@ public final class AppConfig {
         return envOrPropOrSymfony("PULSE_MAILER_FROM_ADDRESS", "mail.from.address", "MAILER_FROM_ADDRESS", "no-reply@pulse.local");
     }
 
+    public static String openRouterApiKey() {
+        return envOrProp("PULSE_OPENROUTER_API_KEY", "openrouter.api.key", "");
+    }
+
+    public static String openRouterBaseUrl() {
+        return envOrProp("PULSE_OPENROUTER_BASE_URL", "openrouter.base-url", "https://openrouter.ai/api/v1/chat/completions");
+    }
+
+    public static String openRouterModel() {
+        return envOrProp("PULSE_OPENROUTER_MODEL", "openrouter.model", "openai/gpt-4o-mini");
+    }
+
+    public static String openRouterAppName() {
+        return envOrProp("PULSE_OPENROUTER_APP_NAME", "openrouter.app-name", appName());
+    }
+
+    public static String openRouterSiteUrl() {
+        return envOrProp("PULSE_OPENROUTER_SITE_URL", "openrouter.site-url", webBaseUrl());
+    }
+
     public static int verifyEmailLifetimeSeconds() {
         String raw = envOrProp("PULSE_VERIFY_EMAIL_LIFETIME", "verify.email.lifetime.seconds", "86400");
         try {

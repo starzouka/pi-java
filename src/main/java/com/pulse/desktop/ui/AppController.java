@@ -100,6 +100,9 @@ public class AppController {
     @FXML
     private StackPane pageHost;
 
+    @FXML
+    private Button chatbotFloatingBtn;
+
     private final Map<String, RouteDefinition> routes = new LinkedHashMap<>();
     private final Map<String, Button> sidebarButtons = new LinkedHashMap<>();
     private String activeRouteId = "front_home";
@@ -173,6 +176,14 @@ public class AppController {
         SessionContext.logout();
         Navigator.authChanged();
         openRoute("front_home");
+    }
+
+    @FXML
+    private void openChatbot() {
+        javafx.stage.Stage chatbotStage = ChatbotPopupController.create();
+        if (chatbotStage != null) {
+            chatbotStage.show();
+        }
     }
 
     @FXML
@@ -460,7 +471,7 @@ public class AppController {
                 "front_tournaments", "front_matches", "front_games", "front_teams"
         ));
         addLinks(sectionShopLinks, List.of(
-                "front_shop", "front_cart", "front_orders"
+                "front_shop", "front_shop_chatbot", "front_cart", "front_orders"
         ));
         addLinks(sectionPlayerLinks, List.of(
                 "front_feed", "front_players", "front_my_teams", "front_my_requests"
@@ -560,6 +571,7 @@ public class AppController {
         addRoute("front_teams_explore", "Explorer equipes", "generic");
         addRoute("front_team_detail", "Detail equipe", "generic");
         addRoute("front_shop", "Catalogue", "generic");
+        addRoute("front_shop_chatbot", "Assistant boutique", "generic");
         addRoute("front_product_detail", "Detail produit", "generic");
         addRoute("front_cart", "Panier", "generic");
         addRoute("front_checkout", "Checkout", "generic");
@@ -702,6 +714,7 @@ public class AppController {
 
     private static boolean isShopRoute(String route) {
         return List.of("front_shop", "front_cart", "front_checkout", "front_orders", "front_order_detail", "front_product_detail",
+                "front_shop_chatbot",
                 "front_captain_products", "front_captain_orders",
                 "admin_products", "admin_orders", "admin_carts", "admin_statistics").contains(route)
                 || route.startsWith("front_captain_product");

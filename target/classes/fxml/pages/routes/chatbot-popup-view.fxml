@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pulse.desktop.ui.ChatbotPopupController"
+      spacing="10.0" styleClass="chatbot-popup-root" prefWidth="420.0" prefHeight="600.0">
+    <padding>
+        <Insets top="14.0" right="14.0" bottom="14.0" left="14.0"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="chatbot-popup__header">
+        <Label text="Assistant Boutique" styleClass="chatbot-popup__title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="×" onAction="#closeWindow" styleClass="chatbot-popup__close-btn"/>
+    </HBox>
+
+    <ScrollPane fx:id="messagesScroll" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="chatbot-popup__scroll" VBox.vgrow="ALWAYS">
+        <content>
+            <VBox fx:id="messagesBox" spacing="8.0" styleClass="chatbot-popup__history" prefWidth="380.0"/>
+        </content>
+    </ScrollPane>
+
+    <VBox spacing="6.0" styleClass="chatbot-popup__input-section">
+        <TextArea fx:id="messageField" promptText="Posez une question..." prefRowCount="2" wrapText="true" styleClass="chatbot-popup__input"/>
+        <HBox alignment="CENTER_LEFT" spacing="6.0">
+            <Label fx:id="statusLabel" text="Prêt" styleClass="badge-soft"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Envoyer" fx:id="sendButton" onAction="#sendMessage" styleClass="btn-primary btn-compact"/>
+        </HBox>
+    </VBox>
+</VBox>
+

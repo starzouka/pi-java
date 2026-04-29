@@ -1,97 +1,103 @@
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\app\Launcher.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\app\MainApp.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\auth\SessionContext.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\auth\SessionUser.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\config\AppConfig.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\config\SymfonyEnv.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\db\Jdbc.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\AuthLoginResult.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\DashboardStats.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\FeatureMatrixRow.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\GameModel.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\HomeHeroStats.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\LookupItem.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\ProductModel.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\ProfileData.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\ProfileFilters.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\RegisteredUser.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\RegisterFormData.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\RouteDefinition.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\SimpleCard.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\TeamModel.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\TournamentModel.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\model\UserModel.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\AdminUserRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\AuthRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\CompetitionRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\DashboardRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\FeatureMatrixRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\GameRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\HomeRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\LookupRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\ProductRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\ProfileRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\TeamModuleRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\TeamRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\TournamentRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\repo\UserRepository.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\BrowserService.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\ExportService.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\MailerDsn.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\MailService.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\Navigator.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\RouteContext.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\SymfonyVerifyEmailSigner.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\service\TwoFactorTotpService.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminCartsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminCatalogDashboardController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminGamesController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminMatchesController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminOrdersController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminProductsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminStatisticsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminTeamsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminTournamentRequestsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminTournamentsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminUserCreateController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminUserDetailController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminUserEditController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AdminUsersController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\AppController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\CardFactory.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\CompetitionUi.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\DashboardController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\ForgotPasswordController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontCaptainInviteController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontCaptainMembersController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontCaptainProductsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontCaptainRequestsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontCaptainTeamManageController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontCartController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontGamesController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontMatchDetailController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontMatchesController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontOrdersController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontOrganizerMatchesController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontOrganizerRegistrationsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontOrganizerRequestCreateController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontOrganizerRequestsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontShopController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontTeamsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontTournamentDetailController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\FrontTournamentsController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\HomeController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\LoginController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\PasswordChangeController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\ProfileController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\ProfileEditController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\RegisterController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\ResetPasswordController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\RouteAwarePage.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\RoutePageController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\ui\TwoFactorChallengeController.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\util\AlertUtils.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\util\ImageResolver.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\util\PasswordHasher.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\util\SqlDates.java
-C:\Users\ilyes\OneDrive\Bureau\PULSE - Copie\PULSE - Copie\pulse-desktop-javafx\src\main\java\com\pulse\desktop\util\Validators.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\app\Launcher.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\app\MainApp.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\auth\SessionContext.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\auth\SessionUser.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\config\AppConfig.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\config\SymfonyEnv.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\db\Jdbc.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\AuthLoginResult.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\ChatMessage.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\DashboardStats.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\FeatureMatrixRow.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\GameModel.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\HomeHeroStats.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\LookupItem.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\ProductModel.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\ProfileData.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\ProfileFilters.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\RegisteredUser.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\RegisterFormData.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\RouteDefinition.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\SimpleCard.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\TeamModel.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\TournamentModel.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\model\UserModel.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\AdminUserRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\AuthRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\CompetitionRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\DashboardRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\FeatureMatrixRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\GameRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\HomeRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\LookupRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\ProductRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\ProfileRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\TeamModuleRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\TeamRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\TournamentRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\repo\UserRepository.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\BrowserService.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\ExportService.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\MailerDsn.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\MailService.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\Navigator.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\OpenRouterConfig.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\RouteContext.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\ShopChatbotService.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\SymfonyVerifyEmailSigner.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\service\TwoFactorTotpService.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminCartsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminCatalogDashboardController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminGamesController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminMatchesController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminOrdersController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminProductsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminStatisticsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminTeamsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminTournamentRequestsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminTournamentsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminUserCreateController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminUserDetailController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminUserEditController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AdminUsersController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\AppController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\CardFactory.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\ChatbotPopupController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\CompetitionUi.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\DashboardController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\ForgotPasswordController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontCaptainInviteController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontCaptainMembersController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontCaptainProductsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontCaptainRequestsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontCaptainTeamManageController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontCartController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontGamesController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontMatchDetailController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontMatchesController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontOrdersController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontOrganizerMatchesController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontOrganizerRegistrationsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontOrganizerRequestCreateController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontOrganizerRequestsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontShopChatbotController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontShopController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontTeamsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontTournamentDetailController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\FrontTournamentsController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\HomeController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\LoginController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\PasswordChangeController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\ProfileController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\ProfileEditController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\RegisterController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\ResetPasswordController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\RouteAwarePage.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\RoutePageController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\ui\TwoFactorChallengeController.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\util\AlertUtils.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\util\ImageResolver.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\util\PasswordHasher.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\util\SqlDates.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\util\StringUtils.java
+C:\Users\malek\Desktop\pi dev\src\main\java\com\pulse\desktop\util\Validators.java

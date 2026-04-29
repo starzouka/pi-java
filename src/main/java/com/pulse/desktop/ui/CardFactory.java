@@ -53,9 +53,9 @@ public final class CardFactory {
         subtitle.getStyleClass().add("card__desc");
         subtitle.setWrapText(true);
 
-        Button openButton = new Button("Voir detail");
-        openButton.getStyleClass().addAll("btn", "btn--ghost", "btn--compact");
-        openButton.setOnAction(event -> Navigator.goTo(card.targetRoute()));
+         Button openButton = new Button("Voir detail");
+         openButton.getStyleClass().addAll("btn-ghost", "btn-compact");
+         openButton.setOnAction(event -> Navigator.goTo(card.targetRoute()));
 
         HBox actions = new HBox(openButton);
         actions.getStyleClass().add("card__actions");

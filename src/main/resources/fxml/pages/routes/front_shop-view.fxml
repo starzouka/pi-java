@@ -33,6 +33,7 @@
                     <Region HBox.hgrow="ALWAYS"/>
                     <Label fx:id="resultCountLabel" text="0 produit(s)" styleClass="badge-soft"/>
                     <Label fx:id="cartCountLabel" text="Panier (0)" styleClass="badge-soft"/>
+                    <Button text="Assistant boutique" onAction="#openChatbot" styleClass="btn-soft"/>
                     <Button text="Panier" onAction="#openCart" styleClass="btn-ghost"/>
                     <Button text="Mes commandes" onAction="#openOrders" styleClass="btn-ghost"/>
                 </HBox>

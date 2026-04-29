@@ -1,3 +1,4 @@
+com\pulse\desktop\ui\ChatbotPopupController.class
 com\pulse\desktop\repo\TeamModuleRepository$TeamCatalogFilter.class
 com\pulse\desktop\ui\RouteAwarePage.class
 com\pulse\desktop\repo\TeamModuleRepository$MembershipSnapshot.class
@@ -7,6 +8,7 @@ com\pulse\desktop\model\ProductModel.class
 com\pulse\desktop\util\AlertUtils.class
 com\pulse\desktop\ui\FrontTournamentsController.class
 com\pulse\desktop\ui\RegisterController.class
+com\pulse\desktop\ui\ChatbotPopupController$1.class
 com\pulse\desktop\repo\TournamentRepository.class
 com\pulse\desktop\model\TeamModel.class
 com\pulse\desktop\repo\CompetitionRepository$RegistrationRow.class
@@ -21,6 +23,7 @@ com\pulse\desktop\ui\FrontShopController$ProductRow.class
 com\pulse\desktop\model\ProfileData.class
 com\pulse\desktop\ui\FrontShopController$CartInfo.class
 com\pulse\desktop\ui\ProfileController.class
+com\pulse\desktop\service\ShopChatbotService.class
 com\pulse\desktop\ui\FrontShopController.class
 com\pulse\desktop\util\Validators.class
 com\pulse\desktop\ui\CardFactory.class
@@ -56,6 +59,7 @@ com\pulse\desktop\repo\TeamModuleRepository$TeamCatalogRow.class
 com\pulse\desktop\repo\AdminUserRepository$OperationResult.class
 com\pulse\desktop\model\TournamentModel.class
 com\pulse\desktop\model\RegisterFormData.class
+com\pulse\desktop\ui\FrontShopChatbotController$1.class
 com\pulse\desktop\ui\ResetPasswordController.class
 com\pulse\desktop\model\FeatureMatrixRow.class
 com\pulse\desktop\repo\AdminUserRepository$UserSearchFilter.class
@@ -77,6 +81,7 @@ com\pulse\desktop\ui\FrontCaptainRequestsController.class
 com\pulse\desktop\model\GameModel.class
 com\pulse\desktop\ui\HomeController.class
 com\pulse\desktop\repo\AdminUserRepository$UserPostRow.class
+com\pulse\desktop\util\StringUtils.class
 com\pulse\desktop\model\UserModel.class
 com\pulse\desktop\repo\TeamModuleRepository$JoinRequestRow.class
 com\pulse\desktop\service\Navigator.class
@@ -90,6 +95,7 @@ com\pulse\desktop\config\AppConfig.class
 com\pulse\desktop\repo\CompetitionRepository$OperationResult.class
 com\pulse\desktop\ui\AdminOrdersController$OrderRow.class
 com\pulse\desktop\repo\ProductRepository.class
+com\pulse\desktop\ui\FrontShopChatbotController.class
 com\pulse\desktop\model\RouteDefinition.class
 com\pulse\desktop\ui\AdminUsersController.class
 com\pulse\desktop\repo\TeamModuleRepository$AdminTeamFilter.class
@@ -133,6 +139,7 @@ com\pulse\desktop\ui\AdminProductsController$ProductRow.class
 com\pulse\desktop\repo\CompetitionRepository$ScoreboardRow.class
 com\pulse\desktop\repo\DashboardRepository.class
 com\pulse\desktop\ui\FrontOrganizerRegistrationsController.class
+com\pulse\desktop\model\ChatMessage.class
 com\pulse\desktop\model\ProfileData$PostItem.class
 com\pulse\desktop\ui\AdminTournamentsController.class
 com\pulse\desktop\ui\FrontMatchDetailController.class
@@ -161,6 +168,7 @@ com\pulse\desktop\repo\ProfileRepository$SavedImageFile.class
 com\pulse\desktop\repo\FeatureMatrixRepository.class
 com\pulse\desktop\auth\SessionContext.class
 com\pulse\desktop\repo\CompetitionRepository$MatchMutationInput.class
+com\pulse\desktop\service\OpenRouterConfig.class
 com\pulse\desktop\repo\CompetitionRepository$MatchRow.class
 com\pulse\desktop\ui\FrontCaptainProductsController$ProductRow.class
 com\pulse\desktop\repo\TeamModuleRepository$InviteRow.class

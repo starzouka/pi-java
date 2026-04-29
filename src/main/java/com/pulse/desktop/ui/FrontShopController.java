@@ -93,6 +93,11 @@ public class FrontShopController implements RouteAwarePage {
         Navigator.goTo("front_orders");
     }
 
+    @FXML
+    private void openChatbot() {
+        Navigator.goTo("front_shop_chatbot");
+    }
+
     private void loadTeamOptions() {
         List<LookupItem> teams = new ArrayList<>();
         teams.add(new LookupItem(0, "Toutes les equipes"));

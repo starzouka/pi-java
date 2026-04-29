@@ -130,5 +130,11 @@
             </content>
         </ScrollPane>
     </VBox>
+
+    <Button fx:id="chatbotFloatingBtn" text="💬" onAction="#openChatbot" styleClass="chatbot-floating-btn" StackPane.alignment="BOTTOM_RIGHT">
+        <StackPane.margin>
+            <Insets bottom="24.0" right="24.0"/>
+        </StackPane.margin>
+    </Button>
 </StackPane>
 

@@ -82,6 +82,28 @@ Optionnel (override desktop):
 - `PULSE_APP_SECRET`
 - `PULSE_WEB_BASE_URL` (par defaut `http://127.0.0.1:8000`)
 
+## Assistant boutique OpenRouter
+
+L'assistant IA est limite a la boutique et s'ouvre depuis `front_shop`.
+
+Variables utilisees:
+
+- `PULSE_OPENROUTER_API_KEY`
+- `PULSE_OPENROUTER_BASE_URL` (par defaut `https://openrouter.ai/api/v1/chat/completions`)
+- `PULSE_OPENROUTER_MODEL` (par defaut `openai/gpt-4o-mini`)
+- `PULSE_OPENROUTER_APP_NAME`
+- `PULSE_OPENROUTER_SITE_URL`
+
+Configuration desktop par defaut:
+
+```properties
+openrouter.api.key=
+openrouter.base-url=https://openrouter.ai/api/v1/chat/completions
+openrouter.model=openai/gpt-4o-mini
+openrouter.app-name=PULSE Desktop
+openrouter.site-url=http://127.0.0.1:8000
+```
+
 ## Lancer le projet
 
 ```bash

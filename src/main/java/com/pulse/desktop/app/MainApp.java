@@ -14,7 +14,7 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/app-shell.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 1500, 900);
+        Scene scene = new Scene(root, 1000, 400);
         scene.getStylesheets().add(MainApp.class.getResource("/css/app.css").toExternalForm());
 
         stage.setTitle("PULSE Desktop - JavaFX");
