@@ -387,6 +387,7 @@ public class FrontShopController implements RouteAwarePage {
                 FROM carts c
                 LEFT JOIN cart_items ci ON ci.cart_id = c.cart_id
                 WHERE c.user_id = ?
+                  AND c.status = 'OPEN'
                 """;
         try (Connection connection = Jdbc.open();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -402,7 +403,7 @@ public class FrontShopController implements RouteAwarePage {
 
     private CartInfo loadOrCreateCart(Connection connection, int userId) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
-                "SELECT cart_id, status FROM carts WHERE user_id = ? LIMIT 1")) {
+                "SELECT cart_id, status FROM carts WHERE user_id = ? AND status = 'OPEN' ORDER BY cart_id DESC LIMIT 1")) {
             statement.setInt(1, userId);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {

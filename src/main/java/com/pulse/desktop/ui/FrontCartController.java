@@ -121,7 +121,7 @@ public class FrontCartController implements RouteAwarePage {
                 if (existingOrder != null) {
                     connection.rollback();
                     RouteContext.putInt(RouteContext.KEY_ORDER_ID, existingOrder);
-                    Navigator.goTo("front_order_detail");
+                    Navigator.goTo("front_orders");
                     return;
                 }
 
@@ -527,7 +527,7 @@ public class FrontCartController implements RouteAwarePage {
     private CartInfo loadCartForUser() {
         try (Connection connection = Jdbc.open();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT cart_id, status FROM carts WHERE user_id = ? LIMIT 1")) {
+                     "SELECT cart_id, status FROM carts WHERE user_id = ? AND status = 'OPEN' ORDER BY cart_id DESC LIMIT 1")) {
             statement.setInt(1, user.getUserId());
             try (ResultSet rs = statement.executeQuery()) {
                 if (!rs.next()) {
