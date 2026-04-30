@@ -73,7 +73,15 @@
 
                 <CheckBox fx:id="agreeTermsCheck" text="J'accepte les conditions d'utilisation" styleClass="check"/>
 
+                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                    <Button fx:id="verifyCaptchaButton" text="Verifier CAPTCHA Google" onAction="#verifyCaptcha" styleClass="btn-soft"/>
+                    <Label fx:id="captchaStatusLabel" text="Validez le CAPTCHA Google avant inscription." styleClass="list-item-meta" wrapText="true"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+
                 <HBox spacing="8.0" styleClass="formActions">
+                    <Button fx:id="googleSignUpButton" text="Continuer avec Google" onAction="#signUpWithGoogle" styleClass="btn-soft"/>
+                    <Button fx:id="steamSignUpButton" text="Continuer avec Steam" onAction="#signUpWithSteam" styleClass="btn-soft"/>
                     <Button text="Creer le compte" onAction="#submitRegistration" styleClass="btn-primary"/>
                     <Button text="J'ai deja un compte" onAction="#openLogin" styleClass="btn-ghost"/>
                     <Region HBox.hgrow="ALWAYS"/>
@@ -85,4 +93,3 @@
         </VBox>
     </content>
 </ScrollPane>
-

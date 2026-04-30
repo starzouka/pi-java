@@ -15,7 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Base64;
+import java.util.Locale;
 
 public class AuthRepository {
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
@@ -81,6 +83,100 @@ public class AuthRepository {
         }
     }
 
+    public AuthLoginResult loginOrRegisterGoogleUser(String email, String displayName, String googleSubject, boolean emailVerified)
+            throws SQLException {
+        String normalizedEmail = normalizeEmail(email);
+        if (normalizedEmail.isBlank()) {
+            return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
+        }
+
+        try (Connection connection = Jdbc.open()) {
+            AuthUserRow row = loadAuthUserByEmail(connection, normalizedEmail);
+            if (row == null) {
+                createGoogleUser(connection, normalizedEmail, displayName, googleSubject, emailVerified);
+                row = loadAuthUserByEmail(connection, normalizedEmail);
+            }
+
+            if (row == null) {
+                return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
+            }
+
+            if (!row.active()) {
+                return AuthLoginResult.failure(AuthLoginResult.Status.ACCOUNT_INACTIVE);
+            }
+
+            if (emailVerified && !row.emailVerified()) {
+                markEmailVerified(connection, row.userId());
+                row = new AuthUserRow(
+                        row.userId(),
+                        row.username(),
+                        row.email(),
+                        row.role(),
+                        row.displayName(),
+                        row.active(),
+                        true,
+                        row.twoFactorEnabled(),
+                        row.twoFactorSecret()
+                );
+            }
+
+            SessionUser user = toSessionUser(row);
+            if (row.twoFactorEnabled() && row.twoFactorSecret() != null && !row.twoFactorSecret().isBlank()) {
+                return new AuthLoginResult(AuthLoginResult.Status.TWO_FACTOR_REQUIRED, user);
+            }
+
+            touchLastLogin(connection, row.userId());
+            return AuthLoginResult.success(user);
+        }
+    }
+
+    public AuthLoginResult loginOrRegisterSteamUser(String steamId, String steamDisplayName) throws SQLException {
+        String normalizedSteamId = normalizeSteamId(steamId);
+        if (normalizedSteamId.isBlank()) {
+            return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
+        }
+        String steamEmail = "steam_" + normalizedSteamId + "@steam.pulse.local";
+
+        try (Connection connection = Jdbc.open()) {
+            AuthUserRow row = loadAuthUserByEmail(connection, steamEmail);
+            if (row == null) {
+                createSteamUser(connection, normalizedSteamId, steamDisplayName);
+                row = loadAuthUserByEmail(connection, steamEmail);
+            }
+
+            if (row == null) {
+                return AuthLoginResult.failure(AuthLoginResult.Status.INVALID_CREDENTIALS);
+            }
+
+            if (!row.active()) {
+                return AuthLoginResult.failure(AuthLoginResult.Status.ACCOUNT_INACTIVE);
+            }
+
+            if (!row.emailVerified()) {
+                markEmailVerified(connection, row.userId());
+                row = new AuthUserRow(
+                        row.userId(),
+                        row.username(),
+                        row.email(),
+                        row.role(),
+                        row.displayName(),
+                        row.active(),
+                        true,
+                        row.twoFactorEnabled(),
+                        row.twoFactorSecret()
+                );
+            }
+
+            SessionUser user = toSessionUser(row);
+            if (row.twoFactorEnabled() && row.twoFactorSecret() != null && !row.twoFactorSecret().isBlank()) {
+                return new AuthLoginResult(AuthLoginResult.Status.TWO_FACTOR_REQUIRED, user);
+            }
+
+            touchLastLogin(connection, row.userId());
+            return AuthLoginResult.success(user);
+        }
+    }
+
     public SessionUser findSessionUserById(int userId) throws SQLException {
         String sql = """
                 SELECT user_id, username, email, role, display_name, email_verified, two_factor_enabled
@@ -121,6 +217,20 @@ public class AuthRepository {
     }
 
     public RegisteredUser register(RegisterFormData data) throws SQLException {
+        if (data == null) {
+            throw new SQLException("Formulaire invalide.");
+        }
+        LocalDate birthDate = data.getBirthDate();
+        if (birthDate != null) {
+            LocalDate today = LocalDate.now();
+            if (birthDate.isAfter(today)) {
+                throw new SQLException("Date de naissance invalide.");
+            }
+            if (birthDate.isAfter(today.minusYears(13))) {
+                throw new SQLException("Age minimum requis: 13 ans.");
+            }
+        }
+
         String sql = """
                 INSERT INTO users (
                     username, email, password_hash, role, display_name,
@@ -148,10 +258,10 @@ public class AuthRepository {
             statement.setString(5, data.getDisplayName().trim());
             statement.setString(6, safeText(data.getPhone()));
             statement.setString(7, safeText(data.getCountry()));
-            if (data.getBirthDate() == null) {
+            if (birthDate == null) {
                 statement.setDate(8, null);
             } else {
-                statement.setDate(8, Date.valueOf(data.getBirthDate()));
+                statement.setDate(8, Date.valueOf(birthDate));
             }
             statement.setString(9, normalizeGender(data.getGender()));
             statement.executeUpdate();
@@ -375,6 +485,294 @@ public class AuthRepository {
         }
     }
 
+    private AuthUserRow loadAuthUserByEmail(Connection connection, String email) throws SQLException {
+        String sql = """
+                SELECT user_id, username, email, role, display_name,
+                       is_active, email_verified, two_factor_enabled, two_factor_secret
+                FROM users
+                WHERE email = ?
+                LIMIT 1
+                """;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                return new AuthUserRow(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("role"),
+                        rs.getString("display_name"),
+                        rs.getBoolean("is_active"),
+                        rs.getBoolean("email_verified"),
+                        rs.getBoolean("two_factor_enabled"),
+                        rs.getString("two_factor_secret")
+                );
+            }
+        }
+    }
+
+    private SessionUser toSessionUser(AuthUserRow row) {
+        return new SessionUser(
+                row.userId(),
+                row.username(),
+                row.email(),
+                row.role(),
+                row.displayName(),
+                row.emailVerified(),
+                row.twoFactorEnabled()
+        );
+    }
+
+    private void createGoogleUser(
+            Connection connection,
+            String normalizedEmail,
+            String displayName,
+            String googleSubject,
+            boolean emailVerified
+    ) throws SQLException {
+        String sql = """
+                INSERT INTO users (
+                    username, email, password_hash, role, display_name,
+                    bio, phone, country, birth_date, gender,
+                    email_verified, is_active, last_login_at,
+                    profile_image_id, created_at, updated_at,
+                    reset_password_token_hash, reset_password_expires_at,
+                    two_factor_enabled, two_factor_secret, two_factor_enabled_at
+                ) VALUES (
+                    ?, ?, ?, 'PLAYER', ?,
+                    NULL, NULL, NULL, NULL, 'UNKNOWN',
+                    ?, 1, NOW(),
+                    NULL, NOW(), NOW(),
+                    NULL, NULL,
+                    0, NULL, NULL
+                )
+                """;
+
+        String username = generateGoogleUsername(connection, normalizedEmail);
+        String resolvedDisplayName = normalizeGoogleDisplayName(displayName, normalizedEmail, username);
+        String hashedRandomPassword = PasswordHasher.hash(generateSecureToken() + (googleSubject == null ? "" : googleSubject));
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setString(2, normalizedEmail);
+            statement.setString(3, hashedRandomPassword);
+            statement.setString(4, resolvedDisplayName);
+            statement.setBoolean(5, emailVerified);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            if (!isDuplicateKey(ex)) {
+                throw ex;
+            }
+        }
+    }
+
+    private void createSteamUser(
+            Connection connection,
+            String normalizedSteamId,
+            String steamDisplayName
+    ) throws SQLException {
+        String email = "steam_" + normalizedSteamId + "@steam.pulse.local";
+        String username = generateSteamUsername(connection, steamDisplayName, normalizedSteamId);
+        String displayName = normalizeSteamDisplayName(steamDisplayName, normalizedSteamId);
+
+        String sql = """
+                INSERT INTO users (
+                    username, email, password_hash, role, display_name,
+                    bio, phone, country, birth_date, gender,
+                    email_verified, is_active, last_login_at,
+                    profile_image_id, created_at, updated_at,
+                    reset_password_token_hash, reset_password_expires_at,
+                    two_factor_enabled, two_factor_secret, two_factor_enabled_at
+                ) VALUES (
+                    ?, ?, ?, 'PLAYER', ?,
+                    NULL, NULL, NULL, NULL, 'UNKNOWN',
+                    1, 1, NOW(),
+                    NULL, NOW(), NOW(),
+                    NULL, NULL,
+                    0, NULL, NULL
+                )
+                """;
+
+        String hashedRandomPassword = PasswordHasher.hash(generateSecureToken() + normalizedSteamId);
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, hashedRandomPassword);
+            statement.setString(4, displayName);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            if (!isDuplicateKey(ex)) {
+                throw ex;
+            }
+        }
+    }
+
+    private static boolean isDuplicateKey(SQLException ex) {
+        if (ex == null) {
+            return false;
+        }
+        if (ex.getErrorCode() == 1062) {
+            return true;
+        }
+        String sqlState = ex.getSQLState();
+        return sqlState != null && sqlState.startsWith("23");
+    }
+
+    private void markEmailVerified(Connection connection, int userId) throws SQLException {
+        String sql = """
+                UPDATE users
+                SET email_verified = 1, updated_at = NOW()
+                WHERE user_id = ?
+                """;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        }
+    }
+
+    private String generateGoogleUsername(Connection connection, String email) throws SQLException {
+        String localPart = email;
+        int at = email.indexOf('@');
+        if (at > 0) {
+            localPart = email.substring(0, at);
+        }
+
+        String base = sanitizeUsername(localPart);
+        if (base.isBlank()) {
+            base = "player";
+        }
+        if (base.length() > 20) {
+            base = base.substring(0, 20);
+        }
+
+        String candidate = base;
+        int suffix = 1;
+        while (usernameExists(connection, candidate)) {
+            String tail = "_" + suffix;
+            int maxBaseLength = Math.max(3, 24 - tail.length());
+            String currentBase = base.length() > maxBaseLength ? base.substring(0, maxBaseLength) : base;
+            candidate = currentBase + tail;
+            suffix++;
+            if (suffix > 5000) {
+                candidate = "player_" + generateSecureToken().substring(0, 10).toLowerCase(Locale.ROOT);
+                if (!usernameExists(connection, candidate)) {
+                    break;
+                }
+            }
+        }
+        return candidate;
+    }
+
+    private String generateSteamUsername(Connection connection, String steamDisplayName, String steamId) throws SQLException {
+        String baseSource = steamDisplayName == null ? "" : steamDisplayName.trim();
+        String base = sanitizeUsername(baseSource);
+        if (base.isBlank()) {
+            String tail = steamId == null ? "player" : steamId;
+            if (tail.length() > 8) {
+                tail = tail.substring(tail.length() - 8);
+            }
+            base = "steam_" + tail;
+        }
+        if (base.length() > 20) {
+            base = base.substring(0, 20);
+        }
+
+        String candidate = base;
+        int suffix = 1;
+        while (usernameExists(connection, candidate)) {
+            String tail = "_" + suffix;
+            int maxBaseLength = Math.max(3, 24 - tail.length());
+            String currentBase = base.length() > maxBaseLength ? base.substring(0, maxBaseLength) : base;
+            candidate = currentBase + tail;
+            suffix++;
+            if (suffix > 5000) {
+                candidate = "steam_" + generateSecureToken().substring(0, 10).toLowerCase(Locale.ROOT);
+                if (!usernameExists(connection, candidate)) {
+                    break;
+                }
+            }
+        }
+        return candidate;
+    }
+
+    private boolean usernameExists(Connection connection, String username) throws SQLException {
+        String sql = """
+                SELECT user_id
+                FROM users
+                WHERE username = ?
+                LIMIT 1
+                """;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            try (ResultSet rs = statement.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    private static String normalizeEmail(String email) {
+        if (email == null) {
+            return "";
+        }
+        return email.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private static String normalizeSteamId(String steamId) {
+        if (steamId == null) {
+            return "";
+        }
+        String digits = steamId.trim().replaceAll("[^0-9]", "");
+        if (digits.length() < 5) {
+            return "";
+        }
+        return digits;
+    }
+
+    private static String sanitizeUsername(String value) {
+        if (value == null) {
+            return "";
+        }
+        StringBuilder out = new StringBuilder();
+        for (char c : value.toLowerCase(Locale.ROOT).toCharArray()) {
+            boolean alphaNumeric = (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+            if (alphaNumeric || c == '_' || c == '-') {
+                out.append(c);
+            }
+        }
+        return out.toString();
+    }
+
+    private static String normalizeGoogleDisplayName(String displayName, String email, String username) {
+        if (displayName != null) {
+            String trimmed = displayName.trim();
+            if (!trimmed.isBlank()) {
+                return trimmed;
+            }
+        }
+        int at = email == null ? -1 : email.indexOf('@');
+        if (at > 0) {
+            return email.substring(0, at);
+        }
+        return username;
+    }
+
+    private static String normalizeSteamDisplayName(String displayName, String steamId) {
+        if (displayName != null) {
+            String trimmed = displayName.trim();
+            if (!trimmed.isBlank()) {
+                return trimmed;
+            }
+        }
+        String tail = steamId == null ? "" : steamId.trim();
+        if (tail.length() > 4) {
+            tail = tail.substring(tail.length() - 4);
+        }
+        return tail.isBlank() ? "Steam Player" : "Steam Player " + tail;
+    }
+
     private int countByColumn(String column, String value) throws SQLException {
         String sql = "SELECT COUNT(*) FROM users WHERE " + column + " = ?";
         try (Connection connection = Jdbc.open();
@@ -393,6 +791,14 @@ public class AuthRepository {
         String sql = "UPDATE users SET last_login_at = NOW(), updated_at = NOW() WHERE user_id = ?";
         try (Connection connection = Jdbc.open();
              PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        }
+    }
+
+    private void touchLastLogin(Connection connection, int userId) throws SQLException {
+        String sql = "UPDATE users SET last_login_at = NOW(), updated_at = NOW() WHERE user_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
             statement.executeUpdate();
         }
@@ -445,5 +851,18 @@ public class AuthRepository {
         } catch (Exception ex) {
             throw new IllegalStateException("Impossible de calculer SHA-256.", ex);
         }
+    }
+
+    private record AuthUserRow(
+            int userId,
+            String username,
+            String email,
+            String role,
+            String displayName,
+            boolean active,
+            boolean emailVerified,
+            boolean twoFactorEnabled,
+            String twoFactorSecret
+    ) {
     }
 }

@@ -45,9 +45,16 @@
                     </VBox>
 
                     <CheckBox fx:id="rememberMeCheck" text="Se souvenir de moi" styleClass="check"/>
+
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Button fx:id="verifyCaptchaButton" text="Verifier CAPTCHA Google" onAction="#verifyCaptcha" styleClass="btn-soft"/>
+                        <Label fx:id="captchaStatusLabel" text="Validez le CAPTCHA Google avant connexion." styleClass="list-item-meta" wrapText="true"/>
+                    </HBox>
                 </VBox>
 
                 <HBox spacing="8.0" styleClass="formActions">
+                    <Button fx:id="googleSignInButton" text="Continuer avec Google" onAction="#signInWithGoogle" styleClass="btn-soft"/>
+                    <Button fx:id="steamSignInButton" text="Continuer avec Steam" onAction="#signInWithSteam" styleClass="btn-soft"/>
                     <Button text="Se connecter" onAction="#submitLogin" styleClass="btn-primary"/>
                     <Button text="Creer un compte" onAction="#openRegister" styleClass="btn-ghost"/>
                     <Button text="Mot de passe oublie" onAction="#openForgotPassword" styleClass="btn-ghost"/>
@@ -60,4 +67,3 @@
         </VBox>
     </content>
 </ScrollPane>
-
