@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.FrontOrganizerRegistrationsController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ORGANISATEUR" styleClass="heroKicker"/>
+                <Label text="Inscriptions equipes" styleClass="heroMini__title"/>
+                <Label text="Validation des equipes inscrites a vos tournois." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <HBox spacing="14.0">
+                <VBox spacing="8.0" styleClass="panel" prefWidth="250.0">
+                    <Label text="Navigation organisateur" styleClass="panel-title"/>
+                    <Button text="Mes demandes" onAction="#openOrganizerRequests" styleClass="btn-ghost"/>
+                    <Button text="Nouvelle demande" onAction="#openOrganizerRequestCreate" styleClass="btn-ghost"/>
+                    <Button text="Gestion matchs" onAction="#openOrganizerMatches" styleClass="btn-ghost"/>
+                    <Button text="Inscriptions equipes" onAction="#openOrganizerRegistrations" styleClass="btn-soft"/>
+                </VBox>
+
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                    <VBox spacing="10.0" styleClass="panel">
+                        <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <Label text="Tournoi" styleClass="field-label"/>
+                            <ComboBox fx:id="tournamentCombo" onAction="#onTournamentChanged" prefWidth="460.0"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="countLabel" text="0 inscription(s)" styleClass="badge-soft"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="10.0" styleClass="panel">
+                        <Label text="INSCRIPTIONS" styleClass="panel-title"/>
+                        <VBox fx:id="registrationsListBox" spacing="8.0"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>

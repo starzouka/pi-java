@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pulse.desktop.ui.AdminCatalogDashboardController"
+            fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll">
+    <content>
+        <VBox spacing="16.0" styleClass="page-root">
+            <padding>
+                <Insets top="18.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+
+            <VBox spacing="8.0" styleClass="hero-mini-box">
+                <Label text="ADMIN" styleClass="heroKicker"/>
+                <Label text="Catalog Dashboard" styleClass="heroMini__title"/>
+                <Label text="KPI catalogue: publication, review, categories mensuelles et jeux tendance." wrapText="true" styleClass="heroMini__sub"/>
+            </VBox>
+
+            <HBox spacing="8.0" alignment="CENTER_LEFT" styleClass="panel">
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Gestion categories" onAction="#goCategories" styleClass="btn-ghost"/>
+                <Button text="Gestion jeux" onAction="#goGames" styleClass="btn-ghost"/>
+                <Button text="Actualiser" onAction="#refresh" styleClass="btn-primary"/>
+            </HBox>
+
+            <FlowPane hgap="10.0" vgap="10.0" prefWrapLength="1400.0" styleClass="panel">
+                <VBox spacing="4.0" styleClass="statCard" prefWidth="260.0">
+                    <Label text="Jeux total" styleClass="statCard__label"/>
+                    <Label fx:id="totalGamesLabel" text="0" styleClass="statCard__value"/>
+                    <Label text="Catalogue actuel" styleClass="list-item-meta"/>
+                </VBox>
+                <VBox spacing="4.0" styleClass="statCard" prefWidth="260.0">
+                    <Label text="Taux publication" styleClass="statCard__label"/>
+                    <Label fx:id="publicationRateLabel" text="0.00%" styleClass="statCard__value"/>
+                    <Label text="Publies / total" styleClass="list-item-meta"/>
+                </VBox>
+                <VBox spacing="4.0" styleClass="statCard" prefWidth="260.0">
+                    <Label text="Delai moyen review" styleClass="statCard__label"/>
+                    <Label fx:id="reviewDelayLabel" text="0.0h" styleClass="statCard__value"/>
+                    <Label text="PENDING + PUBLISHED + ARCHIVED" styleClass="list-item-meta"/>
+                </VBox>
+                <VBox spacing="4.0" styleClass="statCard" prefWidth="420.0">
+                    <Label text="Pipeline" styleClass="statCard__label"/>
+                    <Label fx:id="pipelineLabel" text="0 pending | Draft: 0 | Archived: 0" styleClass="statCard__value"/>
+                    <Label text="Etat du pipeline" styleClass="list-item-meta"/>
+                </VBox>
+            </FlowPane>
+
+            <HBox spacing="12.0">
+                <VBox spacing="10.0" styleClass="panel" HBox.hgrow="ALWAYS">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Label text="Top categories mensuelles" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="categorySearchField" promptText="Rechercher categorie..." prefWidth="260.0" styleClass="input"/>
+                        <Label fx:id="monthLabel" text="00/0000" styleClass="badge-soft"/>
+                    </HBox>
+                    <VBox fx:id="categoriesBox" spacing="8.0"/>
+                </VBox>
+
+                <VBox spacing="10.0" styleClass="panel" HBox.hgrow="ALWAYS">
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <Label text="Trending games" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label text="Score intelligent" styleClass="panel-desc"/>
+                    </HBox>
+                    <VBox fx:id="trendingBox" spacing="8.0"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>
