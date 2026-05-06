@@ -96,25 +96,59 @@ public class MailService {
         sendHtml(toEmail, "Nouvelle demande tournoi", html);
     }
 
-    public void sendTeamInviteReceived(String toEmail, String invitedName, String teamName, String captainName, String message) throws Exception {
-        String safeInvitedName = safeLabel(invitedName, "joueur");
-        String safeTeamName = safeLabel(teamName, "notre equipe");
-        String safeCaptainName = safeLabel(captainName, "capitaine");
-        String safeMessage = safeLabel(message, "Vous avez recu une invitation d'equipe sur PULSE.");
-        String html = """
-                <h2>Nouvelle invitation d'equipe</h2>
-                <p>Bonjour %s,</p>
-                <p>Vous avez recu une invitation pour rejoindre <b>%s</b>.</p>
-                <p>Envoyee par: <b>%s</b></p>
-                <p>Message:</p>
-                <p><i>%s</i></p>
-                """.formatted(
-                escapeHtml(safeInvitedName),
-                escapeHtml(safeTeamName),
-                escapeHtml(safeCaptainName),
-                escapeHtml(safeMessage)
+    /**
+     * Sends a team invitation email with Steam-inspired HTML template.
+     * @param toEmail Recipient email address
+     * @param invitedUsername The username of the invited player
+     * @param invitedName The display name of the invited player
+     * @param teamName The name of the team
+     * @param captainName The captain's display name
+     * @param message The captain's custom invitation message
+     * @param actionUrl Optional URL for the player to view/respond to the invitation
+     */
+    public void sendTeamInvitation(String toEmail, String invitedUsername, String invitedName, 
+                                  String teamName, String captainName, String message, String actionUrl) throws Exception {
+        String html = TeamEmailTemplateBuilder.buildTeamInvitationEmail(
+                safeLabel(invitedUsername, "joueur"),
+                safeLabel(invitedName, null),
+                safeLabel(teamName, "notre equipe"),
+                safeLabel(captainName, "capitaine"),
+                safeLabel(message, null),
+                actionUrl
         );
-        sendHtml(toEmail, "Invitation equipe PULSE", html);
+        sendHtml(toEmail, "Invitation à rejoindre " + safeLabel(teamName, "équipe"), html);
+    }
+
+    /**
+     * Sends a team join request notification email with Steam-inspired HTML template.
+     * @param toEmail Recipient email address (captain's email)
+     * @param requestingUsername The username of the person requesting to join
+     * @param requestingName The display name of the person requesting
+     * @param teamName The name of the team
+     * @param captainName The captain's display name
+     * @param requestMessage The optional message from the requester
+     * @param actionUrl Optional URL for the captain to review the request
+     */
+    public void sendTeamJoinRequest(String toEmail, String requestingUsername, String requestingName,
+                                   String teamName, String captainName, String requestMessage, String actionUrl) throws Exception {
+        String html = TeamEmailTemplateBuilder.buildJoinRequestEmail(
+                safeLabel(requestingUsername, "joueur"),
+                safeLabel(requestingName, null),
+                safeLabel(teamName, "l'équipe"),
+                safeLabel(captainName, "capitaine"),
+                safeLabel(requestMessage, null),
+                actionUrl
+        );
+        sendHtml(toEmail, "Nouvelle demande pour " + safeLabel(teamName, "équipe"), html);
+    }
+
+    /**
+     * Legacy method for backward compatibility. Use sendTeamInvitation() instead.
+     * @deprecated Use {@link #sendTeamInvitation(String, String, String, String, String, String, String)}
+     */
+    @Deprecated
+    public void sendTeamInviteReceived(String toEmail, String invitedName, String teamName, String captainName, String message) throws Exception {
+        sendTeamInvitation(toEmail, invitedName, invitedName, teamName, captainName, message, null);
     }
 
     private void sendHtml(String toEmail, String subject, String html) throws Exception {

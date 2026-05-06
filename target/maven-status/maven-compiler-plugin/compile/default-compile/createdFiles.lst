@@ -101,6 +101,7 @@ com\pulse\desktop\repo\AdminUserRepository$RoleStat.class
 com\pulse\desktop\ui\PasswordChangeController$1.class
 com\pulse\desktop\repo\AdminUserRepository$UserStats.class
 com\pulse\desktop\model\ProfileData$PostCommentItem.class
+com\pulse\desktop\repo\CompetitionRepository$AdminEmailRecipient.class
 com\pulse\desktop\repo\CompetitionRepository.class
 com\pulse\desktop\ui\FrontCartController$CartInfo.class
 com\pulse\desktop\app\Launcher.class

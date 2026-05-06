@@ -1,7 +1,9 @@
 package com.pulse.desktop.service;
 
+import com.lowagie.text.BaseColor;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
@@ -72,6 +74,18 @@ public class ExportService {
     }
 
     public Path exportPdf(String title, List<String> headers, List<List<String>> rows) throws IOException {
+        return exportPdfStyled(title, headers, rows, false);
+    }
+
+    /**
+     * Exports data to PDF with optional Steam-inspired styling.
+     * @param title The title of the document
+     * @param headers Column headers
+     * @param rows Data rows
+     * @param useSteamStyle If true, applies Steam-inspired styling with dark theme and card layout
+     * @return Path to the generated PDF file
+     */
+    public Path exportPdfStyled(String title, List<String> headers, List<List<String>> rows, boolean useSteamStyle) throws IOException {
         Path output = buildOutputPath(title, ".pdf");
         Files.createDirectories(output.getParent());
 
@@ -81,28 +95,12 @@ public class ExportService {
                 PdfWriter.getInstance(document, stream);
                 document.open();
 
-                Font titleFont = new Font(Font.HELVETICA, 14, Font.BOLD);
-                Font metaFont = new Font(Font.HELVETICA, 9, Font.ITALIC);
-                document.add(new Paragraph(title, titleFont));
-                document.add(new Paragraph("Genere le " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), metaFont));
-                document.add(new Paragraph(" "));
-
-                PdfPTable table = new PdfPTable(Math.max(1, headers.size()));
-                table.setWidthPercentage(100);
-
-                for (String header : headers) {
-                    PdfPCell cell = new PdfPCell(new Phrase(header == null ? "" : header));
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                    table.addCell(cell);
+                if (useSteamStyle) {
+                    addSteamStyledContent(document, title, headers, rows);
+                } else {
+                    addBasicContent(document, title, headers, rows);
                 }
 
-                for (List<String> row : rows) {
-                    for (int i = 0; i < headers.size(); i++) {
-                        table.addCell(new Phrase(valueAt(row, i)));
-                    }
-                }
-
-                document.add(table);
             } catch (DocumentException ex) {
                 throw new IOException("Impossible de generer le PDF.", ex);
             } finally {
@@ -113,6 +111,88 @@ public class ExportService {
         }
 
         return output;
+    }
+
+    private void addBasicContent(Document document, String title, List<String> headers, List<List<String>> rows) throws DocumentException {
+        Font titleFont = new Font(Font.HELVETICA, 14, Font.BOLD);
+        Font metaFont = new Font(Font.HELVETICA, 9, Font.ITALIC);
+        document.add(new Paragraph(title, titleFont));
+        document.add(new Paragraph("Genere le " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), metaFont));
+        document.add(new Paragraph(" "));
+
+        PdfPTable table = new PdfPTable(Math.max(1, headers.size()));
+        table.setWidthPercentage(100);
+
+        for (String header : headers) {
+            PdfPCell cell = new PdfPCell(new Phrase(header == null ? "" : header));
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            table.addCell(cell);
+        }
+
+        for (List<String> row : rows) {
+            for (int i = 0; i < headers.size(); i++) {
+                table.addCell(new Phrase(valueAt(row, i)));
+            }
+        }
+
+        document.add(table);
+    }
+
+    private void addSteamStyledContent(Document document, String title, List<String> headers, List<List<String>> rows) throws DocumentException {
+        // Steam-inspired colors
+        BaseColor headerBg = new BaseColor(11, 20, 31);     // #0b141f
+        BaseColor accentColor = new BaseColor(102, 192, 244);  // #66c0f4
+        BaseColor textColor = new BaseColor(27, 40, 56);    // #1b2838
+        BaseColor altRowBg = new BaseColor(245, 248, 250);  // Light blue tint
+
+        // Title
+        Font titleFont = new Font(Font.HELVETICA, 16, Font.BOLD, textColor);
+        Paragraph titlePara = new Paragraph(title, titleFont);
+        titlePara.setAlignment(Element.ALIGN_CENTER);
+        titlePara.setSpacingAfter(8);
+        document.add(titlePara);
+
+        // Meta information
+        Font metaFont = new Font(Font.HELVETICA, 9, Font.ITALIC, new BaseColor(140, 140, 140));
+        Paragraph metaPara = new Paragraph(
+                "Généré le " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+                metaFont
+        );
+        metaPara.setAlignment(Element.ALIGN_CENTER);
+        metaPara.setSpacingAfter(16);
+        document.add(metaPara);
+
+        // Table with Steam styling
+        PdfPTable table = new PdfPTable(Math.max(1, headers.size()));
+        table.setWidthPercentage(100);
+        table.setSpacingBefore(10);
+
+        // Header cells
+        Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD, com.lowagie.text.BaseColor.WHITE);
+        for (String header : headers) {
+            PdfPCell cell = new PdfPCell(new Phrase(header == null ? "" : header, headerFont));
+            cell.setBackgroundColor(headerBg);
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            cell.setPadding(8);
+            cell.setBorderColor(accentColor);
+            table.addCell(cell);
+        }
+
+        // Data rows with alternating background
+        Font dataFont = new Font(Font.HELVETICA, 9, Font.NORMAL, textColor);
+        boolean alternate = false;
+        for (List<String> row : rows) {
+            for (int i = 0; i < headers.size(); i++) {
+                PdfPCell cell = new PdfPCell(new Phrase(valueAt(row, i), dataFont));
+                cell.setBackgroundColor(alternate ? altRowBg : com.lowagie.text.BaseColor.WHITE);
+                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                cell.setPadding(8);
+                table.addCell(cell);
+            }
+            alternate = !alternate;
+        }
+
+        document.add(table);
     }
 
     public void openFile(Path file) {
