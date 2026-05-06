@@ -1,0 +1,14 @@
+# Build outputs
+/target/
+
+# IntelliJ
+/.idea/
+*.iml
+
+# Local helper files
+/.runtime_cp
+/.tmp_*.txt
+
+# OS
+Thumbs.db
+.DS_Store
