@@ -121,6 +121,12 @@ IntelliJ:
 2. Renseigner le chemin de `SceneBuilder.exe`
 3. Clic droit sur un `.fxml` -> `Open in Scene Builder`
 
+## Changelog (branche `meriem`)
+
+- `[UI]` Mise a jour des ecrans admin/capitaine/organisateur et des interactions associees.
+- `[EMAIL]` Refactor du service mail et ajout d'un builder dedie aux templates email d'equipe.
+- `[PDF]` Ajout d'un generateur PDF d'equipe et alignement du style d'export avec les derniers changements.
+
 ## Tester le module user (IntelliJ)
 
 1. Demarrer MySQL avec la base `pulsedb`.
