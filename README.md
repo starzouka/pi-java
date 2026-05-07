@@ -131,6 +131,7 @@ IntelliJ:
 
 - Changelog detaille: `docs/CHANGELOG_MERIEM.md`
 - Guide des labels de commit: `docs/COMMIT_LABELS.md`
+- Checklist de release: `docs/RELEASE_CHECKLIST.md`
 - Template Pull Request: `.github/PULL_REQUEST_TEMPLATE.md`
 
 ## Tester le module user (IntelliJ)
