@@ -127,6 +127,12 @@ IntelliJ:
 - `[EMAIL]` Refactor du service mail et ajout d'un builder dedie aux templates email d'equipe.
 - `[PDF]` Ajout d'un generateur PDF d'equipe et alignement du style d'export avec les derniers changements.
 
+## Suivi des commits
+
+- Changelog detaille: `docs/CHANGELOG_MERIEM.md`
+- Guide des labels de commit: `docs/COMMIT_LABELS.md`
+- Template Pull Request: `.github/PULL_REQUEST_TEMPLATE.md`
+
 ## Tester le module user (IntelliJ)
 
 1. Demarrer MySQL avec la base `pulsedb`.
